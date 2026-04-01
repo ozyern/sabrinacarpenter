@@ -819,6 +819,8 @@
       .nav-toggle { display: flex; }
       body, a, button, .album-card, .g-card { cursor: auto; }
       #cur, #cur-ring { display: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .reveal.visible { opacity: 1; transform: none; }
       .about-strip { grid-template-columns: 1fr; gap: 48px; padding: 80px 28px; }
       .albums-section { padding: 80px 28px; }
       .albums-grid { grid-template-columns: 1fr 1fr; }
@@ -842,15 +844,27 @@
 
       .about-strip { padding: 64px 22px; gap: 36px; text-align: center; }
       .about-left, .about-right { justify-self: center; }
-      .about-img-wrap { padding-top: 32px; }
-      .about-badge { top: -12px; right: auto; left: 50%; transform: translate(-50%, -50%); }
+      .about-img-wrap { padding-top: 32px; width: 100%; display: flex; justify-content: center; }
+      .about-badge {
+        top: -16px; right: 8px; left: auto;
+        transform: none;
+        animation: none;
+      }
+      .about-badge-inner { animation: none; }
       .about-body { margin: 24px auto 0; }
       .about-stats { justify-content: center; gap: 28px; }
-      .about-img-placeholder { overflow: hidden; }
+      .about-img-placeholder {
+        overflow: hidden;
+        width: min(340px, 90vw);
+        aspect-ratio: 3/4;
+        margin: 0 auto;
+      }
       .about-img-placeholder img {
         position: absolute;
         top: 0; left: 0;
         width: 100%; height: 100%;
+        object-fit: cover;
+        opacity: 1;
       }
 
       .albums-grid { grid-template-columns: 1fr; }
@@ -953,6 +967,12 @@
   <!-- About Strip -->
   <div class="about-strip">
     <div class="about-left reveal">
+      <div class="about-badge">
+        <div class="about-badge-inner">
+          <span>✦</span>
+          <span>Since 2009</span>
+        </div>
+      </div>
       <div class="about-img-wrap">
         <div class="about-img-placeholder">
           <img src="images/sab.png" alt="Sabrina Carpenter portrait" />
@@ -960,12 +980,6 @@
       </div>
     </div>
     <div class="about-right">
-      <div class="about-badge">
-        <div class="about-badge-inner">
-          <span>✦</span>
-          <span>Since 2009</span>
-        </div>
-      </div>
       <p class="section-label reveal">Who is she</p>
       <h2 class="section-title reveal reveal-delay-1">More than just<br><em>an artist</em></h2>
       <p class="about-body reveal reveal-delay-2">
