@@ -515,6 +515,9 @@
       display: flex; align-items: center; justify-content: center;
       font-family: 'Pinyon Script', cursive;
       font-size: 2.8rem;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       position: relative; overflow: hidden;
     }
     .album-art::after {
@@ -547,11 +550,15 @@
       margin-top: 4px;
       font-weight: 300;
     }
-    /* album colors */
-    .alb-1 { background: linear-gradient(145deg, #f5c6ce, #e8a0b4, #c97a9c); }
-    .alb-2 { background: linear-gradient(145deg, #d4c5e8, #b8a0d4, #9478b8); }
-    .alb-3 { background: linear-gradient(145deg, #fde0c8, #f5c4a0, #e89e78); }
-    .alb-4 { background: linear-gradient(145deg, #c8dce8, #a0c4d4, #78a8bc); }
+    /* album art images */
+    .alb-1 { background-image: url("images/Short n' Sweet.jpg"); }
+    .alb-2 { background-image: url("images/emails i can't send.jpg"); }
+    .alb-3 { background-image: url("images/Singular Act II.png"); }
+    .alb-4 { background-image: url("images/Singular Act I.jpg"); }
+    .alb-5 { background-image: url("images/Short n' Sweet Deluxe.jpg"); }
+    .alb-6 { background-image: url("images/Man's Best Friend.jpg"); }
+    .alb-7 { background-image: url("images/Man's Best Friend Bonus Track.jpg"); }
+
 
     /* ── QUOTE ────────────────────────────────── */
     .quote-section {
@@ -821,13 +828,13 @@
       <span class="nav-logo-main">Sabrina <span>✦</span> Carpenter</span>
     </div>
     <ul class="nav-links">
-      <li><a href="index.html" class="nav-active">Home</a></li>
-      <li><a href="about.html" class="nav-soon" data-tip="Coming soon">About</a></li>
-      <li><a href="discography.html" class="nav-soon" data-tip="Coming soon">Music</a></li>
-      <li><a href="gallery.html" class="nav-soon" data-tip="Coming soon">Gallery</a></li>
-      <li><a href="tours.html" class="nav-soon" data-tip="Coming soon">Tours</a></li>
+      <li><a href="/" class="nav-active">Home</a></li>
+      <li><a href="/about" class="nav-soon" data-tip="Coming soon">About</a></li>
+      <li><a href="/discography" class="nav-soon" data-tip="Coming soon">Music</a></li>
+      <li><a href="/gallery" class="nav-soon" data-tip="Coming soon">Gallery</a></li>
+      <li><a href="/tours" class="nav-soon" data-tip="Coming soon">Tours</a></li>
     </ul>
-    <a href="discography.html" class="nav-cta">Listen</a>
+    <a href="/discography" class="nav-cta">Listen</a>
   </nav>
 
   <!-- Hero -->
@@ -848,8 +855,8 @@
         A love letter in HTML &amp; CSS.
       </p>
       <div class="hero-actions">
-        <a href="discography.html" class="btn-primary">Explore Music</a>
-        <a href="about.html" class="btn-ghost">Her Story</a>
+        <a href="/discography" class="btn-primary">Explore Music</a>
+        <a href="/about" class="btn-ghost">Her Story</a>
       </div>
     </div>
 
@@ -935,9 +942,30 @@
         <p class="section-label reveal">Discography</p>
         <h2 class="section-title reveal reveal-delay-1">Her <em>universe</em><br>of sound</h2>
       </div>
-      <a href="discography.html" class="about-link reveal">View all music →</a>
+      <a href="/discography" class="about-link reveal">View all music →</a>
     </div>
     <div class="albums-grid">
+      <div class="album-card reveal">
+        <div class="album-art alb-7">✦</div>
+        <div class="album-info">
+          <div class="album-title">Man's Best Friend (Bonus Track Version)</div>
+          <div class="album-year">2025</div>
+        </div>
+      </div>
+      <div class="album-card reveal reveal-delay-1">
+        <div class="album-art alb-6">✦</div>
+        <div class="album-info">
+          <div class="album-title">Man's Best Friend</div>
+          <div class="album-year">2025</div>
+        </div>
+      </div>
+      <div class="album-card reveal reveal-delay-2">
+        <div class="album-art alb-5">✦</div>
+        <div class="album-info">
+          <div class="album-title">Short n' Sweet (Deluxe)</div>
+          <div class="album-year">2025</div>
+        </div>
+      </div>
       <div class="album-card reveal">
         <div class="album-art alb-1">✦</div>
         <div class="album-info">
@@ -952,14 +980,14 @@
           <div class="album-year">2022</div>
         </div>
       </div>
-      <div class="album-card reveal reveal-delay-2">
+      <div class="album-card reveal">
         <div class="album-art alb-3">✦</div>
         <div class="album-info">
           <div class="album-title">Singular: Act II</div>
           <div class="album-year">2019</div>
         </div>
       </div>
-      <div class="album-card reveal reveal-delay-3">
+      <div class="album-card reveal reveal-delay-1">
         <div class="album-art alb-4">✦</div>
         <div class="album-info">
           <div class="album-title">Singular: Act I</div>
@@ -985,7 +1013,7 @@
         <p class="section-label reveal">Gallery</p>
         <h2 class="section-title reveal reveal-delay-1">Moments in <em>bloom</em></h2>
       </div>
-      <a href="gallery.html" class="about-link reveal">See all →</a>
+      <a href="/gallery" class="about-link reveal">See all →</a>
     </div>
     <div class="gallery-grid">
       <div class="g-card big reveal">
@@ -1037,15 +1065,15 @@
       <div class="footer-top">
         <div class="footer-logo">Sabrina</div>
         <ul class="footer-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="discography.html">Music</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="tours.html">Tours</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/discography">Music</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/tours">Tours</a></li>
         </ul>
       </div>
       <div class="footer-bottom">
-        <span>sabrina.ozyern.me &nbsp;·&nbsp; built by <a href="https://github.com/reimagine" style="color:var(--rose)">@ozyern_</a></span>
+        <span>sabrina.ozyern.me &nbsp;·&nbsp; built by <a href="https://about.ozyern.me" style="color:var(--rose)">@ozyern_</a></span>
         <span>unofficial fan site &nbsp;<span class="footer-heart">♥</span>&nbsp; made with 6,418 minutes of love</span>
       </div>
     </div>
