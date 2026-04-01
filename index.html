@@ -798,6 +798,29 @@
       .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
       .quote-section { padding: 80px 28px; }
     }
+
+    @media (max-width: 600px) {
+      .hero { padding: 120px 18px 64px; }
+      .hero-name { font-size: clamp(3.6rem, 12vw, 8rem); }
+      .hero-sub { font-size: clamp(1.4rem, 6vw, 2.4rem); }
+      .hero-actions { flex-direction: column; width: 100%; gap: 12px; }
+      .hero-actions a { width: 100%; max-width: 320px; text-align: center; }
+
+      .about-strip { padding: 64px 22px; gap: 36px; text-align: center; }
+      .about-left, .about-right { justify-self: center; }
+      .about-img-wrap { padding-top: 32px; }
+      .about-badge { top: -12px; right: auto; left: 50%; transform: translate(-50%, -50%); }
+      .about-body { margin: 24px auto 0; }
+      .about-stats { justify-content: center; gap: 28px; }
+
+      .albums-grid { grid-template-columns: 1fr; }
+      .albums-grid .album-card { max-width: 100%; }
+
+      .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
+      .g-card { height: 100%; }
+
+      .newsletter { margin: 0 18px 64px; padding: 48px 26px; }
+    }
   </style>
 </head>
 <body>
