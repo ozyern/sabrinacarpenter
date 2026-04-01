@@ -28,7 +28,7 @@
 
 ## ✦ what is this?
 
-A multi-page fan tribute website dedicated to **Sabrina Carpenter** — singer, actress, and the reason my Spotify Wrapped is going to be embarrassing again this year.
+A multi-page fan tribute website dedicated to **Sabrina Carpenter** — singer, actress, and the reason my Spotify Wrapped is going to be real again this year.
 
 Built from scratch with pure HTML, CSS, and vanilla JS. No frameworks. No libraries. Just genuine appreciation and too much free time.
 
