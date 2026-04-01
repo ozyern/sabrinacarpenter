@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sabrina Carpenter — sabrina.ozyern.me</title>
+  <link rel="icon" href="images/logo.webp" type="image/webp" />
+  <link rel="apple-touch-icon" href="images/logo.webp" />
   <meta name="description" content="A dreamy fan tribute to Sabrina Carpenter. Music, moments, and love letters." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet" />
@@ -105,27 +107,9 @@
     }
     nav.scrolled { padding: 12px 56px; }
     .nav-logo {
-      display: flex; flex-direction: column; line-height: 1;
-      gap: 1px;
+      display: flex; align-items: center; line-height: 1;
     }
-    .nav-logo-top {
-      font-family: 'Jost', sans-serif;
-      font-weight: 200;
-      font-size: .55rem;
-      letter-spacing: .45em;
-      text-transform: uppercase;
-      color: var(--soft);
-    }
-    .nav-logo-main {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-weight: 400;
-      font-size: 1.55rem;
-      color: var(--deep);
-      letter-spacing: .04em;
-      line-height: 1;
-    }
-    .nav-logo-main span { color: var(--rose); font-style: normal; }
+    .nav-logo img { height: 38px; width: auto; display: block; }
     .nav-links {
       display: flex; gap: 40px; list-style: none;
     }
@@ -558,6 +542,8 @@
     .alb-5 { background-image: url("images/Short n' Sweet Deluxe.jpg"); }
     .alb-6 { background-image: url("images/Man's Best Friend.jpg"); }
     .alb-7 { background-image: url("images/Man's Best Friend Bonus Track.jpg"); }
+    .alb-8 { background-image: url("images/Eyes Wide Open.jpg"); }
+    .alb-9 { background-image: url("images/EVOlution.jpg"); }
 
 
     /* ── QUOTE ────────────────────────────────── */
@@ -823,10 +809,9 @@
 
   <!-- Nav -->
   <nav id="nav">
-    <div class="nav-logo">
-      <span class="nav-logo-top">fan tribute</span>
-      <span class="nav-logo-main">Sabrina <span>✦</span> Carpenter</span>
-    </div>
+    <a class="nav-logo" href="/" aria-label="Sabrina Carpenter home">
+      <img src="images/logo.webp" alt="Sabrina Carpenter logo" />
+    </a>
     <ul class="nav-links">
       <li><a href="/" class="nav-active">Home</a></li>
       <li><a href="/about" class="nav-soon" data-tip="Coming soon">About</a></li>
@@ -926,7 +911,7 @@
           <div class="stat-label">Replays</div>
         </div>
       </div>
-      <a href="about.html" class="about-link reveal reveal-delay-4">
+      <a href="/about" class="about-link reveal reveal-delay-4">
         Read her story
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
           <path d="M1 7h12M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -992,6 +977,20 @@
         <div class="album-info">
           <div class="album-title">Singular: Act I</div>
           <div class="album-year">2018</div>
+        </div>
+      </div>
+      <div class="album-card reveal reveal-delay-2">
+        <div class="album-art alb-9">✦</div>
+        <div class="album-info">
+          <div class="album-title">Evolution</div>
+          <div class="album-year">2016</div>
+        </div>
+      </div>
+      <div class="album-card reveal reveal-delay-3">
+        <div class="album-art alb-8">✦</div>
+        <div class="album-info">
+          <div class="album-title">Eyes Wide Open</div>
+          <div class="album-year">2015</div>
         </div>
       </div>
     </div>
