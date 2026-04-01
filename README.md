@@ -107,7 +107,7 @@ This is a personal fan project but if you're also a Sabrina fan and want to cont
 
 ## ✦ disclaimer
 
-This is an **unofficial** fan site. All images, music, and related content belong to their respective owners. No copyright infringement intended. This project is non-commercial and made purely out of admiration.
+This is an **unofficial** fan site. All images, music, and related content belong to their respective owner aka Sabrina Carpenter. No copyright infringement intended. This project is non-commercial and made purely out of admiration.
 
 ---
 
