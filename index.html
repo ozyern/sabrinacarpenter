@@ -27,7 +27,7 @@
 
     /* ── RESET ────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 16px; }
+    html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
     body {
       font-family: 'Jost', sans-serif;
       background: var(--cream);
@@ -113,6 +113,34 @@
     .nav-links {
       display: flex; gap: 40px; list-style: none;
     }
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      width: 38px; height: 34px; justify-content: center; align-items: flex-start;
+      background: none; border: 1px solid var(--border); border-radius: 10px;
+      padding: 7px 9px; cursor: none;
+    }
+    .nav-toggle span {
+      display: block; height: 2px; width: 100%; background: var(--mid);
+      transition: transform .25s ease, width .25s ease;
+    }
+    .nav-toggle span:nth-child(2) { width: 70%; }
+    .nav-toggle span:nth-child(3) { width: 55%; }
+    nav.open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    nav.open .nav-toggle span:nth-child(2) { opacity: 0; width: 0; }
+    nav.open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); width: 100%; }
+
+    .nav-drawer {
+      position: fixed; top: 68px; right: 18px; left: 18px;
+      background: rgba(253,247,242,.98);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 20px 50px rgba(61,34,48,.16);
+      padding: 18px 20px;
+      display: none; flex-direction: column; gap: 14px;
+      backdrop-filter: blur(10px);
+    }
+    nav.open .nav-drawer { display: flex; }
+    .nav-drawer a { font-family: 'Jost', sans-serif; font-weight: 300; letter-spacing: .2em; text-transform: uppercase; color: var(--deep); }
     .nav-links a {
       font-family: 'Jost', sans-serif;
       font-weight: 300;
@@ -315,6 +343,12 @@
     /* ── TICKER ───────────────────────────────── */
     .ticker-wrap {
       display: none;
+      position: relative;
+      overflow: hidden;
+      margin: -40px 0 80px;
+      opacity: 0;
+      animation: fadeUp .8s ease 1.1s forwards;
+      width: 100%;
     }
     .ticker {
       display: flex; white-space: nowrap;
@@ -327,7 +361,6 @@
       font-size: 1rem;
       color: rgba(255,255,255,.55);
       padding: 0 40px;
-      display: flex; align-items: center; gap: 16px;
     }
     .ticker-item .dot {
       width: 4px; height: 4px; border-radius: 50%;
@@ -781,8 +814,9 @@
 
     /* ── RESPONSIVE ───────────────────────────── */
     @media (max-width: 900px) {
-      nav { padding: 16px 28px; }
+      nav { padding: 16px 20px; }
       .nav-links { display: none; }
+      .nav-toggle { display: flex; }
       body, a, button, .album-card, .g-card { cursor: auto; }
       #cur, #cur-ring { display: none; }
       .about-strip { grid-template-columns: 1fr; gap: 48px; padding: 80px 28px; }
@@ -843,13 +877,23 @@
     <a class="nav-logo" href="/" aria-label="Sabrina Carpenter home">
       <img src="images/logo.webp" alt="Sabrina Carpenter logo" />
     </a>
+    <button class="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
     <ul class="nav-links">
       <li><a href="/" class="nav-active">Home</a></li>
       <li><a href="/about" class="nav-soon" data-tip="Coming soon">About</a></li>
-      <li><a href="/discography" class="nav-soon" data-tip="Coming soon">Music</a></li>
+      <li><a href="/discography">Music</a></li>
       <li><a href="/gallery" class="nav-soon" data-tip="Coming soon">Gallery</a></li>
       <li><a href="/tours" class="nav-soon" data-tip="Coming soon">Tours</a></li>
     </ul>
+    <div class="nav-drawer" id="nav-drawer">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/discography">Music</a>
+      <a href="/gallery">Gallery</a>
+      <a href="/tours">Tours</a>
+    </div>
     <a href="/discography" class="nav-cta">Listen</a>
   </nav>
 
@@ -1164,6 +1208,11 @@
 
     /* ── Scroll reveal ── */
     const reveals = document.querySelectorAll('.reveal');
+    const navToggle = document.querySelector('.nav-toggle');
+    const navEl = document.getElementById('nav');
+    navToggle.addEventListener('click', () => {
+      navEl.classList.toggle('open');
+    });
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
     }, { threshold: 0.12 });
