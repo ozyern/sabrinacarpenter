@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Sabrina Carpenter</title>
+  <link rel="icon" href="images/logo.webp" type="image/webp" />
+  <meta name="description" content="The story of Sabrina Carpenter — singer, actress, and one of pop's most compelling voices." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Great+Vibes&family=Jost:wght@200;300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet" />
+  <style>
+        :root {
+      --rose:     #FFD700;
+      --blush:    #ADD8E6;
+      --lavender: #E0FFFF;
+      --petal:    #FFF8DC;
+      --cream:    #FFFBF5;
+      --gold:     #FFC107;
+      --deep:     #003D5C;
+      --mid:      #2F7FA1;
+      --soft:     #7EB9D4;
+      --white:    #FFFEF8;
+      --border:   rgba(47,127,161,0.18);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--deep);
+      overflow-x: hidden;
+      cursor: none;
+      opacity: 0;
+      animation: pageFade .85s cubic-bezier(.33,.11,.13,1) forwards;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    @keyframes pageFade {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+        /* ── CURSOR ── */
+    #cur {
+      font-size: 24px; line-height: 1; position: fixed;
+      pointer-events: none; z-index: 999999;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255, 254, 248, 0.9);
+      border: 1px solid rgba(47, 127, 161, 0.55);
+      border-radius: 999px;
+      transform: translate(-50%,-50%) rotate(-15deg);
+      transition: transform .12s ease; user-select: none;
+      filter: drop-shadow(0 2px 8px rgba(47, 127, 161, 0.4));
+      text-shadow: 0 0 4px rgba(255, 215, 0, 0.6), 0 0 8px rgba(173, 216, 230, 0.4);
+      opacity: 1;
+      will-change: transform;
+    }
+    #cur.active { opacity: 1; }
+    #cur.hovered  { transform: translate(-50%,-50%) rotate(-15deg) scale(1.4); }
+    #cur.clicking { transform: translate(-50%,-50%) rotate(-15deg) scale(.85); }
+    #cur-ring {
+      width: 50px; height: 50px; border-radius: 50%;
+      border: 2px solid rgba(47, 127, 161, 0.8);
+      position: fixed; pointer-events: none; z-index: 99998;
+      transform: translate(-50%,-50%);
+      transition: opacity .25s, transform .18s ease; opacity: 0.35;
+      background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%);
+      box-shadow: 0 0 15px rgba(173, 216, 230, 0.4);
+      will-change: transform, opacity;
+    }
+    #cur-ring.hovered {
+      opacity: 1; transform: translate(-50%,-50%) scale(1.15);
+      border-color: rgba(47, 127, 161, 1);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 8px rgba(47, 127, 161, 0.6);
+    }
+    *, *::before, *::after { cursor: none !important; }
+
+
+
+    /* ── PETALS ── */
+    #petals { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+    .p {
+      position: absolute; top: -40px;
+      border-radius: 150% 0 150% 0; opacity: 0;
+      animation: pfall linear infinite;
+    }
+    @keyframes pfall {
+      0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 0; }
+      8%   { opacity: .75; }
+      85%  { opacity: .45; }
+      100% { transform: translateY(105vh) rotate(320deg) scale(.8); opacity: 0; }
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 56px;
+      background: rgba(253,247,242,.82); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border); transition: padding .3s;
+    }
+    nav.scrolled { padding: 12px 56px; }
+    .nav-logo { display: flex; align-items: center; }
+    .nav-logo img { height: 38px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      width: 38px; height: 34px; justify-content: center; align-items: flex-start;
+      background: none; border: 1px solid var(--border); border-radius: 10px;
+      padding: 7px 9px; cursor: none;
+    }
+    .nav-toggle span {
+      display: block; height: 2px; width: 100%; background: var(--mid);
+      transition: transform .25s ease, width .25s ease, opacity .25s;
+    }
+    .nav-toggle span:nth-child(2) { width: 70%; }
+    .nav-toggle span:nth-child(3) { width: 55%; }
+    nav.open .nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    nav.open .nav-toggle span:nth-child(2) { opacity: 0; width: 0; }
+    nav.open .nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); width: 100%; }
+    .nav-drawer {
+      position: fixed; top: 68px; right: 18px; left: 18px;
+      background: rgba(253,247,242,.98); border: 1px solid var(--border);
+      border-radius: 14px; box-shadow: 0 20px 50px rgba(13,31,45,.16);
+      padding: 18px 20px; display: none; flex-direction: column; gap: 14px;
+      backdrop-filter: blur(10px);
+    }
+    nav.open .nav-drawer { display: flex; }
+    .nav-drawer a { font-family: 'Jost', sans-serif; font-weight: 300; letter-spacing: .2em; text-transform: uppercase; color: var(--deep); font-size: .8rem; }
+    .nav-links a {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--soft); position: relative; transition: color .3s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -3px; left: 0;
+      width: 0; height: 1px; background: var(--rose); transition: width .35s ease;
+    }
+    .nav-links a:hover { color: var(--deep); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.nav-active { color: var(--deep); }
+    .nav-links a.nav-active::after { width: 100%; }
+    .nav-links a.nav-soon { opacity: .45; }
+    .nav-links a.nav-soon::before {
+      content: attr(data-tip); position: absolute;
+      top: calc(100% + 10px); left: 50%; transform: translateX(-50%);
+      background: var(--deep); color: var(--rose); font-size: .6rem;
+      letter-spacing: .15em; white-space: nowrap; padding: 5px 10px;
+      border-radius: 20px; opacity: 0; pointer-events: none; transition: opacity .25s;
+    }
+    .nav-links a.nav-soon:hover::before { opacity: 1; }
+    .nav-cta {
+      font-family: 'Jost', sans-serif; font-weight: 300; font-size: .72rem;
+      letter-spacing: .18em; text-transform: uppercase; color: var(--white);
+      background: var(--mid); border: none; padding: 9px 22px;
+      border-radius: 40px; cursor: none; transition: background .3s, transform .2s;
+    }
+    .nav-cta:hover { background: var(--deep); transform: scale(1.04); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      min-height: 50vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 150px 24px 70px;
+      text-align: center; position: relative; overflow: hidden;
+      background:
+        radial-gradient(ellipse 80% 70% at 20% 30%, rgba(173, 216, 230, .6) 0%, transparent 55%),
+        radial-gradient(ellipse 65% 55% at 80% 70%, rgba(255, 248, 220, .75) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 55% 10%, rgba(255, 215, 0, .18) 0%, transparent 60%),
+        var(--cream);
+      z-index: 2;
+    }
+    .page-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .orb { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; }
+    .orb-1 { width: 320px; height: 320px; background: rgba(173, 216, 230, .55); top: -40px; left: -80px; animation: drift 10s ease-in-out infinite; }
+    .orb-2 { width: 200px; height: 200px; background: rgba(255, 215, 0, .2); bottom: -20px; right: -50px; animation: drift 13s ease-in-out infinite reverse; }
+    @keyframes drift { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-20px) scale(1.05); } }
+
+    .page-eyebrow {
+      font-family: 'Jost', sans-serif; font-weight: 200;
+      font-size: .68rem; letter-spacing: .4em; text-transform: uppercase;
+      color: var(--mid); margin-bottom: 20px;
+      opacity: 0; animation: fadeUp .7s ease .15s forwards;
+    }
+    .page-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(4.5rem, 12vw, 10rem);
+      line-height: .9; color: var(--mid);
+      opacity: 0; animation: fadeUp .9s ease .35s forwards;
+    }
+    .page-title-sub {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-weight: 300; font-size: clamp(1rem, 2.5vw, 1.5rem);
+      color: var(--soft); margin-top: 16px; letter-spacing: .06em;
+      opacity: 0; animation: fadeUp .9s ease .55s forwards;
+    }
+
+    /* ── SHARED ── */
+    .section-label {
+      font-family: 'Jost', sans-serif; font-weight: 200;
+      font-size: .65rem; letter-spacing: .4em; text-transform: uppercase;
+      color: var(--rose); margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.1;
+      color: var(--deep); letter-spacing: -.01em;
+    }
+    .section-title em { font-style: italic; color: var(--mid); }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .12s; }
+    .reveal-delay-2 { transition-delay: .24s; }
+    .reveal-delay-3 { transition-delay: .38s; }
+    .reveal-delay-4 { transition-delay: .52s; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── INTRO SPLIT ── */
+    .intro-section {
+      max-width: 1160px; margin: 0 auto;
+      padding: 100px 56px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+      position: relative; z-index: 2;
+    }
+    .intro-img-wrap { position: relative; }
+    .intro-img {
+      width: 100%; aspect-ratio: 3/4;
+      border-radius: 60% 40% 55% 45% / 50% 45% 55% 50%;
+      overflow: visible;
+      position: relative;
+    }
+    .intro-img::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: var(--petal);
+      box-shadow: 0 24px 60px rgba(13,31,45,.14);
+      z-index: 0;
+    }
+    .intro-img img {
+      width: 88%;
+      height: auto;
+      max-height: 114%;
+      object-fit: cover;
+      position: absolute;
+      left: 6%;
+      bottom: -2%;
+      opacity: .84;
+      filter: saturate(.86) contrast(.9) brightness(1.03);
+      -webkit-mask-image: radial-gradient(ellipse 80% 88% at 52% 45%, #000 64%, transparent 100%);
+      mask-image: radial-gradient(ellipse 80% 88% at 52% 45%, #000 64%, transparent 100%);
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      z-index: 1;
+    }
+    .intro-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 20%, rgba(255, 215, 0, 0.16) 0%, transparent 62%),
+        linear-gradient(to bottom, rgba(255,255,255,.08) 0%, rgba(255,248,220,.22) 100%),
+        linear-gradient(to top, rgba(255,248,220,.3) 0%, transparent 34%);
+      opacity: .58;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .intro-img-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Great Vibes', cursive; font-size: 5rem; color: var(--soft);
+      background: linear-gradient(145deg, var(--blush), var(--lavender), var(--petal));
+    }
+    .intro-deco {
+      position: absolute; top: -18px; right: -18px;
+      width: 90px; height: 90px; border-radius: 50%;
+      background: var(--deep);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      box-shadow: 0 10px 28px rgba(13,31,45,.25);
+      animation: spin-slow 20s linear infinite;
+    }
+    .intro-deco-inner { animation: spin-slow 20s linear infinite reverse; text-align: center; }
+    .intro-deco span:first-child { font-family: 'Pinyon Script', cursive; font-size: 1.3rem; color: var(--rose); display: block; line-height: 1; }
+    .intro-deco span:last-child  { font-size: .44rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.45); display: block; margin-top: 2px; }
+    @keyframes spin-slow { to { transform: rotate(360deg); } }
+
+    .intro-corner {
+      position: absolute; bottom: -14px; left: -14px;
+      font-family: 'Pinyon Script', cursive; font-size: 5rem;
+      color: var(--blush); line-height: 1; pointer-events: none;
+      opacity: .6;
+    }
+
+    .intro-text { }
+    .intro-body {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: .94rem; line-height: 1.95; color: var(--soft);
+      margin-top: 24px; max-width: 500px;
+    }
+    .intro-body + .intro-body { margin-top: 16px; }
+    .intro-stats {
+      display: flex; gap: 36px; margin-top: 44px; flex-wrap: wrap;
+    }
+    .stat { }
+    .stat-n {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: 2.6rem; color: var(--deep); line-height: 1;
+    }
+    .stat-l {
+      font-size: .64rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--soft); margin-top: 4px; font-weight: 300;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline-section {
+      padding: 100px 56px;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(173, 216, 230, .3) 0%, transparent 60%),
+        var(--white);
+      position: relative; z-index: 2;
+    }
+    .timeline-inner { max-width: 900px; margin: 0 auto; }
+    .timeline-header { text-align: center; margin-bottom: 72px; }
+
+    .timeline { position: relative; padding-left: 40px; }
+    .timeline::before {
+      content: ''; position: absolute;
+      left: 0; top: 8px; bottom: 8px;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--rose) 10%, var(--rose) 90%, transparent);
+    }
+    .tl-item {
+      position: relative;
+      padding: 22px 24px 24px 36px;
+      margin-bottom: 24px;
+      background: rgba(255, 254, 248, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 16px 40px rgba(13,31,45,.08);
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    }
+    .tl-item:last-child { margin-bottom: 0; }
+    .tl-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 22px 48px rgba(13,31,45,.12);
+      border-color: var(--rose);
+    }
+    .tl-dot {
+      position: absolute; left: -44px; top: 26px;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--rose); border: 2px solid var(--cream);
+      box-shadow: 0 0 0 3px rgba(47,127,161,.25);
+      transition: transform .3s;
+    }
+    .tl-item:hover .tl-dot { transform: scale(1.5); }
+    .tl-year {
+      font-family: 'Jost', sans-serif; font-weight: 200;
+      font-size: .62rem; letter-spacing: .35em; text-transform: uppercase;
+      color: var(--rose); margin-bottom: 8px;
+    }
+    .tl-title {
+      font-family: 'Cormorant Garamond', serif; font-weight: 400;
+      font-size: 1.35rem; color: var(--deep); line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .tl-body {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: .88rem; line-height: 1.82; color: var(--soft);
+      max-width: 580px;
+    }
+    .tl-tag {
+      display: inline-block; margin-top: 10px;
+      font-size: .6rem; letter-spacing: .12em; text-transform: uppercase;
+      background: var(--petal); color: var(--mid);
+      padding: 3px 10px; border-radius: 20px;
+    }
+
+    /* ── QUOTE BAND ── */
+    .quote-band {
+      background: var(--deep);
+      padding: 100px 56px;
+      text-align: center; position: relative; overflow: hidden;
+      z-index: 2;
+    }
+    .quote-band::before {
+      content: '"';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36rem; color: rgba(255,255,255,.025);
+      position: absolute; top: -100px; left: 50%;
+      transform: translateX(-50%); line-height: 1; pointer-events: none;
+    }
+    .quote-band blockquote {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-weight: 300; font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      color: var(--white); max-width: 780px; margin: 0 auto;
+      line-height: 1.55; opacity: .9;
+    }
+    .quote-band cite {
+      display: block; margin-top: 28px;
+      font-family: 'Jost', sans-serif; font-weight: 200;
+      font-size: .68rem; letter-spacing: .35em; text-transform: uppercase;
+      color: var(--rose); font-style: normal;
+    }
+
+    /* ── FACTS GRID ── */
+    .facts-section {
+      padding: 90px 56px;
+      max-width: 1160px; margin: 0 auto;
+      position: relative; z-index: 2;
+      background:
+        radial-gradient(ellipse 70% 60% at 20% 0%, rgba(173, 216, 230, .35) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 60% at 80% 100%, rgba(255, 215, 0, .18) 0%, transparent 55%),
+        var(--white);
+      border-radius: 32px;
+      box-shadow: 0 24px 60px rgba(13,31,45,.08);
+    }
+    .facts-header { margin-bottom: 56px; }
+    .facts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .fact-card {
+      background: rgba(255, 254, 248, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 28px;
+      box-shadow: 0 16px 36px rgba(13,31,45,.06);
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s;
+    }
+    .fact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 50px rgba(13,31,45,.12);
+      border-color: var(--rose);
+    }
+    .fact-icon {
+      font-size: 1.8rem; margin-bottom: 16px; line-height: 1;
+    }
+    .fact-title {
+      font-family: 'Cormorant Garamond', serif; font-weight: 400;
+      font-size: 1.1rem; color: var(--deep); margin-bottom: 10px;
+    }
+    .fact-body {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: .85rem; line-height: 1.78; color: var(--soft);
+    }
+
+    /* ── SOCIALS ── */
+    .socials-section {
+      padding: 80px 56px 120px;
+      text-align: center; position: relative; z-index: 2;
+    }
+    .socials-header { margin-bottom: 48px; }
+    .socials-row {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    }
+    .social-btn {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--mid); border: 1px solid var(--border);
+      background: rgba(255, 254, 248, 0.85);
+      padding: 14px 28px; border-radius: 50px;
+      display: flex; align-items: center; gap: 10px;
+      transition: background .3s, border-color .3s, color .3s, transform .2s;
+    }
+    .social-btn:hover {
+      background: var(--deep); border-color: var(--deep);
+      color: var(--white); transform: translateY(-3px);
+    }
+    .social-btn span { font-size: 1.1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--deep); padding: 60px 56px 40px;
+      color: rgba(255,255,255,.4);
+    }
+    .footer-inner { max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+    .footer-top { display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo { font-family: 'Pinyon Script', cursive; font-size: 2.2rem; color: var(--rose); }
+    .footer-links { display: flex; gap: 32px; list-style: none; }
+    .footer-links a {
+      font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+      font-weight: 300; color: rgba(255,255,255,.35); transition: color .3s;
+    }
+    .footer-links a:hover { color: var(--rose); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(255,255,255,.07); padding-top: 28px;
+      font-size: .68rem; letter-spacing: .12em; font-weight: 300;
+    }
+    .footer-heart { color: var(--rose); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0s !important; transition-duration: 0s !important; }
+      body { opacity: 1; animation: none; }
+      .reveal { opacity: 1; transform: none; }
+      .orb { animation: none; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+      .intro-section { grid-template-columns: 1fr; padding: 70px 24px; gap: 48px; }
+      .intro-img img {
+        width: 84%;
+        max-height: 108%;
+        left: 8%;
+        bottom: 0;
+      }
+      .timeline-section, .facts-section, .socials-section { padding: 70px 24px; }
+      .facts-section { border-radius: 24px; }
+      .quote-band { padding: 70px 24px; }
+      .facts-grid { grid-template-columns: 1fr 1fr; }
+      footer { padding: 48px 24px 32px; }
+      .footer-top { flex-direction: column; gap: 24px; align-items: flex-start; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+    @media (max-width: 560px) {
+      .facts-grid { grid-template-columns: 1fr; }
+      .intro-stats { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cur">💋</div>
+  <div id="cur-ring"></div>
+  <div id="petals"></div>
+
+  <!-- Nav -->
+  <nav id="nav">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo.webp" alt="Sabrina Carpenter Fan Site" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="nav-active">About</a></li>
+      <li><a href="discography.html">Music</a></li>
+      <li><a href="gallery.html" class="nav-soon" data-tip="Coming soon">Gallery</a></li>
+      <li><a href="tours.html" class="nav-soon" data-tip="Coming soon">Tours</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-drawer" id="navDrawer">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="discography.html">Music</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="tours.html">Tours</a>
+    </div>
+    <a href="discography.html" class="nav-cta">Listen</a>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <p class="page-eyebrow">✦ &nbsp; the story &nbsp; ✦</p>
+    <h1 class="page-title">About Her</h1>
+    <p class="page-title-sub">Singer. Songwriter. Actress. Icon in the making.</p>
+  </div>
+
+  <!-- Intro Split -->
+  <section class="intro-section">
+    <div class="intro-img-wrap reveal">
+      <div class="intro-img">
+        <img src="images/sab_2.png" alt="Sabrina Carpenter portrait" />
+      </div>
+      <div class="intro-deco">
+        <div class="intro-deco-inner">
+          <span>✦</span>
+          <span>Since 2009</span>
+        </div>
+      </div>
+      <div class="intro-corner">✦</div>
+    </div>
+
+    <div class="intro-text">
+      <p class="section-label reveal">Who is she</p>
+      <h2 class="section-title reveal reveal-delay-1">Pennsylvania girl.<br><em>Global icon.</em></h2>
+      <p class="intro-body reveal reveal-delay-2">
+        Sabrina Annlynn Carpenter was born on May 11, 1999, in Quakertown, Pennsylvania. From an
+        early age she was drawn to performing — teaching herself to play guitar at age 9 and uploading
+        covers to YouTube not long after. That same year she began training seriously in acting, setting
+        the foundation for a career that would span both worlds.
+      </p>
+      <p class="intro-body reveal reveal-delay-3">
+        She broke through to mainstream audiences via Disney Channel's <em>Girl Meets World</em> (2014–2017),
+        where she played Maya Hart — a sharp, emotionally layered character that felt tailor-made for
+        her natural wit. But Sabrina had bigger plans. Even while the show aired, she was quietly
+        building her music career, releasing her debut album <em>Eyes Wide Open</em> in 2015 and never
+        looking back.
+      </p>
+      <div class="intro-stats reveal reveal-delay-4">
+        <div class="stat">
+          <div class="stat-n">7</div>
+          <div class="stat-l">Studio Albums</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">15+</div>
+          <div class="stat-l">Years Active</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">∞</div>
+          <div class="stat-l">Replays Daily</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="timeline-section">
+    <div class="timeline-inner">
+      <div class="timeline-header">
+        <p class="section-label reveal">Her Journey</p>
+        <h2 class="section-title reveal reveal-delay-1">Era by <em>era</em></h2>
+      </div>
+
+      <div class="timeline">
+
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <p class="tl-year">2009</p>
+          <h3 class="tl-title">The Beginning</h3>
+          <p class="tl-body">At just nine years old, Sabrina picks up a guitar and starts teaching herself to play. Around the same time she begins posting covers online — an early sign of the fearlessness that would define her career.</p>
+          <span class="tl-tag">📍 Quakertown, Pennsylvania</span>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <p class="tl-year">2013</p>
+          <h3 class="tl-title">First Steps in Hollywood</h3>
+          <p class="tl-body">Sabrina lands her first major acting role, appearing in the horror film <em>The Hate U Give</em> and making guest appearances on TV. She signs with Hollywood Records, setting both her acting and music careers into motion simultaneously.</p>
+          <span class="tl-tag">🎬 Acting Debut</span>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <p class="tl-year">2014 – 2017</p>
+          <h3 class="tl-title">Girl Meets World</h3>
+          <p class="tl-body">Cast as Maya Hart in Disney Channel's beloved sequel series, Sabrina spends three seasons delivering some of the show's most emotionally resonant performances. Maya becomes a fan favourite — layered, funny, and fiercely loyal. The show cements her as a household name.</p>
+          <span class="tl-tag">📺 Disney Channel</span>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <p class="tl-year">2015</p>
+          <h3 class="tl-title">Eyes Wide Open — Debut Album</h3>
+          <p class="tl-body">At just 16, Sabrina releases her debut studio album. A warm, coming-of-age pop record that introduces her voice to the world and hints at the songwriter she's becoming. <em>We'll Be the Stars</em> and <em>Can't Blame a Girl for Trying</em> stand out as early highlights.</p>
+          <span class="tl-tag">🎵 Hollywood Records</span>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <p class="tl-year">2016</p>
+          <h3 class="tl-title">Evolution & Thumbs</h3>
+          <p class="tl-body">Her sophomore album <em>Evolution</em> arrives with a sharper, more self-assured sound. Lead single <em>Thumbs</em> becomes a cultural moment — satirical, punchy, and utterly her own. It signals clearly that Sabrina is not just a Disney act. She is an artist.</p>
+          <span class="tl-tag">✦ Artistic Shift</span>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <p class="tl-year">2018 – 2019</p>
+          <h3 class="tl-title">The Singular Years</h3>
+          <p class="tl-body">Released in two acts, <em>Singular</em> marks her full transition into independent pop artistry. <em>Almost Love</em>, <em>Paris</em>, and <em>Skin</em> showcase a new emotional depth. She begins co-writing and co-producing — taking real ownership of her sound for the first time.</p>
+          <span class="tl-tag">🎼 Hollywood Records</span>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <p class="tl-year">2022</p>
+          <h3 class="tl-title">emails i can't send — The Breakthrough</h3>
+          <p class="tl-body">Everything changes. <em>emails i can't send</em> is raw, pointed, and witty in a way pop rarely allows itself to be. <em>because i liked a boy</em> becomes an anthem. <em>Nonsense</em> goes viral on TikTok. <em>Feather</em> gets a music video filmed in a church. She signs to Island Records and the world starts paying attention.</p>
+          <span class="tl-tag">🔥 Island Records</span>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <p class="tl-year">2024</p>
+          <h3 class="tl-title">Short n' Sweet — Global Takeover</h3>
+          <p class="tl-body"><em>Espresso</em> drops in April and immediately becomes the song of the summer — charting globally, dominating Spotify, and turning Sabrina into a certified pop phenomenon. <em>Please Please Please</em> follows. The album debuted at #1 in multiple countries. At 24, Sabrina Carpenter is one of the biggest artists on the planet.</p>
+          <span class="tl-tag">🌍 #1 Worldwide</span>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <p class="tl-year">2025</p>
+          <h3 class="tl-title">Man's Best Friend — Fully Herself</h3>
+          <p class="tl-body">Her seventh studio album arrives darker, bolder, and more unapologetically Sabrina than ever. <em>Man's Best Friend</em> is an artist in complete command — of her pen, her sound, and her story. No more proving anything. Just music made exactly the way she wants.</p>
+          <span class="tl-tag">✦ Chapter Seven</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote -->
+  <div class="quote-band">
+    <blockquote class="reveal">
+      "I think I'm at a place in my life where I'm really just trying to trust myself
+      and trust the process and enjoy it, because it goes so fast."
+    </blockquote>
+    <cite class="reveal reveal-delay-1">— Sabrina Carpenter</cite>
+  </div>
+
+  <!-- Fun Facts -->
+  <section class="facts-section">
+    <div class="facts-header">
+      <p class="section-label reveal">Little Things</p>
+      <h2 class="section-title reveal reveal-delay-1">Things you might not<br><em>know about her</em></h2>
+    </div>
+    <div class="facts-grid">
+      <div class="fact-card reveal">
+        <div class="fact-icon">🎸</div>
+        <h3 class="fact-title">Self-taught guitarist</h3>
+        <p class="fact-body">She taught herself guitar at age 9 with no formal lessons — just pure determination and a love for music that started before anyone was watching.</p>
+      </div>
+      <div class="fact-card reveal reveal-delay-1">
+        <div class="fact-icon">✍️</div>
+        <h3 class="fact-title">Writes everything herself</h3>
+        <p class="fact-body">Sabrina co-writes almost every song on her albums. The wit, the wordplay, the devastating one-liners — all hers. She's one of pop's most underrated lyricists.</p>
+      </div>
+      <div class="fact-card reveal reveal-delay-2">
+        <div class="fact-icon">🎭</div>
+        <h3 class="fact-title">Triple threat</h3>
+        <p class="fact-body">Singer, songwriter, and actress — she's appeared in films like <em>Emergency</em> and <em>Clouds</em>, and starred alongside Barry Keoghan in <em>Saltburn</em>-era fame circles.</p>
+      </div>
+      <div class="fact-card reveal">
+        <div class="fact-icon">📍</div>
+        <h3 class="fact-title">Small town roots</h3>
+        <p class="fact-body">Born and raised in Quakertown, Pennsylvania — a town of around 8,000 people. She went from uploading YouTube covers there to selling out arenas worldwide.</p>
+      </div>
+      <div class="fact-card reveal reveal-delay-1">
+        <div class="fact-icon">💄</div>
+        <h3 class="fact-title">Old Hollywood obsessed</h3>
+        <p class="fact-body">Her aesthetic is deeply rooted in vintage Hollywood glamour — red lipstick, retro silhouettes, and a cinematic approach to her music videos and live shows.</p>
+      </div>
+      <div class="fact-card reveal reveal-delay-2">
+        <div class="fact-icon">☕</div>
+        <h3 class="fact-title">The Espresso effect</h3>
+        <p class="fact-body">Espresso became one of the most-streamed songs of 2024, spending weeks at #1 globally and earning her a Grammy nomination — a career-defining moment that felt inevitable in hindsight.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Socials -->
+  <section class="socials-section">
+    <div class="socials-header">
+      <p class="section-label reveal">Follow Her</p>
+      <h2 class="section-title reveal reveal-delay-1">Stay in her <em>world</em></h2>
+    </div>
+    <div class="socials-row reveal reveal-delay-2">
+      <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="social-btn"><span>🎵</span> Spotify</a>
+      <a href="https://music.apple.com/us/artist/sabrina-carpenter/459546798" target="_blank" class="social-btn"><span>🎶</span> Apple Music</a>
+      <a href="https://www.instagram.com/sabrinacarpenter" target="_blank" class="social-btn"><span>📸</span> Instagram</a>
+      <a href="https://twitter.com/SabrinaAnnLynn" target="_blank" class="social-btn"><span>🐦</span> Twitter / X</a>
+      <a href="https://www.youtube.com/sabrinacarpenter" target="_blank" class="social-btn"><span>▶</span> YouTube</a>
+      <a href="https://www.tiktok.com/@sabrinacarpenter" target="_blank" class="social-btn"><span>🎬</span> TikTok</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-logo">Sabrina</div>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="discography.html">Music</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="tours.html">Tours</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <span>sabrina.ozyern.me &nbsp;·&nbsp; built by <a href="https://about.ozyern.me" style="color:var(--rose)">Aditya Jha</a></span>
+        <span>unofficial fan site &nbsp;<span class="footer-heart">♥</span>&nbsp; made with my heartbeat for her.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+        /* ── Cursor ── */
+    const cur = document.getElementById('cur');
+    const ring = document.getElementById('cur-ring');
+    let mx = -500, my = -500, rx = -500, ry = -500;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cur.classList.add('active');
+    });
+    document.addEventListener('mousedown', () => cur.classList.add('clicking'));
+    document.addEventListener('mouseup',   () => cur.classList.remove('clicking'));
+    document.addEventListener('mouseleave', () => cur.classList.remove('active'));
+    document.querySelectorAll('a, button, .fact-card, .album-card, .g-card, .track').forEach(el => {
+      el.addEventListener('mouseenter', () => { cur.classList.add('hovered'); ring.classList.add('hovered'); });
+      el.addEventListener('mouseleave', () => { cur.classList.remove('hovered'); ring.classList.remove('hovered'); });
+    });
+    function animCursor() {
+      cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+      rx += (mx - rx) * .1; ry += (my - ry) * .1;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animCursor);
+    }
+    animCursor();
+
+    /* ── Petals ── */
+    const pc = document.getElementById('petals');
+    const colors = ['#E0FFFF','#ADD8E6','#FFD700','#FFF8DC','#87CEEB'];
+    for (let i = 0; i < 16; i++) {
+      const p = document.createElement('div'); p.className = 'p';
+      const s = 8 + Math.random() * 13;
+      p.style.cssText = `left:${Math.random()*100}%;width:${s}px;height:${s}px;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${8+Math.random()*10}s;animation-delay:${Math.random()*14}s;`;
+      pc.appendChild(p);
+    }
+
+    /* ── Nav ── */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+    document.getElementById('navToggle').addEventListener('click', () => nav.classList.toggle('open'));
+
+    /* ── Reveal ── */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(r => observer.observe(r));
+  </script>
+</body>
+</html>
