@@ -10,17 +10,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Great+Vibes&family=Jost:wght@200;300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --rose:     #f2a7b3;
-      --blush:    #f9d5db;
-      --lavender: #e2d5f0;
-      --petal:    #fce8ec;
-      --cream:    #fdf7f2;
-      --gold:     #c9965a;
-      --deep:     #3d2230;
-      --mid:      #7d4f62;
-      --soft:     #b8899a;
-      --white:    #fffaf8;
-      --border:   rgba(178,120,145,0.18);
+      --yellow:   #FFD700;
+      --light-yellow: #FFF8DC;
+      --baby-blue: #ADD8E6;
+      --sky-blue: #E0FFFF;
+      --cream:    #FFFBF5;
+      --yellow-accent: #FFC107;
+      --deep:     #003D5C;
+      --mid:      #2F7FA1;
+      --soft:     #7EB9D4;
+      --white:    #FFFEF8;
+      --border:   rgba(47, 127, 161, 0.18);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,22 +39,32 @@
 
     /* ── CURSOR ── */
     #cur {
-      font-size: 26px; line-height: 1;
-      position: fixed; pointer-events: none; z-index: 9999;
+      font-size: 24px; line-height: 1;
+      position: fixed; pointer-events: none; z-index: 999999;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255, 254, 248, 0.9);
+      border: 1px solid rgba(47, 127, 161, 0.55);
+      border-radius: 999px;
       transform: translate(-50%,-50%) rotate(-15deg);
       transition: transform .12s ease; user-select: none;
+      filter: drop-shadow(0 2px 8px rgba(47, 127, 161, 0.4));
+      text-shadow: 0 0 4px rgba(255, 215, 0, 0.6), 0 0 8px rgba(173, 216, 230, 0.4);
+      will-change: transform;
     }
     #cur.hovered  { transform: translate(-50%,-50%) rotate(-15deg) scale(1.4); }
     #cur.clicking { transform: translate(-50%,-50%) rotate(-15deg) scale(.85); }
     #cur-ring {
       width: 50px; height: 50px; border-radius: 50%;
-      border: 1.5px solid rgba(242,167,179,.5);
-      position: fixed; pointer-events: none; z-index: 9998;
+      border: 2px solid rgba(47, 127, 161, 0.8);
+      position: fixed; pointer-events: none; z-index: 99998;
       transform: translate(-50%,-50%);
-      transition: opacity .3s, transform .18s ease; opacity: 0;
-      background: radial-gradient(circle, rgba(249,213,219,.15) 0%, transparent 70%);
+      transition: opacity .25s, transform .18s ease; opacity: 0.35;
+      background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%);
+      box-shadow: 0 0 15px rgba(173, 216, 230, 0.4);
+      will-change: transform, opacity;
     }
-    #cur-ring.hovered { opacity: 1; transform: translate(-50%,-50%) scale(1.15); }
+    #cur-ring.hovered { opacity: 1; transform: translate(-50%,-50%) scale(1.15); border-color: rgba(47, 127, 161, 1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 8px rgba(47, 127, 161, 0.6); }
     body, a, button { cursor: none; }
 
     /* ── PETALS ── */
@@ -118,7 +128,7 @@
     }
     .nav-links a::after {
       content: ''; position: absolute; bottom: -3px; left: 0;
-      width: 0; height: 1px; background: var(--rose); transition: width .35s ease;
+      width: 0; height: 1px; background: var(--yellow); transition: width .35s ease;
     }
     .nav-links a.nav-active { color: var(--deep); }
     .nav-links a.nav-active::after { width: 100%; }
@@ -127,7 +137,7 @@
     .nav-links a.nav-soon::before {
       content: attr(data-tip); position: absolute;
       top: calc(100% + 10px); left: 50%; transform: translateX(-50%);
-      background: var(--deep); color: var(--rose); font-size: .6rem;
+      background: var(--deep); color: var(--yellow); font-size: .6rem;
       letter-spacing: .15em; white-space: nowrap; padding: 5px 10px;
       border-radius: 20px; opacity: 0; pointer-events: none; transition: opacity .25s;
     }
@@ -148,8 +158,8 @@
       padding: 140px 24px 60px;
       text-align: center; position: relative; overflow: hidden;
       background:
-        radial-gradient(ellipse 80% 70% at 20% 30%, rgba(226,213,240,.6) 0%, transparent 55%),
-        radial-gradient(ellipse 65% 55% at 80% 70%, rgba(249,213,219,.75) 0%, transparent 55%),
+        radial-gradient(ellipse 80% 70% at 20% 30%, rgba(173, 216, 230, .6) 0%, transparent 55%),
+        radial-gradient(ellipse 65% 55% at 80% 70%, rgba(224, 255, 255, .75) 0%, transparent 55%),
         var(--cream);
       z-index: 2;
     }
@@ -160,19 +170,19 @@
       pointer-events: none; opacity: .5;
     }
     .orb { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; }
-    .orb-1 { width: 300px; height: 300px; background: rgba(226,213,240,.5); top: 0; left: -60px; animation: drift 12s cubic-bezier(.32,.12,.15,1) infinite; }
-    .orb-2 { width: 220px; height: 220px; background: rgba(249,213,219,.65); bottom: 0; right: -40px; animation: drift 15s cubic-bezier(.32,.12,.15,1) infinite reverse; }
+    .orb-1 { width: 300px; height: 300px; background: rgba(173, 216, 230, .5); top: 0; left: -60px; animation: drift 12s cubic-bezier(.32,.12,.15,1) infinite; }
+    .orb-2 { width: 220px; height: 220px; background: rgba(224, 255, 255, .65); bottom: 0; right: -40px; animation: drift 15s cubic-bezier(.32,.12,.15,1) infinite reverse; }
     @keyframes drift { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-12px) scale(1.04); } }
 
     @keyframes pageFade {
-      from { opacity: 0; filter: blur(6px); }
-      to   { opacity: 1; filter: blur(0); }
+      from { opacity: 0; }
+      to   { opacity: 1; }
     }
 
     .page-eyebrow {
       font-family: 'Jost', sans-serif; font-weight: 200;
       font-size: .68rem; letter-spacing: .4em; text-transform: uppercase;
-      color: var(--soft); margin-bottom: 20px;
+      color: var(--mid); margin-bottom: 20px;
       opacity: 0; animation: fadeUp .7s ease .15s forwards;
     }
     .page-title {
@@ -184,7 +194,7 @@
     .page-title-sub {
       font-family: 'Cormorant Garamond', serif; font-style: italic;
       font-weight: 300; font-size: clamp(1rem, 2.5vw, 1.5rem);
-      color: var(--soft); margin-top: 16px; letter-spacing: .06em;
+      color: var(--mid); margin-top: 16px; letter-spacing: .06em;
       opacity: 0; animation: fadeUp .9s ease .55s forwards;
     }
 
@@ -212,7 +222,7 @@
     }
     .filter-btn::after {
       content: ''; position: absolute; bottom: 0; left: 0;
-      width: 0; height: 2px; background: var(--rose); transition: width .3s;
+      width: 0; height: 2px; background: var(--yellow); transition: width .3s;
     }
     .filter-btn.active { color: var(--deep); }
     .filter-btn.active::after { width: 100%; }
@@ -238,14 +248,14 @@
     }
     .era-year {
       font-family: 'Cormorant Garamond', serif; font-weight: 300;
-      font-size: 5rem; line-height: 1; color: var(--blush);
+      font-size: 5rem; line-height: 1; color: var(--light-yellow);
       letter-spacing: -.03em; user-select: none;
     }
     .era-info { padding-bottom: 8px; }
     .era-label {
       font-family: 'Jost', sans-serif; font-weight: 200;
       font-size: .62rem; letter-spacing: .4em; text-transform: uppercase;
-      color: var(--rose); margin-bottom: 6px;
+      color: var(--yellow); margin-bottom: 6px;
     }
     .era-name {
       font-family: 'Cormorant Garamond', serif; font-style: italic;
@@ -297,7 +307,7 @@
     }
     .cover-badge span:first-child {
       font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
-      font-weight: 300; color: var(--rose); line-height: 1;
+      font-weight: 300; color: var(--yellow); line-height: 1;
     }
     .cover-badge span:last-child {
       font-size: .45rem; letter-spacing: .1em; text-transform: uppercase;
@@ -313,7 +323,7 @@
       padding: 7px 14px; border-radius: 30px;
       transition: border-color .3s, color .3s, background .3s;
     }
-    .stream-btn:hover { border-color: var(--rose); color: var(--deep); background: var(--petal); }
+    .stream-btn:hover { border-color: var(--yellow); color: var(--deep); background: var(--light-yellow); }
 
     /* album detail */
     .album-detail { }
@@ -330,7 +340,7 @@
     }
     .album-detail-meta .sep { color: var(--border); }
     .album-type {
-      background: var(--petal); color: var(--mid);
+      background: var(--light-yellow); color: var(--mid);
       padding: 3px 10px; border-radius: 20px;
       font-size: .6rem; letter-spacing: .12em;
     }
@@ -344,7 +354,7 @@
     .tracklist-title {
       font-family: 'Jost', sans-serif; font-weight: 300;
       font-size: .62rem; letter-spacing: .35em; text-transform: uppercase;
-      color: var(--rose); margin-bottom: 12px;
+      color: var(--yellow); margin-bottom: 12px;
     }
     .tracklist { list-style: none; }
     .track {
@@ -365,7 +375,7 @@
     .track:hover .track-num { opacity: 0; }
     .track-play {
       width: 20px; text-align: center; flex-shrink: 0;
-      font-size: .7rem; color: var(--rose);
+      font-size: .7rem; color: var(--yellow);
       opacity: 0; transition: opacity .2s;
       position: absolute;
     }
@@ -383,10 +393,10 @@
     }
     .track-flag {
       font-size: .58rem; letter-spacing: .1em; text-transform: uppercase;
-      background: var(--lavender); color: var(--mid);
+      background: var(--baby-blue); color: var(--mid);
       padding: 2px 8px; border-radius: 20px; flex-shrink: 0;
     }
-    .track-flag.bonus { background: var(--petal); }
+    .track-flag.bonus { background: var(--light-yellow); }
 
     /* album colors */
     .ac-sns  { background-image: url("images/Short n' Sweet.jpg"); }
@@ -408,7 +418,7 @@
       content: ''; flex: 1; height: 1px; background: var(--border);
     }
     .era-divider span {
-      font-family: 'Pinyon Script', cursive; font-size: 1.8rem; color: var(--rose);
+      font-family: 'Pinyon Script', cursive; font-size: 1.8rem; color: var(--yellow);
     }
 
     /* ── FOOTER ── */
@@ -418,19 +428,19 @@
     }
     .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
     .footer-top { display: flex; align-items: center; justify-content: space-between; }
-    .footer-logo { font-family: 'Pinyon Script', cursive; font-size: 2.2rem; color: var(--rose); }
+    .footer-logo { font-family: 'Pinyon Script', cursive; font-size: 2.2rem; color: var(--yellow); }
     .footer-links { display: flex; gap: 32px; list-style: none; }
     .footer-links a {
       font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
       font-weight: 300; color: rgba(255,255,255,.35); transition: color .3s;
     }
-    .footer-links a:hover { color: var(--rose); }
+    .footer-links a:hover { color: var(--yellow); }
     .footer-bottom {
       display: flex; justify-content: space-between; align-items: center;
       border-top: 1px solid rgba(255,255,255,.07); padding-top: 28px;
       font-size: .68rem; letter-spacing: .12em; font-weight: 300;
     }
-    .footer-heart { color: var(--rose); }
+    .footer-heart { color: var(--yellow); }
 
     /* ── ANIMATIONS ── */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
@@ -963,8 +973,8 @@
         </ul>
       </div>
       <div class="footer-bottom">
-        <span>sabrina.ozyern.me &nbsp;·&nbsp; built by <a href="https://about.ozyern.me" style="color:var(--rose)">Aditya Jha</a></span>
-        <span>unofficial fan site &nbsp;<span class="footer-heart">♥</span>&nbsp; made with my heartbeat for her.</span>
+        <span>sabrina.ozyern.me &nbsp;·&nbsp; built by <a href="https://about.ozyern.me" style="color:var(--yellow)">Aditya Jha</a></span>
+        <span>unofficial fan site &nbsp;<span class="footer-heart">♥</span>&nbsp; built on late nights & her music.</span>
       </div>
     </div>
   </footer>
@@ -983,7 +993,7 @@
     });
     function animCursor() {
       cur.style.left = mx + 'px'; cur.style.top = my + 'px';
-      rx += (mx - rx) * .1; ry += (my - ry) * .1;
+      rx += (mx - rx) * .15; ry += (my - ry) * .15;
       ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
       requestAnimationFrame(animCursor);
     }
@@ -991,7 +1001,7 @@
 
     /* ── Petals ── */
     const pc = document.getElementById('petals');
-    const colors = ['#f9d5db','#f2a7b3','#e2d5f0','#fce8ec','#d4c5e8'];
+    const colors = ['#E0FFFF','#ADD8E6','#FFD700','#FFF8DC','#87CEEB'];
     for (let i = 0; i < 14; i++) {
       const p = document.createElement('div'); p.className = 'p';
       const s = 8 + Math.random() * 12;
