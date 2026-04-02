@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Great+Vibes&family=Jost:wght@200;300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet" />
   <style>
     :root {
+      --yellow:   #f5d020;
       --rose:     #f5d020;
       --blush:    #b8dff5;
       --lavender: #ddf0fb;
@@ -385,32 +386,6 @@
       color: rgba(255,255,255,.35); margin-top: 6px;
     }
 
-    /* ── UPLOAD NOTE ── */
-    .upload-note {
-      max-width: 1280px; margin: 0 auto;
-      padding: 0 48px 40px;
-    }
-    .upload-card {
-      background: var(--petal);
-      border: 1.5px dashed rgba(26,111,168,.25);
-      border-radius: 16px;
-      padding: 28px 32px;
-      display: flex; align-items: center; gap: 20px;
-    }
-    .upload-icon { font-size: 2rem; flex-shrink: 0; }
-    .upload-text h3 {
-      font-family: 'Cormorant Garamond', serif; font-weight: 400;
-      font-size: 1.1rem; color: var(--deep); margin-bottom: 4px;
-    }
-    .upload-text p {
-      font-family: 'Jost', sans-serif; font-weight: 300;
-      font-size: .82rem; color: var(--soft); line-height: 1.6;
-    }
-    .upload-text code {
-      background: rgba(26,111,168,.08); color: var(--mid);
-      padding: 1px 6px; border-radius: 4px; font-size: .8rem;
-    }
-
     /* ── FOOTER ── */
     footer {
       background: var(--deep); padding: 60px 56px 40px;
@@ -445,7 +420,6 @@
       .nav-toggle { display: flex; }
       .filter-wrap { padding: 0 16px; }
       .gallery-wrap { padding: 40px 16px 80px; }
-      .upload-note { padding: 0 16px 32px; }
       footer { padding: 48px 24px 32px; }
       .footer-top { flex-direction: column; gap: 24px; align-items: flex-start; }
       .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
@@ -475,25 +449,25 @@
 
   <!-- Nav -->
   <nav id="nav">
-    <a href="index.html" class="nav-logo">
+    <a href="/" class="nav-logo">
       <img src="images/logo.webp" alt="Sabrina Carpenter Fan Site" />
     </a>
     <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="discography.html">Music</a></li>
-      <li><a href="gallery.html" class="nav-active">Gallery</a></li>
-      <li><a href="tours.html" class="nav-soon" data-tip="Coming soon">Tours</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/discography">Music</a></li>
+      <li><a href="/gallery" class="nav-active">Gallery</a></li>
+      <li><a href="/tours" class="nav-soon" data-tip="Coming soon">Tours</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
     <div class="nav-drawer" id="navDrawer">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="discography.html">Music</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="tours.html">Tours</a>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/discography">Music</a>
+      <a href="/gallery">Gallery</a>
+      <a href="/tours">Tours</a>
     </div>
-    <a href="discography.html" class="nav-cta">Listen</a>
+    <a href="/discography" class="nav-cta">Listen</a>
   </nav>
 
   <!-- Page Hero -->
@@ -609,33 +583,22 @@
     </div>
   </div>
 
-  <!-- Upload note -->
-  <div class="upload-note">
-    <div class="upload-card reveal">
-      <div class="upload-icon">📁</div>
-      <div class="upload-text">
-        <h3>Add your photos</h3>
-        <p>Drop images into <code>images/gallery/</code> and replace the placeholder <code>m-placeholder</code> divs with <code>&lt;img src="images/gallery/yourphoto.jpg"&gt;</code>. The lightbox and filters will work automatically.</p>
-      </div>
-    </div>
-  </div>
-
   <!-- Footer -->
   <footer>
     <div class="footer-inner">
       <div class="footer-top">
         <div class="footer-logo">Sabrina</div>
         <ul class="footer-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="discography.html">Music</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="tours.html">Tours</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/discography">Music</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/tours">Tours</a></li>
         </ul>
       </div>
       <div class="footer-bottom">
-        <span>sabrina.ozyern.me &nbsp;·&nbsp; built by <a href="https://about.ozyern.me" style="color:var(--rose)">Aditya Jha</a></span>
-        <span>unofficial fan site &nbsp;<span class="footer-heart">♥</span>&nbsp; made with my heartbeat for her.</span>
+        <span>sabrina.ozyern.me &nbsp;·&nbsp; built by <a href="https://about.ozyern.me" style="color:var(--yellow)">Aditya Jha</a></span>
+        <span>unofficial fan site &nbsp;<span class="footer-heart">♥</span>&nbsp; built on late nights & her music.</span>
       </div>
     </div>
   </footer>
