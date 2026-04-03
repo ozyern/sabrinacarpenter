@@ -235,32 +235,38 @@
     .intro-img {
       width: 100%; aspect-ratio: 3/4;
       border-radius: 60% 40% 55% 45% / 50% 45% 55% 50%;
-      overflow: visible;
+      overflow: hidden;
       position: relative;
+      isolation: isolate;
+      background: linear-gradient(155deg, rgba(255,248,220,.88) 0%, rgba(224,255,255,.62) 55%, rgba(255,248,220,.9) 100%);
     }
     .intro-img::before {
       content: '';
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background: var(--petal);
+      background:
+        radial-gradient(ellipse at 26% 18%, rgba(255,255,255,.78) 0%, transparent 56%),
+        linear-gradient(160deg, rgba(255,248,220,.92) 0%, rgba(173,216,230,.35) 52%, rgba(255,248,220,.84) 100%);
       box-shadow: 0 24px 60px rgba(13,31,45,.14);
       z-index: 0;
     }
     .intro-img img {
-      width: 88%;
-      height: auto;
-      max-height: 114%;
+      width: 92%;
+      height: 108%;
       object-fit: cover;
+      object-position: center 12%;
       position: absolute;
-      left: 6%;
+      left: 4%;
       bottom: -2%;
-      opacity: .84;
-      filter: saturate(.86) contrast(.9) brightness(1.03);
-      -webkit-mask-image: radial-gradient(ellipse 80% 88% at 52% 45%, #000 64%, transparent 100%);
-      mask-image: radial-gradient(ellipse 80% 88% at 52% 45%, #000 64%, transparent 100%);
+      opacity: .9;
+      filter: saturate(.9) contrast(.93) brightness(1.02);
+      -webkit-mask-image: radial-gradient(ellipse 84% 92% at 50% 48%, #000 58%, rgba(0,0,0,.9) 72%, rgba(0,0,0,.45) 88%, transparent 100%);
+      mask-image: radial-gradient(ellipse 84% 92% at 50% 48%, #000 58%, rgba(0,0,0,.9) 72%, rgba(0,0,0,.45) 88%, transparent 100%);
       -webkit-mask-repeat: no-repeat;
       mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
       z-index: 1;
     }
     .intro-img::after {
@@ -268,10 +274,11 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse at 30% 20%, rgba(255, 215, 0, 0.16) 0%, transparent 62%),
-        linear-gradient(to bottom, rgba(255,255,255,.08) 0%, rgba(255,248,220,.22) 100%),
-        linear-gradient(to top, rgba(255,248,220,.3) 0%, transparent 34%);
-      opacity: .58;
+        radial-gradient(ellipse at 24% 18%, rgba(255, 255, 255, 0.3) 0%, transparent 58%),
+        radial-gradient(ellipse at 74% 76%, rgba(173, 216, 230, 0.2) 0%, transparent 62%),
+        linear-gradient(to bottom, rgba(255,255,255,.08) 0%, rgba(255,248,220,.26) 100%),
+        linear-gradient(to top, rgba(255,248,220,.32) 0%, transparent 36%);
+      opacity: .62;
       pointer-events: none;
       z-index: 2;
     }
@@ -514,10 +521,11 @@
       .nav-toggle { display: flex; }
       .intro-section { grid-template-columns: 1fr; padding: 70px 24px; gap: 48px; }
       .intro-img img {
-        width: 84%;
-        max-height: 108%;
-        left: 8%;
-        bottom: 0;
+        width: 90%;
+        height: 106%;
+        left: 5%;
+        bottom: -1%;
+        object-position: center 10%;
       }
       .timeline-section, .facts-section, .socials-section { padding: 70px 24px; }
       .facts-section { border-radius: 24px; }
