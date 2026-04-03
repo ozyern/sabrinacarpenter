@@ -271,7 +271,7 @@
   banner.setAttribute("role", "status");
   banner.setAttribute("aria-live", "polite");
   banner.innerHTML = `
-    <p class="birthday-banner-message">Happy Birthday, Sabrina! Balloons up, firecrackers bright.</p>
+    <p class="birthday-banner-message">Happy Birthday, Sabrina! Enjoy, honey how you keep killing me.</p>
     <button class="birthday-banner-close" type="button" aria-label="Dismiss birthday message">x</button>
   `;
 
