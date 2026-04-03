@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tours — Sabrina Carpenter</title>
+  <link rel="icon" href="images/logo.webp" type="image/webp" />
+  <meta name="description" content="Upcoming Sabrina Carpenter tour dates — live and auto-updated." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Great+Vibes&family=Jost:wght@200;300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --rose:     #f5d020;
+      --blush:    #b8dff5;
+      --lavender: #ddf0fb;
+      --petal:    #fffbe6;
+      --cream:    #f8fcff;
+      --gold:     #e6b800;
+      --deep:     #0d1f2d;
+      --mid:      #1a6fa8;
+      --soft:     #6aafd4;
+      --white:    #fffef8;
+      --border:   rgba(26,111,168,0.14);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--deep);
+      overflow-x: hidden;
+      opacity: 0;
+      animation: pageFade .78s cubic-bezier(.33,.11,.13,1) forwards;
+    }
+    a { text-decoration: none; color: inherit; }
+    *, *::before { cursor: none !important; }
+    @keyframes pageFade { from { opacity:0; } to { opacity:1; } }
+
+    /* ── CURSOR ── */
+    #cur {
+      font-size: 24px;
+      line-height: 1;
+      position: fixed;
+      pointer-events: none;
+      z-index: 999999;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 254, 248, 0.9);
+      border: 1px solid rgba(26, 111, 168, 0.55);
+      border-radius: 999px;
+      top: 0;
+      left: 0;
+      transform: translate(-50%,-50%) rotate(-15deg);
+      transition: transform .12s ease;
+      user-select: none;
+      filter: drop-shadow(0 2px 8px rgba(26, 111, 168, 0.4));
+      text-shadow: 0 0 4px rgba(245, 208, 32, 0.6), 0 0 8px rgba(184, 223, 245, 0.4);
+      will-change: transform;
+      opacity: 1;
+    }
+    #cur.hovered  { transform: translate(-50%,-50%) rotate(-15deg) scale(1.4); }
+    #cur.clicking { transform: translate(-50%,-50%) rotate(-15deg) scale(.85); }
+    #cur-ring {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      border: 2px solid rgba(26, 111, 168, 0.8);
+      position: fixed;
+      pointer-events: none;
+      z-index: 99998;
+      top: 0;
+      left: 0;
+      transform: translate(-50%,-50%);
+      transition: opacity .25s, transform .18s ease;
+      opacity: .35;
+      background: radial-gradient(circle, rgba(245, 208, 32, 0.15) 0%, transparent 70%);
+      box-shadow: 0 0 15px rgba(184, 223, 245, 0.4);
+      will-change: transform, opacity;
+    }
+    #cur-ring.hovered {
+      opacity: 1;
+      transform: translate(-50%,-50%) scale(1.15);
+      border-color: rgba(26, 111, 168, 1);
+      box-shadow: 0 0 20px rgba(245, 208, 32, 0.5), 0 0 8px rgba(26, 111, 168, 0.6);
+    }
+
+    /* ── PETALS ── */
+    #petals { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+    .p {
+      position: absolute; top: -40px; border-radius: 150% 0 150% 0; opacity: 0;
+      animation: pfall linear infinite;
+    }
+    @keyframes pfall {
+      0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 0; }
+      8%   { opacity: .6; }
+      85%  { opacity: .35; }
+      100% { transform: translateY(105vh) rotate(320deg) scale(.8); opacity: 0; }
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 56px;
+      background: rgba(248,252,255,.88); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border); transition: padding .3s;
+    }
+    nav.scrolled { padding: 12px 56px; }
+    .nav-logo { display: flex; align-items: center; }
+    .nav-logo img { height: 38px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      width: 38px; height: 34px; justify-content: center; align-items: flex-start;
+      background: none; border: 1px solid var(--border); border-radius: 10px;
+      padding: 7px 9px;
+    }
+    .nav-toggle span {
+      display: block; height: 2px; width: 100%; background: var(--mid);
+      transition: transform .25s, width .25s, opacity .25s;
+    }
+    .nav-toggle span:nth-child(2) { width: 70%; }
+    .nav-toggle span:nth-child(3) { width: 55%; }
+    nav.open .nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    nav.open .nav-toggle span:nth-child(2) { opacity: 0; width: 0; }
+    nav.open .nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); width: 100%; }
+    .nav-drawer {
+      position: fixed; top: 68px; right: 18px; left: 18px;
+      background: rgba(248,252,255,.98); border: 1px solid var(--border);
+      border-radius: 14px; box-shadow: 0 20px 50px rgba(13,31,45,.14);
+      padding: 18px 20px; display: none; flex-direction: column; gap: 14px;
+      backdrop-filter: blur(10px);
+    }
+    nav.open .nav-drawer { display: flex; }
+    .nav-drawer a { font-family: 'Jost', sans-serif; font-weight: 300; letter-spacing: .2em; text-transform: uppercase; color: var(--deep); font-size: .8rem; }
+    .nav-links a {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--soft); position: relative; transition: color .3s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -3px; left: 0;
+      width: 0; height: 1px; background: var(--rose); transition: width .35s;
+    }
+    .nav-links a:hover { color: var(--deep); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.nav-active { color: var(--deep); }
+    .nav-links a.nav-active::after { width: 100%; }
+    .nav-links a.nav-soon { opacity: .4; }
+    .nav-cta {
+      font-family: 'Jost', sans-serif; font-weight: 300; font-size: .72rem;
+      letter-spacing: .18em; text-transform: uppercase; color: var(--white);
+      background: var(--mid); border: none; padding: 9px 22px;
+      border-radius: 40px; transition: background .3s, transform .2s;
+    }
+    .nav-cta:hover { background: var(--deep); transform: scale(1.04); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      min-height: 44vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 150px 24px 60px;
+      text-align: center; position: relative; overflow: hidden;
+      background:
+        radial-gradient(ellipse 80% 70% at 15% 30%, rgba(184,223,245,.55) 0%, transparent 55%),
+        radial-gradient(ellipse 65% 55% at 85% 70%, rgba(245,208,32,.25) 0%, transparent 55%),
+        var(--cream);
+      z-index: 2;
+    }
+    .page-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .orb { position: absolute; border-radius: 50%; filter: blur(55px); pointer-events: none; }
+    .orb-1 { width: 300px; height: 300px; background: rgba(184,223,245,.5); top: -30px; left: -60px; animation: drift 10s ease-in-out infinite; }
+    .orb-2 { width: 200px; height: 200px; background: rgba(245,208,32,.28); bottom: -20px; right: -40px; animation: drift 13s ease-in-out infinite reverse; }
+    @keyframes drift { 0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-18px) scale(1.05);} }
+
+    .page-eyebrow {
+      font-family: 'Jost', sans-serif; font-weight: 200;
+      font-size: .68rem; letter-spacing: .4em; text-transform: uppercase;
+      color: var(--soft); margin-bottom: 20px;
+      opacity: 0; animation: fadeUp .7s ease .15s forwards;
+    }
+    .page-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(4.5rem, 12vw, 10rem);
+      line-height: .9; color: var(--mid);
+      opacity: 0; animation: fadeUp .9s ease .35s forwards;
+    }
+    .page-title-sub {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-weight: 300; font-size: clamp(.9rem, 2.5vw, 1.4rem);
+      color: var(--soft); margin-top: 16px;
+      opacity: 0; animation: fadeUp .9s ease .55s forwards;
+    }
+    .live-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      margin-top: 20px;
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: .62rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--mid);
+      background: var(--lavender);
+      border: 1px solid var(--border);
+      padding: 7px 16px; border-radius: 30px;
+      opacity: 0; animation: fadeUp .9s ease .7s forwards;
+    }
+    .live-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #22c55e;
+      animation: pulse-dot 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,.5); }
+      50%      { box-shadow: 0 0 0 5px rgba(34,197,94,0); }
+    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);} }
+
+    /* ── MAIN WRAP ── */
+    .tours-wrap {
+      max-width: 900px; margin: 0 auto;
+      padding: 72px 48px 120px;
+      position: relative; z-index: 2;
+    }
+
+    /* ── LOADING STATE ── */
+    .loading-state {
+      text-align: center; padding: 80px 0;
+    }
+    .spinner {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 2px solid var(--border);
+      border-top-color: var(--rose);
+      animation: spin .8s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-state p {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: .82rem; letter-spacing: .15em; color: var(--soft);
+    }
+
+    /* ── NO SHOWS STATE ── */
+    .no-shows {
+      text-align: center; padding: 80px 0; display: none;
+    }
+    .no-shows-icon { font-size: 3rem; margin-bottom: 20px; }
+    .no-shows h3 {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: 2rem; font-style: italic; color: var(--deep); margin-bottom: 12px;
+    }
+    .no-shows p {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: .88rem; color: var(--soft); line-height: 1.7;
+    }
+
+    /* ── ERROR STATE ── */
+    .error-state {
+      text-align: center; padding: 60px 0; display: none;
+    }
+    .error-state p {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: .85rem; color: var(--soft); margin-bottom: 20px;
+    }
+
+    /* ── SHOWS LIST ── */
+    #shows-list { display: none; }
+
+    .shows-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 40px; flex-wrap: wrap; gap: 12px;
+    }
+    .shows-count {
+      font-family: 'Jost', sans-serif; font-weight: 200;
+      font-size: .65rem; letter-spacing: .35em; text-transform: uppercase;
+      color: var(--rose);
+    }
+    .shows-source {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: .62rem; letter-spacing: .12em;
+      color: var(--soft); opacity: .7;
+    }
+
+    .show-card {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 24px; align-items: center;
+      padding: 24px 28px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      margin-bottom: 14px;
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s;
+      position: relative; overflow: hidden;
+    }
+    .show-card::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--rose);
+      transform: scaleY(0); transform-origin: bottom;
+      transition: transform .3s ease;
+    }
+    .show-card:hover {
+      transform: translateX(4px);
+      box-shadow: 0 12px 36px rgba(13,31,45,.08);
+      border-color: rgba(245,208,32,.4);
+    }
+    .show-card:hover::before { transform: scaleY(1); }
+
+    /* date block */
+    .show-date {
+      text-align: center;
+      background: var(--petal);
+      border-radius: 12px;
+      padding: 12px 10px;
+      flex-shrink: 0;
+    }
+    .show-day {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: 2rem; color: var(--deep); line-height: 1;
+    }
+    .show-month {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: .58rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--soft); margin-top: 2px;
+    }
+    .show-year {
+      font-family: 'Jost', sans-serif; font-weight: 200;
+      font-size: .55rem; letter-spacing: .1em;
+      color: var(--soft); opacity: .6;
+    }
+
+    /* show info */
+    .show-venue {
+      font-family: 'Cormorant Garamond', serif; font-weight: 400;
+      font-size: 1.2rem; color: var(--deep); line-height: 1.2;
+      margin-bottom: 5px;
+    }
+    .show-location {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: .78rem; color: var(--soft);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .show-location::before { content: '📍'; font-size: .7rem; }
+    .show-tags { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+    .show-tag {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: .58rem; letter-spacing: .12em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 20px;
+    }
+    .tag-festival { background: rgba(245,208,32,.2); color: #7a6000; }
+    .tag-headline { background: var(--lavender); color: var(--mid); }
+    .tag-sold-out { background: rgba(239,68,68,.1); color: #dc2626; }
+
+    /* ── PAST SHOWS ── */
+    .past-toggle {
+      text-align: center; margin: 48px 0 0;
+    }
+    .past-btn {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--soft); background: none;
+      border: 1px solid var(--border); border-radius: 30px;
+      padding: 10px 24px; transition: border-color .3s, color .3s;
+    }
+    .past-btn:hover { border-color: var(--rose); color: var(--deep); }
+    #past-list { display: none; margin-top: 28px; }
+    .show-card.past { opacity: .55; }
+    .show-card.past:hover { opacity: .85; }
+
+    /* ── BOTTOM CTA ── */
+    .bottom-cta {
+      margin-top: 64px; text-align: center;
+      padding: 48px 40px;
+      background: var(--deep); border-radius: 24px;
+      position: relative; overflow: hidden;
+    }
+    .bottom-cta::before {
+      content: '✦';
+      font-size: 22rem; color: rgba(255,255,255,.02);
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%); pointer-events: none; line-height: 1;
+    }
+    .bottom-cta h3 {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-weight: 300; font-size: 2rem; color: var(--white);
+      margin-bottom: 14px;
+    }
+    .bottom-cta p {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: .85rem; color: rgba(255,255,255,.5);
+      margin-bottom: 28px; line-height: 1.7;
+    }
+    .cta-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .cta-btn {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--deep); background: var(--rose);
+      border: none; border-radius: 30px; padding: 12px 24px;
+      display: flex; align-items: center; gap: 8px;
+      transition: background .3s, transform .2s;
+    }
+    .cta-btn:hover { background: var(--gold); transform: translateY(-2px); }
+    .cta-btn.ghost {
+      background: rgba(255,255,255,.08); color: rgba(255,255,255,.7);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .cta-btn.ghost:hover { background: rgba(255,255,255,.16); color: white; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--deep); padding: 60px 56px 40px;
+      color: rgba(255,255,255,.4); margin-top: 0;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+    .footer-top { display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo { font-family: 'Pinyon Script', cursive; font-size: 2.2rem; color: var(--rose); }
+    .footer-links { display: flex; gap: 32px; list-style: none; }
+    .footer-links a { font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 300; color: rgba(255,255,255,.35); transition: color .3s; }
+    .footer-links a:hover { color: var(--rose); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(255,255,255,.07); padding-top: 28px;
+      font-size: .68rem; letter-spacing: .12em; font-weight: 300;
+    }
+    .footer-heart { color: var(--rose); }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .82s cubic-bezier(.22,.61,.36,1), transform .82s cubic-bezier(.22,.61,.36,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0s !important; transition-duration: 0s !important; }
+      body { opacity: 1; animation: none; }
+      .reveal { opacity: 1; transform: none; }
+      .orb { animation: none; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+      .tours-wrap { padding: 48px 20px 80px; }
+      .show-card { grid-template-columns: 64px 1fr; gap: 16px; padding: 18px; }
+      footer { padding: 48px 24px 32px; }
+      .footer-top { flex-direction: column; gap: 24px; align-items: flex-start; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cur">💋</div>
+  <div id="cur-ring"></div>
+  <div id="petals"></div>
+
+  <!-- Nav -->
+  <nav id="nav">
+    <a href="/" class="nav-logo">
+      <img src="images/logo.webp" alt="Sabrina Carpenter Fan Site" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/discography">Music</a></li>
+      <li><a href="/gallery">Gallery</a></li>
+      <li><a href="/tours" class="nav-active">Tours</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    <div class="nav-drawer" id="navDrawer">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/discography">Music</a>
+      <a href="/gallery">Gallery</a>
+      <a href="/tours">Tours</a>
+    </div>
+    <a href="/discography" class="nav-cta">Listen</a>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <p class="page-eyebrow">✦ &nbsp; see her live &nbsp; ✦</p>
+    <h1 class="page-title">Tour Dates</h1>
+    <p class="page-title-sub">Live, auto-updated from Bandsintown</p>
+    <div class="live-badge"><span class="live-dot"></span> Live data</div>
+  </div>
+
+  <!-- Main -->
+  <div class="tours-wrap">
+
+    <!-- Loading -->
+    <div class="loading-state" id="loading">
+      <div class="spinner"></div>
+      <p>Fetching upcoming shows...</p>
+    </div>
+
+    <!-- Error -->
+    <div class="error-state reveal" id="error-state">
+      <p>Couldn't load live tour data right now. Check directly below ↓</p>
+    </div>
+
+    <!-- No upcoming shows -->
+    <div class="no-shows reveal" id="no-shows">
+      <div class="no-shows-icon">🎤</div>
+      <h3>No upcoming dates right now</h3>
+      <p>She'll be back on stage soon. Follow her socials or check Bandsintown to get notified the moment new dates drop.</p>
+    </div>
+
+    <!-- Shows list -->
+    <div id="shows-list">
+      <div class="shows-header">
+        <span class="shows-count" id="shows-count"></span>
+        <span class="shows-source">via Bandsintown · auto-updated</span>
+      </div>
+      <div id="upcoming-shows"></div>
+      <div class="past-toggle" id="past-toggle" style="display:none">
+        <button class="past-btn" id="past-btn">Show past shows</button>
+      </div>
+      <div id="past-list"></div>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="bottom-cta reveal">
+      <h3>Never miss a show</h3>
+      <p>Track Sabrina on Bandsintown to get notified the moment new dates are announced. Or grab tickets directly on Spotify.</p>
+      <div class="cta-links">
+        <a href="https://www.bandsintown.com/a/1503835-sabrina-carpenter" target="_blank" class="cta-btn">🎸 Track on Bandsintown</a>
+        <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="cta-btn ghost">🎵 Spotify</a>
+        <a href="https://www.sabrinacarpenter.com" target="_blank" class="cta-btn ghost">🌐 Official Site</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-logo">Sabrina</div>
+        <ul class="footer-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/discography">Music</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/tours">Tours</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <span>sabrina.ozyern.me &nbsp;·&nbsp; built by <a href="https://about.ozyern.me" style="color:var(--rose)">Aditya Jha</a></span>
+        <span>unofficial fan site &nbsp;<span class="footer-heart">♥</span>&nbsp; built on late nights & her music.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Cursor ── */
+    const cur = document.getElementById('cur');
+    const ring = document.getElementById('cur-ring');
+    let mx = -500, my = -500, rx = -500, ry = -500;
+    const setCursorPos = e => { mx = e.clientX; my = e.clientY; };
+    document.addEventListener('mousemove', setCursorPos);
+    document.addEventListener('pointermove', setCursorPos);
+    document.addEventListener('mousedown', () => cur.classList.add('clicking'));
+    document.addEventListener('mouseup',   () => cur.classList.remove('clicking'));
+    const hoverSelector = 'a, button';
+    document.addEventListener('mouseover', e => {
+      if (e.target.closest(hoverSelector)) {
+        cur.classList.add('hovered');
+        ring.classList.add('hovered');
+      }
+    });
+    document.addEventListener('mouseout', e => {
+      if (!e.target.closest(hoverSelector)) return;
+      if (!e.relatedTarget || !e.relatedTarget.closest || !e.relatedTarget.closest(hoverSelector)) {
+        cur.classList.remove('hovered');
+        ring.classList.remove('hovered');
+      }
+    });
+    function animCursor() {
+      cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+      rx += (mx - rx) * .1; ry += (my - ry) * .1;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animCursor);
+    }
+    animCursor();
+
+    /* ── Petals ── */
+    const pc = document.getElementById('petals');
+    const cols = ['#f5d020','#b8dff5','#fffbe6','#ddf0fb','#e6b800'];
+    for (let i = 0; i < 14; i++) {
+      const p = document.createElement('div'); p.className = 'p';
+      const s = 8 + Math.random() * 13;
+      p.style.cssText = `left:${Math.random()*100}%;width:${s}px;height:${s}px;background:${cols[Math.floor(Math.random()*cols.length)]};animation-duration:${8+Math.random()*10}s;animation-delay:${Math.random()*14}s;`;
+      pc.appendChild(p);
+    }
+
+    /* ── Nav ── */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+    document.getElementById('navToggle').addEventListener('click', () => nav.classList.toggle('open'));
+
+    /* ── STATIC SHOWS (verified from Bandsintown Apr 2026) ── */
+    const STATIC_UPCOMING = [
+      {
+        datetime: '2026-04-10T00:00:00',
+        venue: { name: 'Coachella Valley Music and Arts Festival', city: 'Indio', country: 'US' },
+        title: 'Coachella Valley Music and Arts Festival 2026',
+        festival: true,
+        offers: [{ url: 'https://www.coachella.com', status: 'available' }],
+        dateRange: 'Apr 10 – 12'
+      },
+      {
+        datetime: '2026-04-17T00:00:00',
+        venue: { name: 'Coachella Valley Music and Arts Festival', city: 'Indio', country: 'US' },
+        title: 'Coachella Valley Music and Arts Festival 2026',
+        festival: true,
+        offers: [{ url: 'https://www.coachella.com', status: 'available' }],
+        dateRange: 'Apr 17 – 19'
+      }
+    ];
+
+    /* ── Build show card ── */
+    function buildCard(event, isPast) {
+      const d = new Date(event.datetime);
+      const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      const day   = d.getDate();
+      const month = MONTHS[d.getMonth()];
+      const year  = d.getFullYear();
+
+      const venue      = event.venue?.name || 'TBA';
+      const city       = event.venue?.city || '';
+      const country    = event.venue?.country || '';
+      const location   = [city, country].filter(Boolean).join(', ');
+      const isFestival = event.festival || event.title?.toLowerCase().includes('festival');
+      const isSoldOut  = event.offers?.every(o => o.status === 'unavailable');
+      const dateRange  = event.dateRange || null;
+
+      const tags = [];
+      if (isFestival) tags.push('<span class="show-tag tag-festival">✦ Festival</span>');
+      else            tags.push('<span class="show-tag tag-headline">Headline</span>');
+      if (isSoldOut)  tags.push('<span class="show-tag tag-sold-out">Sold Out</span>');
+
+      return `
+        <div class="show-card${isPast ? ' past' : ''} reveal">
+          <div class="show-date">
+            ${dateRange
+              ? `<div class="show-day" style="font-size:1.1rem;line-height:1.3">${dateRange}</div><div class="show-month">${month}</div><div class="show-year">${year}</div>`
+              : `<div class="show-day">${day}</div><div class="show-month">${month}</div><div class="show-year">${year}</div>`
+            }
+          </div>
+          <div class="show-info">
+            <div class="show-venue">${venue}</div>
+            <div class="show-location">${location || 'Location TBA'}</div>
+            <div class="show-tags">${tags.join('')}</div>
+          </div>
+        </div>`;
+    }
+
+    /* ── Render shows ── */
+    function renderShows(upcoming, past, source) {
+      document.getElementById('loading').style.display = 'none';
+
+      if (upcoming.length === 0) {
+        document.getElementById('no-shows').style.display = 'block';
+        document.getElementById('no-shows').classList.add('visible');
+        return;
+      }
+
+      document.getElementById('shows-list').style.display = 'block';
+      document.getElementById('shows-count').textContent =
+        `${upcoming.length} upcoming show${upcoming.length !== 1 ? 's' : ''}`;
+
+      const sourceEl = document.querySelector('.shows-source');
+      if (sourceEl) sourceEl.textContent = source;
+
+      const upContainer = document.getElementById('upcoming-shows');
+      upcoming.forEach(ev => upContainer.insertAdjacentHTML('beforeend', buildCard(ev, false)));
+
+      if (past.length > 0) {
+        document.getElementById('past-toggle').style.display = 'block';
+        past.forEach(ev => document.getElementById('past-list').insertAdjacentHTML('beforeend', buildCard(ev, true)));
+        document.getElementById('past-btn').addEventListener('click', function() {
+          const open = document.getElementById('past-list').style.display === 'block';
+          document.getElementById('past-list').style.display = open ? 'none' : 'block';
+          this.textContent = open ? 'Show past shows' : 'Hide past shows';
+          if (!open) document.getElementById('past-list').querySelectorAll('.reveal')
+            .forEach(el => setTimeout(() => el.classList.add('visible'), 50));
+        });
+      }
+
+      setTimeout(() => {
+        document.querySelectorAll('.reveal:not(.visible)').forEach(el => observer.observe(el));
+      }, 80);
+    }
+
+    /* ── Try live fetch, fallback to static ── */
+    async function fetchShows() {
+      const BASE    = `https://rest.bandsintown.com/artists/${encodeURIComponent('Sabrina Carpenter')}`;
+      const PROXIES = [
+        url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+        url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+        url => `https://thingproxy.freeboard.io/fetch/${url}`,
+      ];
+
+      async function tryFetch(url) {
+        for (const proxy of PROXIES) {
+          try {
+            const res = await fetch(proxy(url), { signal: AbortSignal.timeout(5000) });
+            if (!res.ok) continue;
+            const data = await res.json();
+            if (Array.isArray(data) && data.length > 0) return data;
+          } catch { continue; }
+        }
+        return null;
+      }
+
+      const liveUpcoming = await tryFetch(`${BASE}/events?app_id=1&date=upcoming`);
+
+      if (liveUpcoming && liveUpcoming.length > 0) {
+        const livePast = await tryFetch(`${BASE}/events?app_id=1&date=past&per_page=8`) || [];
+        renderShows(liveUpcoming, livePast, 'live · via Bandsintown');
+      } else {
+        // use static verified data
+        renderShows(STATIC_UPCOMING, [], 'verified Apr 2026 · check Bandsintown for updates');
+      }
+    }
+
+    fetchShows();
+
+    /* ── Reveal ── */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach(r => observer.observe(r));
+  </script>
+</body>
+</html>
