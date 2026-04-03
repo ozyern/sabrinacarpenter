@@ -8,7 +8,7 @@
 
 # 🎀 sabrina
 
-### *a fan's love letter, written in html & css*
+### *a fan's love , written in html & css*
 
 ```
  ✦ ˚  ·    ✦   ˚ · .  ✦  ˚   ·    ✦ ˚  ·    ✦   ˚ · .  ✦
@@ -61,7 +61,9 @@ Built from scratch with pure HTML, CSS, and vanilla JS. No frameworks. No librar
 
 Inspired by the warmth of *Short n' Sweet*, the nostalgia of *emails i can't send*, and the general feeling of listening to Sabrina on a rainy afternoon.
 
-Color palette — rose · blush · lavender · cream · gold
+Color palette — uses Sabrina's favourite coloros - blue , yellow 
+
+Uses a api to detect her upcoming shows from Bandistown 
 
 ---
 
