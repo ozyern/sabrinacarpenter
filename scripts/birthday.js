@@ -36,13 +36,13 @@
         box-shadow: 0 16px 36px rgba(13, 31, 45, 0.16), 0 0 0 rgba(255, 193, 7, 0);
         backdrop-filter: blur(10px);
         overflow: hidden;
-        transition: opacity 0.45s cubic-bezier(.22,.61,.36,1), transform 0.45s cubic-bezier(.22,.61,.36,1), box-shadow 0.45s ease;
+        transition: opacity 0.62s cubic-bezier(.2,.7,.2,1), transform 0.62s cubic-bezier(.2,.7,.2,1), box-shadow 0.62s cubic-bezier(.22,.61,.36,1);
       }
 
       .birthday-banner.is-visible {
         opacity: 1;
         transform: translate(-50%, 0);
-        animation: birthdayBannerPulse 2.8s ease-in-out 0.35s 3;
+        animation: birthdayBannerPulse 3.6s cubic-bezier(.28,.58,.26,1) 0.45s 2;
       }
 
       .birthday-banner::before {
@@ -52,7 +52,7 @@
         background: linear-gradient(120deg, transparent 12%, rgba(255,255,255,.62) 42%, transparent 72%);
         transform: translateX(-140%);
         pointer-events: none;
-        animation: birthdayBannerShine 4.4s ease-in-out 0.5s infinite;
+        animation: birthdayBannerShine 5.8s cubic-bezier(.26,.59,.28,1) 0.65s infinite;
       }
 
       .birthday-banner-message {
@@ -79,12 +79,12 @@
         font-size: 0.9rem;
         line-height: 1;
         cursor: pointer;
-        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+        transition: transform 0.26s cubic-bezier(.22,.61,.36,1), background 0.26s cubic-bezier(.22,.61,.36,1), border-color 0.26s cubic-bezier(.22,.61,.36,1);
       }
 
       .birthday-banner-close:hover,
       .birthday-banner-close:focus-visible {
-        transform: scale(1.05);
+        transform: scale(1.03);
         background: rgba(255, 248, 220, 0.95);
         border-color: rgba(255, 193, 7, 0.55);
         outline: none;
@@ -137,26 +137,26 @@
           radial-gradient(38vw 38vw at 14% 66%, rgba(255, 238, 176, .42), transparent 70%),
           radial-gradient(36vw 36vw at 83% 26%, rgba(173, 216, 230, .35), transparent 70%),
           radial-gradient(26vw 26vw at 52% 12%, rgba(255, 193, 7, .25), transparent 72%);
-        animation: birthdayAuraPulse 5.2s ease-in-out infinite;
+        animation: birthdayAuraPulse 7.2s cubic-bezier(.25,.56,.28,1) infinite;
       }
 
       .birthday-atmosphere::after {
         background: conic-gradient(from 110deg at 50% 50%, rgba(255,255,255,.08), rgba(255,215,0,.16), rgba(173,216,230,.18), rgba(255,255,255,.08));
         filter: blur(42px);
         mix-blend-mode: screen;
-        animation: birthdayAuraDrift 7.8s linear infinite;
+        animation: birthdayAuraDrift 10.4s cubic-bezier(.3,.55,.25,1) infinite;
       }
 
       @keyframes birthdayAuraPulse {
         0%,
         100% {
-          opacity: .42;
+          opacity: .44;
           transform: scale(1);
         }
 
         50% {
-          opacity: .7;
-          transform: scale(1.07);
+          opacity: .62;
+          transform: scale(1.04);
         }
       }
 
@@ -166,7 +166,7 @@
         }
 
         50% {
-          transform: rotate(5deg) scale(1.04);
+          transform: rotate(3deg) scale(1.03);
         }
 
         100% {
@@ -181,8 +181,9 @@
         width: var(--size, 8px);
         height: var(--size, 8px);
         opacity: 0;
-        transform: translate(-50%, -50%) scale(.2);
-        animation: birthdayTwinkle var(--dur, 2.8s) ease-in-out var(--delay, 0ms) infinite;
+        transform: translate(-50%, -50%) scale(.35);
+        animation: birthdayTwinkle var(--dur, 3.4s) cubic-bezier(.3,.55,.28,1) var(--delay, 0ms) infinite;
+        will-change: transform, opacity;
       }
 
       .birthday-twinkle::before,
@@ -210,17 +211,17 @@
         0%,
         100% {
           opacity: 0;
-          transform: translate(-50%, -50%) scale(.2);
+          transform: translate(-50%, -50%) scale(.35);
         }
 
-        35% {
-          opacity: .8;
-          transform: translate(-50%, -50%) scale(1);
+        42% {
+          opacity: .72;
+          transform: translate(-50%, -50%) scale(.98);
         }
 
-        65% {
-          opacity: .3;
-          transform: translate(-50%, -50%) scale(.7);
+        72% {
+          opacity: .28;
+          transform: translate(-50%, -50%) scale(.76);
         }
       }
 
@@ -249,7 +250,8 @@
         box-shadow: inset -8px -12px 16px rgba(13,31,45,.1), 0 10px 18px rgba(13,31,45,.12);
         opacity: 0;
         transform: translate3d(0, 0, 0) rotate(var(--rot-start, -6deg));
-        animation: birthdayBalloonRise var(--dur, 10.5s) linear forwards;
+        animation: birthdayBalloonRise var(--dur, 11.8s) cubic-bezier(.27,.62,.2,1) forwards;
+        will-change: transform, opacity;
       }
 
       .birthday-balloon::before {
@@ -282,13 +284,19 @@
           transform: translate3d(0, 0, 0) rotate(var(--rot-start, -6deg));
         }
 
-        8% {
-          opacity: .92;
+        10% {
+          opacity: .86;
+          transform: translate3d(calc(var(--drift, 0px) * .08), -10vh, 0) rotate(calc(var(--rot-start, -6deg) + 2deg));
         }
 
-        45% {
+        55% {
           opacity: .95;
-          transform: translate3d(calc(var(--drift, 0px) * .4), -54vh, 0) rotate(var(--rot-mid, 6deg));
+          transform: translate3d(calc(var(--drift, 0px) * .48), -58vh, 0) rotate(var(--rot-mid, 6deg));
+        }
+
+        84% {
+          opacity: .62;
+          transform: translate3d(calc(var(--drift, 0px) * .82), -96vh, 0) rotate(calc(var(--rot-mid, 6deg) + 2deg));
         }
 
         100% {
@@ -308,7 +316,8 @@
         box-shadow: 0 10px 18px rgba(13,31,45,.16);
         opacity: 0;
         transform: translate3d(0, 0, 0) rotate(var(--spin, 0deg));
-        animation: birthdayRibbonFall var(--dur, 5.8s) cubic-bezier(.22,.66,.2,1) forwards;
+        animation: birthdayRibbonFall var(--dur, 6.4s) cubic-bezier(.22,.66,.2,1) forwards;
+        will-change: transform, opacity;
       }
 
       .birthday-ribbon::after {
@@ -325,18 +334,24 @@
           transform: translate3d(0, 0, 0) rotate(var(--spin, 0deg));
         }
 
-        8% {
-          opacity: .95;
+        10% {
+          opacity: .9;
+          transform: translate3d(calc(var(--drift, 0px) * .06), 10vh, 0) rotate(calc(var(--spin, 0deg) + 120deg));
         }
 
-        56% {
-          opacity: .95;
-          transform: translate3d(calc(var(--drift, 0px) * .62), 58vh, 0) rotate(calc(var(--spin, 0deg) + 520deg));
+        58% {
+          opacity: .92;
+          transform: translate3d(calc(var(--drift, 0px) * .58), 62vh, 0) rotate(calc(var(--spin, 0deg) + 560deg));
+        }
+
+        84% {
+          opacity: .52;
+          transform: translate3d(calc(var(--drift, 0px) * .86), 96vh, 0) rotate(calc(var(--spin, 0deg) + 760deg));
         }
 
         100% {
           opacity: 0;
-          transform: translate3d(var(--drift, 0px), 122vh, 0) rotate(calc(var(--spin, 0deg) + 860deg));
+          transform: translate3d(var(--drift, 0px), 122vh, 0) rotate(calc(var(--spin, 0deg) + 920deg));
         }
       }
 
@@ -388,17 +403,24 @@
         transform-origin: 50% 100%;
         opacity: 0;
         transform: translate(-50%, -50%) rotate(var(--angle, 0deg));
-        animation: birthdaySparkFly .82s cubic-bezier(.16,.84,.44,1) forwards;
+        animation: birthdaySparkFly .96s cubic-bezier(.2,.72,.28,1) forwards;
+        will-change: transform, opacity;
       }
 
       @keyframes birthdaySparkFly {
         0% {
           opacity: 0;
-          transform: translate(-50%, -50%) rotate(var(--angle, 0deg)) translateY(0) scaleY(.2);
+          transform: translate(-50%, -50%) rotate(var(--angle, 0deg)) translateY(0) scaleY(.25);
         }
 
-        22% {
-          opacity: 1;
+        18% {
+          opacity: .95;
+          transform: translate(-50%, -50%) rotate(var(--angle, 0deg)) translateY(calc(-0.18 * var(--distance, 34px))) scaleY(.74);
+        }
+
+        72% {
+          opacity: .56;
+          transform: translate(-50%, -50%) rotate(var(--angle, 0deg)) translateY(calc(-0.82 * var(--distance, 34px))) scaleY(1);
         }
 
         100% {
@@ -413,25 +435,25 @@
           box-shadow: 0 16px 36px rgba(13,31,45,.16), 0 0 0 rgba(255,193,7,0);
         }
 
-        50% {
-          box-shadow: 0 18px 42px rgba(13,31,45,.2), 0 0 0 10px rgba(255,193,7,.14);
+        48% {
+          box-shadow: 0 18px 40px rgba(13,31,45,.19), 0 0 0 8px rgba(255,193,7,.12);
         }
       }
 
       @keyframes birthdayBannerShine {
         0%,
-        22% {
+        28% {
           transform: translateX(-140%);
           opacity: 0;
         }
 
-        35% {
-          opacity: .9;
+        42% {
+          opacity: .82;
         }
 
-        56% {
+        68% {
           transform: translateX(140%);
-          opacity: .85;
+          opacity: .72;
         }
 
         100% {
@@ -540,13 +562,13 @@
       balloonsLayer.remove();
       ribbonsLayer.remove();
       fireworksLayer.remove();
-    }, 21500);
+    }, 23200);
   }
 
   function spawnAtmosphere(layer) {
     if (!layer || !layer.isConnected) return;
 
-    const totalTwinkles = window.matchMedia("(max-width: 760px)").matches ? 18 : 30;
+    const totalTwinkles = window.matchMedia("(max-width: 760px)").matches ? 14 : 24;
 
     for (let i = 0; i < totalTwinkles; i += 1) {
       const twinkle = document.createElement("span");
@@ -554,7 +576,7 @@
       twinkle.style.setProperty("--x", `${5 + Math.random() * 90}%`);
       twinkle.style.setProperty("--y", `${8 + Math.random() * 74}%`);
       twinkle.style.setProperty("--size", `${6 + Math.random() * 8}px`);
-      twinkle.style.setProperty("--dur", `${2.2 + Math.random() * 2.1}s`);
+      twinkle.style.setProperty("--dur", `${3.1 + Math.random() * 2.1}s`);
       twinkle.style.setProperty("--delay", `${Math.round(Math.random() * 1800)}ms`);
       layer.appendChild(twinkle);
     }
@@ -582,12 +604,12 @@
       const angle = s * (360 / sparkCount) + (Math.random() * jitter - jitter / 2);
       spark.style.setProperty("--angle", `${angle}deg`);
       spark.style.setProperty("--distance", `${distanceMin + Math.random() * distanceRange}px`);
-      spark.style.animationDelay = `${Math.random() * 120}ms`;
+      spark.style.animationDelay = `${Math.random() * 160}ms`;
       burst.appendChild(spark);
     }
 
     layer.appendChild(burst);
-    window.setTimeout(() => burst.remove(), 1100);
+    window.setTimeout(() => burst.remove(), 1450);
   }
 
   function popBalloon(balloon, burstLayer) {
@@ -610,10 +632,10 @@
 
   function spawnBalloonSet(layer, burstLayer, startDelay = 0) {
     const palette = ["#ffd700", "#ffe8a3", "#add8e6", "#c9f2ff", "#f8c8dc"];
-    const total = window.matchMedia("(max-width: 760px)").matches ? 9 : 16;
+    const total = window.matchMedia("(max-width: 760px)").matches ? 8 : 14;
 
     for (let i = 0; i < total; i += 1) {
-      const delay = startDelay + 120 + i * 220 + Math.random() * 210;
+      const delay = startDelay + 160 + i * 260 + Math.random() * 230;
       window.setTimeout(() => {
         if (!layer.isConnected) return;
 
@@ -621,7 +643,7 @@
         balloon.className = "birthday-balloon";
         balloon.style.left = `${6 + Math.random() * 88}%`;
         balloon.style.setProperty("--size", `${26 + Math.random() * 26}px`);
-        const riseDuration = 8.8 + Math.random() * 4.6;
+        const riseDuration = 9.8 + Math.random() * 4.8;
         balloon.style.setProperty("--dur", `${riseDuration}s`);
         balloon.style.setProperty("--drift", `${-90 + Math.random() * 180}px`);
         balloon.style.setProperty("--rot-start", `${-10 + Math.random() * 8}deg`);
@@ -631,7 +653,7 @@
         layer.appendChild(balloon);
 
         let popped = false;
-        const popDelay = Math.round(riseDuration * 1000 * (0.72 + Math.random() * 0.16));
+        const popDelay = Math.round(riseDuration * 1000 * (0.74 + Math.random() * 0.14));
         const popTimer = window.setTimeout(() => {
           if (!layer.isConnected || !burstLayer.isConnected || popped) return;
           popped = true;
@@ -650,10 +672,10 @@
 
   function spawnRibbonShower(layer, burstLayer) {
     const palette = ["#ffd700", "#ffefb0", "#add8e6", "#7fd8ff", "#f8c8dc"];
-    const total = window.matchMedia("(max-width: 760px)").matches ? 34 : 58;
+    const total = window.matchMedia("(max-width: 760px)").matches ? 26 : 44;
 
     for (let i = 0; i < total; i += 1) {
-      const delay = 260 + i * 95 + Math.random() * 110;
+      const delay = 280 + i * 120 + Math.random() * 140;
       window.setTimeout(() => {
         if (!layer.isConnected) return;
 
@@ -662,13 +684,13 @@
         ribbon.style.setProperty("--x", `${4 + Math.random() * 92}%`);
         ribbon.style.setProperty("--w", `${7 + Math.random() * 7}px`);
         ribbon.style.setProperty("--h", `${18 + Math.random() * 18}px`);
-        ribbon.style.setProperty("--dur", `${4.8 + Math.random() * 2.6}s`);
-        ribbon.style.setProperty("--drift", `${-120 + Math.random() * 240}px`);
+        ribbon.style.setProperty("--dur", `${5.8 + Math.random() * 2.8}s`);
+        ribbon.style.setProperty("--drift", `${-96 + Math.random() * 192}px`);
         ribbon.style.setProperty("--spin", `${Math.round(Math.random() * 360)}deg`);
         ribbon.style.setProperty("--color", palette[Math.floor(Math.random() * palette.length)]);
         layer.appendChild(ribbon);
 
-        if (burstLayer && burstLayer.isConnected && Math.random() < 0.2) {
+        if (burstLayer && burstLayer.isConnected && Math.random() < 0.15) {
           createBurst(
             burstLayer,
             window.innerWidth * (0.1 + Math.random() * 0.8),
@@ -687,10 +709,10 @@
 
   function spawnFirecrackerSet(layer, startDelay = 0) {
     const palette = ["#ffd700", "#ffefb0", "#add8e6", "#87ceeb", "#ffe1f2"];
-    const total = window.matchMedia("(max-width: 760px)").matches ? 6 : 10;
+    const total = window.matchMedia("(max-width: 760px)").matches ? 5 : 8;
 
     for (let i = 0; i < total; i += 1) {
-      const delay = startDelay + 420 + i * 360 + Math.random() * 230;
+      const delay = startDelay + 460 + i * 420 + Math.random() * 250;
       window.setTimeout(() => {
         if (!layer.isConnected) return;
 
