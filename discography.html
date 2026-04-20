@@ -33,7 +33,7 @@
       --spring:       cubic-bezier(0.19, 1, 0.22, 1);
       --speed:        1.2s;
 
-      /* 3D Parallax Variables */
+      /* Parallax Variables */
       --mx: 0;
       --my: 0;
     }
@@ -160,41 +160,54 @@
     }
     .mobile-menu a { font-weight: 600; font-size: 1.1rem; text-transform: uppercase; color: var(--espresso); text-align: center; }
 
-    /* ── PAGE HERO ── */
+    /* ── REDESIGNED EDITORIAL HERO ── */
     .page-hero {
-      min-height: 75vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
       text-align: center; padding: 180px 20px 80px; position: relative; z-index: 2; overflow: hidden;
     }
+    
     .hero-orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
-    .orb-1 { width: 500px; height: 500px; background: rgba(166, 25, 46, 0.1); top: -50px; left: -100px; animation: orbDrift 15s ease-in-out infinite alternate; }
-    .orb-2 { width: 450px; height: 450px; background: rgba(191, 225, 246, 0.3); bottom: -50px; right: -50px; animation: orbDrift 20s ease-in-out infinite alternate-reverse; }
+    .orb-1 { width: 500px; height: 500px; background: rgba(166, 25, 46, 0.1); top: 0; left: -10%; animation: orbDrift 15s ease-in-out infinite alternate; }
+    .orb-2 { width: 450px; height: 450px; background: rgba(191, 225, 246, 0.3); bottom: -10%; right: 0; animation: orbDrift 20s ease-in-out infinite alternate-reverse; }
     @keyframes orbDrift { 0% { transform: translate3d(0,0,0) scale(1); } 100% { transform: translate3d(8vw, 12vh, 0) scale(1.1); } }
 
-    /* Hardware Accelerated 3D Album Covers in Hero */
+    /* Floating Glass Accents (Editorial Style) */
     .floating-accent {
       position: absolute; border-radius: 24px; padding: 12px;
       background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-      border: 1px solid var(--glass-border); box-shadow: 0 30px 60px rgba(42, 27, 20, 0.15);
+      border: 1px solid var(--glass-border); box-shadow: 0 30px 70px rgba(42, 27, 20, 0.15);
       z-index: 1; pointer-events: none;
       will-change: transform;
     }
-    .floating-accent .art { border-radius: 12px; width: 100%; height: 100%; background-size: cover; background-position: center; }
+    .floating-accent .art { 
+      border-radius: 14px; width: 100%; height: 100%; 
+      background-size: cover; background-position: center; 
+    }
     
     .accent-left { 
-      top: 15%; left: 8%; width: 280px; aspect-ratio: 1;
-      transform: translate3d(calc(var(--mx) * -50px), calc(var(--my) * -50px), 0) rotate(-10deg);
-      transition: transform 0.2s cubic-bezier(0.1, 0.5, 0.3, 1);
+      top: 15%; left: 8%; width: 260px; aspect-ratio: 3/4; /* Portrait */
+      transform: translate3d(calc(var(--mx) * -40px), calc(var(--my) * -40px), 0) rotate(-6deg);
+      transition: transform 0.3s cubic-bezier(0.1, 0.5, 0.3, 1);
     }
-    .accent-left .art { background-image: url("images/emails i can't send.jpg"); }
+    .accent-left .art { background-image: url("images/sab_5.jpg"); }
     
     .accent-right { 
-      bottom: 10%; right: 8%; width: 320px; aspect-ratio: 1;
-      transform: translate3d(calc(var(--mx) * 60px), calc(var(--my) * 60px), 0) rotate(8deg);
-      transition: transform 0.2s cubic-bezier(0.1, 0.5, 0.3, 1);
+      bottom: 10%; right: 8%; width: 320px; aspect-ratio: 4/5; /* Slightly wider portrait */
+      transform: translate3d(calc(var(--mx) * 50px), calc(var(--my) * 50px), 0) rotate(8deg);
+      transition: transform 0.3s cubic-bezier(0.1, 0.5, 0.3, 1);
     }
-    .accent-right .art { background-image: url("images/Short n' Sweet.jpg"); }
+    .accent-right .art { background-image: url("images/sab_6.jpg"); }
 
-    .page-hero-inner { max-width: 900px; width: 100%; position: relative; z-index: 3; animation: revealUp 1.2s var(--spring) forwards; }
+    /* Hero Text & Glow */
+    .page-hero-inner { 
+      max-width: 900px; width: 100%; position: relative; z-index: 3; 
+      animation: revealUp 1.2s var(--spring) forwards; 
+    }
+    .hero-glow {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 140%; height: 140%; background: radial-gradient(circle, rgba(255,253,249,0.85) 0%, transparent 65%);
+      z-index: -1; pointer-events: none;
+    }
     
     .page-eyebrow {
       font-weight: 600; font-size: 0.85rem; letter-spacing: 0.4em; text-transform: uppercase;
@@ -203,7 +216,7 @@
       box-shadow: 0 12px 32px rgba(166, 25, 46, 0.15); border: 1px solid rgba(255,255,255,0.8);
     }
     .page-title {
-      font-family: 'Great Vibes', cursive; font-size: clamp(5.5rem, 16vw, 13rem);
+      font-family: 'Great Vibes', cursive; font-size: clamp(6rem, 16vw, 14rem);
       line-height: 0.85; color: var(--espresso); margin-bottom: 8px;
       text-shadow: 0 12px 40px rgba(255,255,255,0.9);
     }
@@ -257,46 +270,33 @@
       letter-spacing: -0.03em; user-select: none; text-shadow: 0 4px 12px rgba(166, 25, 46, 0.1);
     }
     .era-info { padding-bottom: 8px; }
-    .era-label {
-      font-weight: 600; font-size: 0.8rem; letter-spacing: 0.4em; text-transform: uppercase;
-      color: var(--cherry); margin-bottom: 8px;
-    }
-    .era-name {
-      font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400;
-      font-size: clamp(2rem, 4vw, 3.5rem); color: var(--espresso); line-height: 1.1;
-    }
+    .era-label { font-weight: 600; font-size: 0.8rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--cherry); margin-bottom: 8px; }
+    .era-name { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: clamp(2rem, 4vw, 3.5rem); color: var(--espresso); line-height: 1.1; }
 
-    /* ── 3D ALBUM LAYOUT ── */
+    /* ── ALBUM LAYOUT ── */
     .album-layout { display: grid; grid-template-columns: 360px 1fr; gap: 64px; align-items: start; margin-bottom: 80px; }
     .album-layout:last-child { margin-bottom: 0; }
     .album-layout.reverse { grid-template-columns: 1fr 360px; }
     .album-layout.reverse .album-cover-wrap { order: 2; }
     .album-layout.reverse .album-detail { order: 1; }
 
-    /* Physical 3D Cover Art */
-    .album-cover-wrap { position: sticky; top: 180px; perspective: 1200px; }
+    /* Cover Art */
+    .album-cover-wrap { position: sticky; top: 180px; }
     .album-cover {
       width: 100%; aspect-ratio: 1; border-radius: 32px; overflow: hidden;
       box-shadow: 0 20px 50px rgba(42, 27, 20, 0.1); position: relative;
-      transform: rotateX(0) rotateY(0) translateZ(0);
       transition: transform var(--speed) var(--spring), box-shadow var(--speed) var(--spring);
     }
-    /* The 3D Pop Effect */
-    .album-cover:hover { 
-      transform: rotateX(4deg) rotateY(-4deg) translate3d(0, -16px, 30px) scale(1.04); 
-      box-shadow: -16px 40px 80px rgba(166, 25, 46, 0.2); z-index: 10; 
-    }
+    .album-cover:hover { transform: translate3d(0, -12px, 0) scale(1.03) rotate(-1deg); box-shadow: 0 40px 80px rgba(166, 25, 46, 0.15); z-index: 10; }
     
-    .album-cover-art { width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; position: relative; }
+    .album-cover-art { width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; }
     
     .cover-badge {
       position: absolute; bottom: -16px; right: -16px;
       background: var(--butter); border-radius: 50%; width: 80px; height: 80px;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       box-shadow: 0 12px 32px rgba(42, 27, 20, 0.15); border: 2px solid rgba(255,255,255,0.8);
-      transition: transform var(--speed) var(--spring);
     }
-    .album-cover:hover .cover-badge { transform: translate3d(10px, 10px, 20px) scale(1.1); }
     .cover-badge span:first-child { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--cherry); line-height: 1; }
     .cover-badge span:last-child { font-weight: 600; font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--espresso); margin-top: 4px; }
     
@@ -327,8 +327,7 @@
       border-bottom: 1px solid rgba(42, 27, 20, 0.05); border-radius: 16px;
       transition: background 0.3s ease, transform 0.4s var(--spring); position: relative;
     }
-    /* Snappy Hover */
-    .track:hover { background: rgba(253, 229, 233, 0.5); transform: translateX(12px) scale(1.01); box-shadow: 0 8px 24px rgba(166, 25, 46, 0.08); z-index: 2; }
+    .track:hover { background: rgba(253, 229, 233, 0.5); transform: translateX(8px); }
     .track:last-child { border-bottom: none; }
     .track-num { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.2rem; color: rgba(42, 27, 20, 0.4); width: 24px; text-align: right; flex-shrink: 0; transition: opacity 0.3s ease; }
     .track:hover .track-num { opacity: 0; }
@@ -338,7 +337,7 @@
     }
     .track:hover .track-play { opacity: 1; }
     .track-name { font-weight: 500; font-size: 1.05rem; color: var(--espresso); flex: 1; transition: color 0.3s ease; }
-    .track:hover .track-name { color: var(--cherry); font-weight: 600; }
+    .track:hover .track-name { color: var(--cherry); }
     .track-feat { font-style: italic; color: rgba(42, 27, 20, 0.6); font-size: 0.95rem; font-weight: 400; }
     .track-flag { font-weight: 600; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; background: var(--baby-blue); color: var(--espresso); padding: 4px 12px; border-radius: 50px; flex-shrink: 0; }
     .track-flag.bonus { background: var(--pale-pink); color: var(--cherry); }
@@ -373,15 +372,15 @@
     /* ── ULTRA-FLUID REVEALS ── */
     .reveal { 
       opacity: 0; 
-      transform: translate3d(0, 80px, 0) rotate(2deg) scale(0.92); 
+      transform: translate3d(0, 60px, 0) scale(0.96); 
       transition: opacity 1s ease-out, transform var(--speed) var(--spring); 
       will-change: transform, opacity; 
     }
-    .reveal.visible { opacity: 1; transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+    .reveal.visible { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
     
     @keyframes revealUp {
-      from { opacity: 0; transform: translate3d(0, 60px, 0) rotate(1deg) scale(0.95); filter: blur(8px); }
-      to { opacity: 1; transform: translate3d(0, 0, 0) rotate(0deg) scale(1); filter: blur(0); }
+      from { opacity: 0; transform: translate3d(0, 60px, 0) scale(0.95); filter: blur(8px); }
+      to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
     }
 
     /* ── RESPONSIVE ── */
@@ -403,10 +402,9 @@
       .album-layout, .album-layout.reverse { grid-template-columns: 1fr; gap: 40px; }
       .album-layout.reverse .album-cover-wrap { order: 0; }
       .album-layout.reverse .album-detail { order: 0; }
-      .album-cover-wrap { position: static; max-width: 320px; margin: 0 auto; perspective: none; }
-      .album-cover:hover { transform: translate3d(0, -8px, 0) scale(1.02); }
+      .album-cover-wrap { position: static; max-width: 320px; margin: 0 auto; }
       
-      .floating-accent { display: none; } /* Hide floating 3D hero cards on mobile */
+      .floating-accent { display: none; } /* Hide floating hero cards on mobile */
 
       .footer-top { flex-direction: column; text-align: center; }
     }
@@ -458,14 +456,14 @@
       <div class="hero-orb orb-2"></div>
       
       <div class="floating-accent accent-left">
-        <div class="art ac-eics"></div>
+        <div class="art"></div>
       </div>
       <div class="floating-accent accent-right">
-        <div class="art ac-sns"></div>
+        <div class="art"></div>
       </div>
 
       <div class="page-hero-inner">
-        <span class="page-eyebrow">✦ every song, every era ✦</span>
+        <div class="hero-glow"></div> <span class="page-eyebrow">✦ every song, every era ✦</span>
         <h1 class="page-title">Discography</h1>
         <p class="page-title-sub">From 2015 to now — a universe of sound</p>
       </div>
