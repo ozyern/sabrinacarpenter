@@ -38,12 +38,13 @@
       box-sizing: border-box; margin: 0; padding: 0; 
       cursor: none !important; 
     }
-    html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
+    html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; width: 100%; max-width: 100vw; }
     
     body {
       font-family: 'Jost', sans-serif;
       color: var(--espresso);
       overflow-x: hidden; opacity: 0;
+      width: 100%; max-width: 100vw; position: relative;
       animation: pageIn 0.8s var(--spring) forwards;
       -webkit-font-smoothing: antialiased;
       background-color: var(--butter);
@@ -51,7 +52,7 @@
 
     /* ── HARDWARE-DECOUPLED AMBIENT BACKGROUND ── */
     .ambient-bg {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       z-index: -1; pointer-events: none;
       background-color: var(--butter);
       background-image: radial-gradient(circle at 10% 20%, rgba(191, 225, 246, 0.3) 0%, transparent 60%),
@@ -92,19 +93,36 @@
 
     /* ── FLOATING GLASS HEADER ── */
     .header-wrapper {
-      position: fixed; top: 24px; left: 0; width: 100%;
-      display: flex; flex-direction: column; align-items: center; z-index: 1000;
-      padding: 0 20px; pointer-events: none;
+      position: fixed;
+      top: 16px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 1000;
+      padding: 0 12px;
+      pointer-events: none;
     }
     
     header {
       pointer-events: auto;
-      width: 100%; max-width: 900px;
+      width: 100%;
+      max-width: 850px;
       background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
       border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);
-      border-radius: 100px; padding: 8px 16px 8px 32px;
-      display: flex; align-items: center; justify-content: space-between;
-      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px 8px 20px;
+      border-radius: 100px;
+      transition: all 0.4s var(--spring);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     
     .nav-logo { display: flex; align-items: center; justify-content: center; height: 38px; }
@@ -141,13 +159,24 @@
     }
     
     .mobile-menu {
-      display: none; /* Hard hidden on desktop to prevent glitches */
-      width: 100%; max-width: 900px; margin-top: 12px; pointer-events: auto;
-      background: rgba(255, 253, 249, 0.98); border: 1px solid var(--glass-border); 
-      border-radius: 24px; box-shadow: var(--glass-shadow);
-      flex-direction: column; gap: 16px; padding: 0;
-      max-height: 0; overflow: hidden; opacity: 0;
-      transition: max-height 0.4s ease, padding 0.4s ease, opacity 0.4s ease;
+      display: none;
+      width: 95%;
+      max-width: 400px;
+      margin-top: 8px;
+      pointer-events: auto;
+      flex-direction: column;
+      gap: 12px;
+      padding: 20px;
+      border-radius: 24px;
+      opacity: 0;
+      transform: translateY(-10px) scale(0.95);
+      transition: all 0.4s var(--spring);
+    }
+
+    .header-wrapper.open .mobile-menu {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
 
     /* ── OPEN-AIR HERO ── */
@@ -322,14 +351,21 @@
     .delay-2 { transition-delay: 0.2s; }
 
     /* ── RESPONSIVE MOBILE MENU FIX ── */
-    @media (max-width: 900px) {
+    @media (max-width: 768px) {
       .nav-links, .nav-btn { display: none; }
-      .menu-toggle { display: flex; }
-      header { padding: 12px 16px 12px 24px; }
+      .menu-toggle { display: flex; margin: 0; padding: 4px; }
+      .nav-actions { gap: 0; }
       
-      /* Mobile Menu activated by JS class */
-      .mobile-menu { display: flex; }
-      .header-wrapper.open .mobile-menu { max-height: 400px; padding: 24px; opacity: 1; pointer-events: auto; }
+      header {
+        max-width: max-content; /* Dynamic sizing to avoid squash */
+        width: auto;
+        padding: 8px 16px 8px 24px;
+        justify-content: space-between;
+        gap: 32px;
+      }
+      
+      .nav-logo { height: 26px; }
+
       .header-wrapper.open .menu-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
       .header-wrapper.open .menu-toggle span:nth-child(2) { opacity: 0; }
       .header-wrapper.open .menu-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -356,24 +392,27 @@
   <div id="cur-ring"></div>
 
   <div class="header-wrapper" id="header-wrapper">
-    <header id="header">
+    <header id="header" class="liquid-glass">
       <a href="/" class="nav-logo" aria-label="Sabrina Home">
         <img src="images/logo.webp" alt="Sabrina Logo" />
       </a>
+      
       <ul class="nav-links">
         <li><a href="/" class="nav-active">Home</a></li>
         <li><a href="/about">About</a></li>
         <li><a href="/discography">Music</a></li>
         <li><a href="/gallery">Gallery</a></li>
       </ul>
-      <a href="/discography" class="nav-btn">Listen Now</a>
-      
-      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
+
+      <div class="nav-actions">
+        <a href="/discography" class="nav-btn">Listen Now</a>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </header>
     
-    <div class="mobile-menu">
+    <div class="mobile-menu liquid-glass">
       <a href="/">Home</a>
       <a href="/about">About</a>
       <a href="/discography">Music</a>
