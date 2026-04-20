@@ -13,6 +13,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Great+Vibes&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/performance.css" />
   
   <style>
     /* ── RTX ULTRA TOKENS ── */
@@ -909,23 +910,30 @@
 
   </main>
 
+  <script src="scripts/performance.js"></script>
   <script>
+    const perfMode = window.__SAB_PERF_MODE__ === true;
+
     /* ── Dynamic Parallax Mouse Tracking ── */
-    document.addEventListener('mousemove', (e) => {
-      const x = (e.clientX / window.innerWidth) - 0.5;
-      const y = (e.clientY / window.innerHeight) - 0.5;
-      document.documentElement.style.setProperty('--mx', x);
-      document.documentElement.style.setProperty('--my', y);
-    });
+    if (!perfMode) {
+      document.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth) - 0.5;
+        const y = (e.clientY / window.innerHeight) - 0.5;
+        document.documentElement.style.setProperty('--mx', x);
+        document.documentElement.style.setProperty('--my', y);
+      });
+    }
 
     /* ── Falling Petals ── */
     const pc = document.getElementById('petals');
-    const pColors = ['#FDE5E9', '#BFE1F6', '#FFFDF9'];
-    for (let i = 0; i < 35; i++) {
-      const p = document.createElement('div'); p.className = 'petal';
-      const s = 12 + Math.random() * 24;
-      p.style.cssText = `left:${Math.random()*100}vw; width:${s}px; height:${s}px; background:${pColors[Math.floor(Math.random()*3)]}; animation-duration:${8+Math.random()*12}s; animation-delay:${Math.random()*15}s;`;
-      pc.appendChild(p);
+    if (!perfMode && pc) {
+      const pColors = ['#FDE5E9', '#BFE1F6', '#FFFDF9'];
+      for (let i = 0; i < 35; i++) {
+        const p = document.createElement('div'); p.className = 'petal';
+        const s = 12 + Math.random() * 24;
+        p.style.cssText = `left:${Math.random()*100}vw; width:${s}px; height:${s}px; background:${pColors[Math.floor(Math.random()*3)]}; animation-duration:${8+Math.random()*12}s; animation-delay:${Math.random()*15}s;`;
+        pc.appendChild(p);
+      }
     }
 
     /* ── Mobile Toggle Fix ── */
@@ -942,7 +950,7 @@
     const ring = document.getElementById('cur-ring');
     const isMobile = window.matchMedia('(hover: none), (pointer: coarse)').matches;
 
-    if (isMobile) {
+    if (isMobile || perfMode) {
       cur.style.display = 'none'; ring.style.display = 'none';
       document.documentElement.style.cursor = 'auto';
       document.body.style.cursor = 'auto';

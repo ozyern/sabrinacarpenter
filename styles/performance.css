@@ -1,0 +1,57 @@
+/* Global performance fallback for low-power or touch devices */
+html.perf-mode {
+  scroll-behavior: auto !important;
+}
+
+html.perf-mode *,
+html.perf-mode *::before,
+html.perf-mode *::after {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+html.perf-mode #cur,
+html.perf-mode #cur-ring,
+html.perf-mode #petals,
+html.perf-mode .petal,
+html.perf-mode .floating-accent,
+html.perf-mode .orb,
+html.perf-mode .orb-1,
+html.perf-mode .orb-2 {
+  display: none !important;
+  animation: none !important;
+}
+
+html.perf-mode .ticker-track,
+html.perf-mode .reveal,
+html.perf-mode .g-card,
+html.perf-mode .album-card,
+html.perf-mode .tl-item {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+}
+
+html.perf-mode .liquid-glass,
+html.perf-mode header,
+html.perf-mode .mobile-menu,
+html.perf-mode .intro-img,
+html.perf-mode .intro-text-card,
+html.perf-mode .tl-item,
+html.perf-mode .tour-card,
+html.perf-mode .album-info,
+html.perf-mode .image-modal,
+html.perf-mode .filter-wrap,
+html.perf-mode .show-card,
+html.perf-mode .page-eyebrow,
+html.perf-mode .hero-desc {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+html.perf-mode.is-scrolling .reveal,
+html.perf-mode.is-scrolling .album-card,
+html.perf-mode.is-scrolling .g-card,
+html.perf-mode.is-scrolling .tl-item,
+html.perf-mode.is-scrolling .show-card {
+  transition: none !important;
+}
