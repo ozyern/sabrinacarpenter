@@ -103,7 +103,7 @@ sabrina/
 
 ## ✦ contributing
 
-This is a personal fan project but if you're also a Sabrina fan and want to contribute — open a PR. Fellow fans welcome.
+This is a personal fan project but if you're also a Sabrina fan and want to contribute — fork the repo . Fellow fans welcome.
 
 ---
 
