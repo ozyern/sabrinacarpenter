@@ -168,9 +168,27 @@
       gap: 12px;
       padding: 20px;
       border-radius: 24px;
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
       opacity: 0;
       transform: translateY(-10px) scale(0.95);
       transition: all 0.4s var(--spring);
+    }
+
+    .mobile-menu a {
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(42, 27, 20, 0.8);
+      text-align: center;
+      padding: 8px;
+    }
+    .mobile-menu a:hover {
+      color: var(--cherry);
     }
 
     .header-wrapper.open .mobile-menu {
