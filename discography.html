@@ -24,7 +24,7 @@
       --pale-pink:    #FDE5E9;
       
       /* Premium Liquid Glass */
-      --glass-bg:     rgba(255, 253, 249, 0.7);
+      --glass-bg:     rgba(255, 253, 249, 0.65);
       --glass-blur:   blur(24px) saturate(180%);
       --glass-border: rgba(255, 255, 255, 0.7);
       --glass-shadow: 0 16px 40px rgba(42, 27, 20, 0.08);
@@ -53,7 +53,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ISOLATED APP WRAPPER */
+    /* ISOLATED APP WRAPPER (Prevents Cursor Trapping) */
     #app-wrapper {
       opacity: 0;
       animation: pageIn 1s var(--spring) forwards;
@@ -160,7 +160,7 @@
     }
     .mobile-menu a { font-weight: 600; font-size: 1.1rem; text-transform: uppercase; color: var(--espresso); text-align: center; }
 
-    /* ── 3D PARALLAX HERO ── */
+    /* ── PAGE HERO ── */
     .page-hero {
       min-height: 75vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
       text-align: center; padding: 180px 20px 80px; position: relative; z-index: 2; overflow: hidden;
@@ -273,7 +273,7 @@
     .album-layout.reverse .album-cover-wrap { order: 2; }
     .album-layout.reverse .album-detail { order: 1; }
 
-    /* 3D Cover Art */
+    /* Physical 3D Cover Art */
     .album-cover-wrap { position: sticky; top: 180px; perspective: 1200px; }
     .album-cover {
       width: 100%; aspect-ratio: 1; border-radius: 32px; overflow: hidden;
@@ -287,14 +287,16 @@
       box-shadow: -16px 40px 80px rgba(166, 25, 46, 0.2); z-index: 10; 
     }
     
-    .album-cover-art { width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; }
+    .album-cover-art { width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; position: relative; }
     
     .cover-badge {
       position: absolute; bottom: -16px; right: -16px;
       background: var(--butter); border-radius: 50%; width: 80px; height: 80px;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       box-shadow: 0 12px 32px rgba(42, 27, 20, 0.15); border: 2px solid rgba(255,255,255,0.8);
+      transition: transform var(--speed) var(--spring);
     }
+    .album-cover:hover .cover-badge { transform: translate3d(10px, 10px, 20px) scale(1.1); }
     .cover-badge span:first-child { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--cherry); line-height: 1; }
     .cover-badge span:last-child { font-weight: 600; font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--espresso); margin-top: 4px; }
     
@@ -305,7 +307,7 @@
       backdrop-filter: var(--glass-blur); padding: 12px 24px; border-radius: 50px;
       transition: all 0.4s var(--spring); box-shadow: var(--glass-shadow);
     }
-    .stream-btn:hover { background: var(--espresso); color: var(--butter); transform: translate3d(0, -4px, 0); }
+    .stream-btn:hover { background: var(--espresso); color: var(--butter); transform: translate3d(0, -4px, 0); box-shadow: 0 12px 24px rgba(42,27,20,0.2); }
 
     /* Album Detail */
     .album-detail-title { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(2.2rem, 4vw, 3.2rem); color: var(--espresso); line-height: 1.1; margin-bottom: 12px; }
@@ -323,9 +325,10 @@
     .track {
       display: flex; align-items: center; gap: 20px; padding: 14px 16px;
       border-bottom: 1px solid rgba(42, 27, 20, 0.05); border-radius: 16px;
-      transition: background 0.3s ease, transform 0.3s ease; position: relative;
+      transition: background 0.3s ease, transform 0.4s var(--spring); position: relative;
     }
-    .track:hover { background: rgba(253, 229, 233, 0.6); transform: translateX(8px); box-shadow: 0 4px 12px rgba(166, 25, 46, 0.05); }
+    /* Snappy Hover */
+    .track:hover { background: rgba(253, 229, 233, 0.5); transform: translateX(12px) scale(1.01); box-shadow: 0 8px 24px rgba(166, 25, 46, 0.08); z-index: 2; }
     .track:last-child { border-bottom: none; }
     .track-num { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.2rem; color: rgba(42, 27, 20, 0.4); width: 24px; text-align: right; flex-shrink: 0; transition: opacity 0.3s ease; }
     .track:hover .track-num { opacity: 0; }
@@ -335,7 +338,7 @@
     }
     .track:hover .track-play { opacity: 1; }
     .track-name { font-weight: 500; font-size: 1.05rem; color: var(--espresso); flex: 1; transition: color 0.3s ease; }
-    .track:hover .track-name { color: var(--cherry); }
+    .track:hover .track-name { color: var(--cherry); font-weight: 600; }
     .track-feat { font-style: italic; color: rgba(42, 27, 20, 0.6); font-size: 0.95rem; font-weight: 400; }
     .track-flag { font-weight: 600; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; background: var(--baby-blue); color: var(--espresso); padding: 4px 12px; border-radius: 50px; flex-shrink: 0; }
     .track-flag.bonus { background: var(--pale-pink); color: var(--cherry); }
@@ -367,7 +370,7 @@
     .footer-links a:hover { color: var(--cherry); }
     .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; padding-top: 40px; border-top: 2px solid rgba(42, 27, 20, 0.1); font-size: 0.9rem; font-weight: 500; color: rgba(42, 27, 20, 0.6); letter-spacing: 0.1em; }
 
-    /* ── ULTRA-FLUID REVEALS (Apple Motion) ── */
+    /* ── ULTRA-FLUID REVEALS ── */
     .reveal { 
       opacity: 0; 
       transform: translate3d(0, 80px, 0) rotate(2deg) scale(0.92); 
@@ -390,7 +393,7 @@
       header { max-width: max-content; width: auto; padding: 8px 16px 8px 24px; justify-content: space-between; gap: 32px; }
       .nav-logo { height: 26px; }
 
-      .header-wrapper.open .mobile-menu { display: flex; opacity: 1; max-height: 500px; padding: 24px; }
+      .header-wrapper.open .mobile-menu { display: flex; opacity: 1; max-height: 500px; padding: 32px; }
       .header-wrapper.open .menu-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
       .header-wrapper.open .menu-toggle span:nth-child(2) { opacity: 0; }
       .header-wrapper.open .menu-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -401,6 +404,7 @@
       .album-layout.reverse .album-cover-wrap { order: 0; }
       .album-layout.reverse .album-detail { order: 0; }
       .album-cover-wrap { position: static; max-width: 320px; margin: 0 auto; perspective: none; }
+      .album-cover:hover { transform: translate3d(0, -8px, 0) scale(1.02); }
       
       .floating-accent { display: none; } /* Hide floating 3D hero cards on mobile */
 
@@ -900,15 +904,15 @@
         </ul>
       </div>
       <div class="footer-bottom">
-        <span>sabrina.ozyern.me &nbsp;·&nbsp; built by <a href="https://about.ozyern.me" style="color:var(--cherry); font-weight: 600;">Aditya Jha</a></span>
-        <span>unofficial fan site &nbsp;<span style="color:var(--cherry);">♥</span>&nbsp; built on late nights.</span>
+        <span>sabrina.ozyern.me  ·  built by <a href="https://about.ozyern.me" style="color:var(--cherry); font-weight: 600;">Aditya Jha</a></span>
+        <span>unofficial fan site  <span style="color:var(--cherry);">♥</span>  built on late nights.</span>
       </div>
     </footer>
 
   </main>
 
   <script>
-    /* ── 3D Parallax Mouse Tracking ── */
+    /* ── Dynamic Parallax Mouse Tracking ── */
     document.addEventListener('mousemove', (e) => {
       const x = (e.clientX / window.innerWidth) - 0.5;
       const y = (e.clientY / window.innerHeight) - 0.5;
