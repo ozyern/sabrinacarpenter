@@ -98,6 +98,11 @@
       border-color: var(--cherry); background: radial-gradient(circle, rgba(166, 25, 46, 0.15) 0%, transparent 70%);
     }
 
+    @media (max-width: 900px) and (hover: none) and (pointer: coarse) {
+      html, body, *, *::before, *::after { cursor: auto !important; }
+      #cur, #cur-ring { display: none !important; }
+    }
+
     /* ── FALLING PETALS ── */
     #petals { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
     .petal {
@@ -948,7 +953,7 @@
     /* ── UNSTOPPABLE GPU CURSOR ── */
     const cur = document.getElementById('cur');
     const ring = document.getElementById('cur-ring');
-    const isMobile = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+    const isMobile = window.matchMedia('(max-width: 900px) and (hover: none) and (pointer: coarse)').matches;
 
     if (isMobile || perfMode) {
       cur.style.display = 'none'; ring.style.display = 'none';
