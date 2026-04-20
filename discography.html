@@ -24,7 +24,7 @@
       --pale-pink:    #FDE5E9;
       
       /* Premium Liquid Glass */
-      --glass-bg:     rgba(255, 253, 249, 0.65);
+      --glass-bg:     rgba(255, 253, 249, 0.7);
       --glass-blur:   blur(24px) saturate(180%);
       --glass-border: rgba(255, 255, 255, 0.7);
       --glass-shadow: 0 16px 40px rgba(42, 27, 20, 0.08);
@@ -32,6 +32,10 @@
       /* Apple iOS Motion Physics */
       --spring:       cubic-bezier(0.19, 1, 0.22, 1);
       --speed:        1.2s;
+
+      /* 3D Parallax Variables */
+      --mx: 0;
+      --my: 0;
     }
 
     /* ── RESET (NUCLEAR CURSOR FIX) ── */
@@ -49,7 +53,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ISOLATED APP WRAPPER (Prevents Cursor Trapping) */
+    /* ISOLATED APP WRAPPER */
     #app-wrapper {
       opacity: 0;
       animation: pageIn 1s var(--spring) forwards;
@@ -144,9 +148,7 @@
     }
     .nav-btn:hover { background: var(--cherry); transform: translate3d(0, -3px, 0); box-shadow: 0 10px 20px rgba(166, 25, 46, 0.2); }
 
-    .menu-toggle {
-      display: none; flex-direction: column; gap: 6px; background: transparent; border: none; padding: 10px; pointer-events: auto;
-    }
+    .menu-toggle { display: none; flex-direction: column; gap: 6px; background: transparent; border: none; padding: 10px; pointer-events: auto; }
     .menu-toggle span { display: block; width: 24px; height: 2px; background: var(--espresso); transition: 0.4s var(--spring); }
     
     .mobile-menu {
@@ -158,15 +160,39 @@
     }
     .mobile-menu a { font-weight: 600; font-size: 1.1rem; text-transform: uppercase; color: var(--espresso); text-align: center; }
 
-    /* ── PAGE HERO ── */
+    /* ── 3D PARALLAX HERO ── */
     .page-hero {
-      min-height: 55vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 180px 20px 60px; position: relative; z-index: 2; overflow: hidden;
+      min-height: 75vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 180px 20px 80px; position: relative; z-index: 2; overflow: hidden;
     }
     .hero-orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
     .orb-1 { width: 500px; height: 500px; background: rgba(166, 25, 46, 0.1); top: -50px; left: -100px; animation: orbDrift 15s ease-in-out infinite alternate; }
     .orb-2 { width: 450px; height: 450px; background: rgba(191, 225, 246, 0.3); bottom: -50px; right: -50px; animation: orbDrift 20s ease-in-out infinite alternate-reverse; }
     @keyframes orbDrift { 0% { transform: translate3d(0,0,0) scale(1); } 100% { transform: translate3d(8vw, 12vh, 0) scale(1.1); } }
+
+    /* Hardware Accelerated 3D Album Covers in Hero */
+    .floating-accent {
+      position: absolute; border-radius: 24px; padding: 12px;
+      background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border); box-shadow: 0 30px 60px rgba(42, 27, 20, 0.15);
+      z-index: 1; pointer-events: none;
+      will-change: transform;
+    }
+    .floating-accent .art { border-radius: 12px; width: 100%; height: 100%; background-size: cover; background-position: center; }
+    
+    .accent-left { 
+      top: 15%; left: 8%; width: 280px; aspect-ratio: 1;
+      transform: translate3d(calc(var(--mx) * -50px), calc(var(--my) * -50px), 0) rotate(-10deg);
+      transition: transform 0.2s cubic-bezier(0.1, 0.5, 0.3, 1);
+    }
+    .accent-left .art { background-image: url("images/emails i can't send.jpg"); }
+    
+    .accent-right { 
+      bottom: 10%; right: 8%; width: 320px; aspect-ratio: 1;
+      transform: translate3d(calc(var(--mx) * 60px), calc(var(--my) * 60px), 0) rotate(8deg);
+      transition: transform 0.2s cubic-bezier(0.1, 0.5, 0.3, 1);
+    }
+    .accent-right .art { background-image: url("images/Short n' Sweet.jpg"); }
 
     .page-hero-inner { max-width: 900px; width: 100%; position: relative; z-index: 3; animation: revealUp 1.2s var(--spring) forwards; }
     
@@ -196,16 +222,14 @@
     }
     .filter-inner {
       max-width: 1200px; margin: 0 auto;
-      display: flex; gap: 16px; overflow-x: auto;
-      scrollbar-width: none;
+      display: flex; gap: 16px; overflow-x: auto; scrollbar-width: none;
     }
     .filter-inner::-webkit-scrollbar { display: none; }
     .filter-btn {
       font-weight: 600; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
       color: rgba(42, 27, 20, 0.6); background: none; border: none;
       padding: 24px 16px; white-space: nowrap;
-      position: relative; transition: color 0.3s ease;
-      flex-shrink: 0;
+      position: relative; transition: color 0.3s ease; flex-shrink: 0;
     }
     .filter-btn::after {
       content: ''; position: absolute; bottom: 0; left: 50%;
@@ -242,27 +266,29 @@
       font-size: clamp(2rem, 4vw, 3.5rem); color: var(--espresso); line-height: 1.1;
     }
 
-    /* ── ALBUM LAYOUT ── */
-    .album-layout {
-      display: grid; grid-template-columns: 360px 1fr; gap: 64px; align-items: start; margin-bottom: 80px;
-    }
+    /* ── 3D ALBUM LAYOUT ── */
+    .album-layout { display: grid; grid-template-columns: 360px 1fr; gap: 64px; align-items: start; margin-bottom: 80px; }
     .album-layout:last-child { margin-bottom: 0; }
     .album-layout.reverse { grid-template-columns: 1fr 360px; }
     .album-layout.reverse .album-cover-wrap { order: 2; }
     .album-layout.reverse .album-detail { order: 1; }
 
-    /* Cover Art */
-    .album-cover-wrap { position: sticky; top: 180px; }
+    /* 3D Cover Art */
+    .album-cover-wrap { position: sticky; top: 180px; perspective: 1200px; }
     .album-cover {
       width: 100%; aspect-ratio: 1; border-radius: 32px; overflow: hidden;
       box-shadow: 0 20px 50px rgba(42, 27, 20, 0.1); position: relative;
+      transform: rotateX(0) rotateY(0) translateZ(0);
       transition: transform var(--speed) var(--spring), box-shadow var(--speed) var(--spring);
     }
-    .album-cover:hover { transform: translate3d(0, -12px, 0) scale(1.03) rotate(-1deg); box-shadow: 0 40px 80px rgba(166, 25, 46, 0.15); z-index: 10; }
-    
-    .album-cover-art {
-      width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat;
+    /* The 3D Pop Effect */
+    .album-cover:hover { 
+      transform: rotateX(4deg) rotateY(-4deg) translate3d(0, -16px, 30px) scale(1.04); 
+      box-shadow: -16px 40px 80px rgba(166, 25, 46, 0.2); z-index: 10; 
     }
+    
+    .album-cover-art { width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; }
+    
     .cover-badge {
       position: absolute; bottom: -16px; right: -16px;
       background: var(--butter); border-radius: 50%; width: 80px; height: 80px;
@@ -299,7 +325,7 @@
       border-bottom: 1px solid rgba(42, 27, 20, 0.05); border-radius: 16px;
       transition: background 0.3s ease, transform 0.3s ease; position: relative;
     }
-    .track:hover { background: rgba(253, 229, 233, 0.4); transform: translateX(8px); }
+    .track:hover { background: rgba(253, 229, 233, 0.6); transform: translateX(8px); box-shadow: 0 4px 12px rgba(166, 25, 46, 0.05); }
     .track:last-child { border-bottom: none; }
     .track-num { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.2rem; color: rgba(42, 27, 20, 0.4); width: 24px; text-align: right; flex-shrink: 0; transition: opacity 0.3s ease; }
     .track:hover .track-num { opacity: 0; }
@@ -314,7 +340,7 @@
     .track-flag { font-weight: 600; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; background: var(--baby-blue); color: var(--espresso); padding: 4px 12px; border-radius: 50px; flex-shrink: 0; }
     .track-flag.bonus { background: var(--pale-pink); color: var(--cherry); }
 
-    /* Album Covers */
+    /* Album Covers Maps */
     .ac-sns  { background-image: url("images/Short n' Sweet.jpg"); }
     .ac-sns2 { background-image: url("images/Short n' Sweet Deluxe.jpg"); }
     .ac-mbf  { background-image: url("images/Man's Best Friend.jpg"); }
@@ -341,44 +367,54 @@
     .footer-links a:hover { color: var(--cherry); }
     .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; padding-top: 40px; border-top: 2px solid rgba(42, 27, 20, 0.1); font-size: 0.9rem; font-weight: 500; color: rgba(42, 27, 20, 0.6); letter-spacing: 0.1em; }
 
-    /* ── ULTRA-FLUID REVEALS ── */
-    .reveal { opacity: 0; transform: translate3d(0, 60px, 0) scale(0.96); transition: opacity 1s ease-out, transform var(--speed) var(--spring); will-change: transform, opacity; }
-    .reveal.visible { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+    /* ── ULTRA-FLUID REVEALS (Apple Motion) ── */
+    .reveal { 
+      opacity: 0; 
+      transform: translate3d(0, 80px, 0) rotate(2deg) scale(0.92); 
+      transition: opacity 1s ease-out, transform var(--speed) var(--spring); 
+      will-change: transform, opacity; 
+    }
+    .reveal.visible { opacity: 1; transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+    
+    @keyframes revealUp {
+      from { opacity: 0; transform: translate3d(0, 60px, 0) rotate(1deg) scale(0.95); filter: blur(8px); }
+      to { opacity: 1; transform: translate3d(0, 0, 0) rotate(0deg) scale(1); filter: blur(0); }
+    }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .nav-links, .nav-btn { display: none !important; }
-      .menu-toggle { display: flex; }
-      header { width: auto; max-width: max-content; padding: 8px 16px 8px 24px; gap: 32px; }
-      .nav-logo { height: 32px; }
-      .header-wrapper.open .mobile-menu { display: flex; opacity: 1; max-height: 500px; padding: 32px; }
-      .header-wrapper.open .menu-toggle span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+      .menu-toggle { display: flex; margin: 0; padding: 4px; }
+      .nav-actions { gap: 0; }
+      
+      header { max-width: max-content; width: auto; padding: 8px 16px 8px 24px; justify-content: space-between; gap: 32px; }
+      .nav-logo { height: 26px; }
+
+      .header-wrapper.open .mobile-menu { display: flex; opacity: 1; max-height: 500px; padding: 24px; }
+      .header-wrapper.open .menu-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
       .header-wrapper.open .menu-toggle span:nth-child(2) { opacity: 0; }
-      .header-wrapper.open .menu-toggle span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+      .header-wrapper.open .menu-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
       
       .filter-wrap { padding: 0 24px; top: 80px; }
       .disco-wrap { padding: 60px 24px 80px; }
       .album-layout, .album-layout.reverse { grid-template-columns: 1fr; gap: 40px; }
       .album-layout.reverse .album-cover-wrap { order: 0; }
       .album-layout.reverse .album-detail { order: 0; }
-      .album-cover-wrap { position: static; max-width: 320px; margin: 0 auto; }
+      .album-cover-wrap { position: static; max-width: 320px; margin: 0 auto; perspective: none; }
       
+      .floating-accent { display: none; } /* Hide floating 3D hero cards on mobile */
+
       .footer-top { flex-direction: column; text-align: center; }
-    }
-    @media (max-width: 600px) {
-      .era-year { font-size: 4rem; }
-      .album-detail-title { font-size: 2rem; }
-      .track-name { font-size: 0.95rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="ambient-bg"></div>
-  <div id="petals"></div>
-
   <div id="cur">💋</div>
   <div id="cur-ring"></div>
+
+  <div class="ambient-bg"></div>
+  <div id="petals"></div>
 
   <main id="app-wrapper">
 
@@ -416,6 +452,14 @@
     <div class="page-hero">
       <div class="hero-orb orb-1"></div>
       <div class="hero-orb orb-2"></div>
+      
+      <div class="floating-accent accent-left">
+        <div class="art ac-eics"></div>
+      </div>
+      <div class="floating-accent accent-right">
+        <div class="art ac-sns"></div>
+      </div>
+
       <div class="page-hero-inner">
         <span class="page-eyebrow">✦ every song, every era ✦</span>
         <h1 class="page-title">Discography</h1>
@@ -428,9 +472,9 @@
         <button class="filter-btn active" data-filter="all">All Eras</button>
         <button class="filter-btn" data-filter="2025">2025 ✦ Man's Best Friend</button>
         <button class="filter-btn" data-filter="2024">2024 ✦ Short n' Sweet</button>
-        <button class="filter-btn" data-filter="2022">2022 ✦ emails i can't send</button>
+        <button class="filter-btn" data-filter="2022">2022 ✦ emails</button>
         <button class="filter-btn" data-filter="singular">2018–2019 ✦ Singular</button>
-        <button class="filter-btn" data-filter="early">2015–2016 ✦ Early Era</button>
+        <button class="filter-btn" data-filter="early">2015–2016 ✦ Early</button>
       </div>
     </div>
 
@@ -470,7 +514,7 @@
             </div>
             <p class="album-desc">The expanded edition of Man's Best Friend with additional tracks continuing Sabrina's evolution into her boldest, most self-assured chapter yet.</p>
             <p class="tracklist-title">Tracklist</p>
-            <ol class="tracklist">
+            <ul class="tracklist">
               <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">Manchild</span></li>
               <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Tears</span></li>
               <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">My Man on Willpower</span></li>
@@ -484,7 +528,7 @@
               <li class="track"><span class="track-num">11</span><span class="track-play">▶</span><span class="track-name">House Tour</span></li>
               <li class="track"><span class="track-num">12</span><span class="track-play">▶</span><span class="track-name">Goodbye</span></li>
               <li class="track"><span class="track-num">13</span><span class="track-play">▶</span><span class="track-name">Such A Funny Way</span><span class="track-flag bonus">Bonus</span></li>
-            </ol>
+            </ul>
           </div>
         </div>
 
@@ -507,11 +551,11 @@
               <span class="sep">·</span>
               <span>Island Records</span>
               <span class="sep">·</span>
-              <span class="album-type">Studio Album</span>
+              <span class="album-type" style="background:var(--baby-blue); color:var(--espresso);">Studio Album</span>
             </div>
             <p class="album-desc">Sabrina's seventh studio album. Dark, playful, and completely on her own terms — Man's Best Friend shows an artist fully in command of her craft and her narrative.</p>
             <p class="tracklist-title">Tracklist</p>
-            <ol class="tracklist">
+            <ul class="tracklist">
               <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">Manchild</span></li>
               <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Tears</span></li>
               <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">My Man on Willpower</span></li>
@@ -524,7 +568,7 @@
               <li class="track"><span class="track-num">10</span><span class="track-play">▶</span><span class="track-name">Don't Worry I'll Make You Worry</span></li>
               <li class="track"><span class="track-num">11</span><span class="track-play">▶</span><span class="track-name">House Tour</span></li>
               <li class="track"><span class="track-num">12</span><span class="track-play">▶</span><span class="track-name">Goodbye</span></li>
-            </ol>
+            </ul>
           </div>
         </div>
       </div>
@@ -555,7 +599,7 @@
           <div class="album-detail">
             <h3 class="album-detail-title">Short n' Sweet <span style="font-style:italic;color:rgba(42,27,20,0.5);font-size:.8em">(Deluxe)</span></h3>
             <div class="album-detail-meta">
-              <span>2025</span>
+              <span>2024</span>
               <span class="sep">·</span>
               <span>Island Records</span>
               <span class="sep">·</span>
@@ -563,7 +607,7 @@
             </div>
             <p class="album-desc">The expanded edition of her global breakthrough, featuring additional tracks that deepen the album's world of wit, longing, and irresistible pop craft.</p>
             <p class="tracklist-title">Tracklist</p>
-            <ol class="tracklist">
+            <ul class="tracklist">
               <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">Taste</span></li>
               <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Please Please Please</span></li>
               <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">Good Graces</span></li>
@@ -581,7 +625,7 @@
               <li class="track"><span class="track-num">15</span><span class="track-play">▶</span><span class="track-name">Couldn't Make It Any Harder</span><span class="track-flag bonus">Deluxe</span></li>
               <li class="track"><span class="track-num">16</span><span class="track-play">▶</span><span class="track-name">Busy Woman</span><span class="track-flag bonus">Deluxe</span></li>
               <li class="track"><span class="track-num">17</span><span class="track-play">▶</span><span class="track-name">Bad Reviews</span><span class="track-flag bonus">Deluxe</span></li>
-            </ol>
+            </ul>
           </div>
         </div>
 
@@ -604,11 +648,11 @@
               <span class="sep">·</span>
               <span>Island Records</span>
               <span class="sep">·</span>
-              <span class="album-type">Studio Album</span>
+              <span class="album-type" style="background:var(--baby-blue); color:var(--espresso);">Studio Album</span>
             </div>
             <p class="album-desc">The album that made the whole world stop. Featuring the global smash Espresso and Please Please Please, Short n' Sweet is Sabrina at her most confident, most clever, and most irresistible.</p>
             <p class="tracklist-title">Tracklist</p>
-            <ol class="tracklist">
+            <ul class="tracklist">
               <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">Taste</span></li>
               <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Please Please Please</span></li>
               <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">Good Graces</span></li>
@@ -621,7 +665,7 @@
               <li class="track"><span class="track-num">10</span><span class="track-play">▶</span><span class="track-name">Juno</span></li>
               <li class="track"><span class="track-num">11</span><span class="track-play">▶</span><span class="track-name">Lie To Girls</span></li>
               <li class="track"><span class="track-num">12</span><span class="track-play">▶</span><span class="track-name">Don't Smile</span></li>
-            </ol>
+            </ul>
           </div>
         </div>
       </div>
@@ -651,11 +695,11 @@
               <span class="sep">·</span>
               <span>Island Records</span>
               <span class="sep">·</span>
-              <span class="album-type">Studio Album</span>
+              <span class="album-type" style="background:var(--baby-blue); color:var(--espresso);">Studio Album</span>
             </div>
             <p class="album-desc">Raw, honest, and laced with the kind of wit that makes heartbreak feel almost beautiful. This album introduced the world to a sharper, more personal Sabrina — and nobody was ready.</p>
             <p class="tracklist-title">Tracklist</p>
-            <ol class="tracklist">
+            <ul class="tracklist">
               <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">emails i can't send</span></li>
               <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Vicious</span></li>
               <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">Read your Mind</span></li>
@@ -669,7 +713,7 @@
               <li class="track"><span class="track-num">11</span><span class="track-play">▶</span><span class="track-name">skinny dipping</span></li>
               <li class="track"><span class="track-num">12</span><span class="track-play">▶</span><span class="track-name">Bad for Business</span></li>
               <li class="track"><span class="track-num">13</span><span class="track-play">▶</span><span class="track-name">decode</span></li>
-            </ol>
+            </ul>
           </div>
         </div>
       </div>
@@ -700,11 +744,11 @@
               <span class="sep">·</span>
               <span>Hollywood Records</span>
               <span class="sep">·</span>
-              <span class="album-type">Studio Album</span>
+              <span class="album-type" style="background:var(--baby-blue); color:var(--espresso);">Studio Album</span>
             </div>
             <p class="album-desc">The second act of the Singular story, revealing deeper layers of Sabrina's artistry with a warmer, more reflective sound and a growing confidence in her songwriting voice.</p>
             <p class="tracklist-title">Tracklist</p>
-            <ol class="tracklist">
+            <ul class="tracklist">
               <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">In My Bed</span></li>
               <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Pushing 20</span></li>
               <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">I Can't Stop Me</span><span class="track-feat">Ft. Saweetie</span></li>
@@ -714,7 +758,7 @@
               <li class="track"><span class="track-num">7</span><span class="track-play">▶</span><span class="track-name">Exhale</span></li>
               <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">Take You Back</span></li>
               <li class="track"><span class="track-num">9</span><span class="track-play">▶</span><span class="track-name">Looking at Me</span></li>
-            </ol>
+            </ul>
           </div>
         </div>
 
@@ -737,11 +781,11 @@
               <span class="sep">·</span>
               <span>Hollywood Records</span>
               <span class="sep">·</span>
-              <span class="album-type">Studio Album</span>
+              <span class="album-type" style="background:var(--baby-blue); color:var(--espresso);">Studio Album</span>
             </div>
             <p class="album-desc">A pivotal moment — Sabrina stepping into her own identity as an artist. Heartfelt pop with a new emotional depth, anchored by standout tracks like Almost Love and Paris.</p>
             <p class="tracklist-title">Tracklist</p>
-            <ol class="tracklist">
+            <ul class="tracklist">
               <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">Almost Love</span></li>
               <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Paris</span></li>
               <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">Hold Tight</span><span class="track-feat">Ft. UHMEER</span></li>
@@ -750,7 +794,7 @@
               <li class="track"><span class="track-num">6</span><span class="track-play">▶</span><span class="track-name">Bad Time</span></li>
               <li class="track"><span class="track-num">7</span><span class="track-play">▶</span><span class="track-name">Mona Lisa</span></li>
               <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">Diamonds Are Forever</span></li>
-            </ol>
+            </ul>
           </div>
         </div>
       </div>
@@ -781,11 +825,11 @@
               <span class="sep">·</span>
               <span>Hollywood Records</span>
               <span class="sep">·</span>
-              <span class="album-type">Studio Album</span>
+              <span class="album-type" style="background:var(--baby-blue); color:var(--espresso);">Studio Album</span>
             </div>
             <p class="album-desc">Her second studio album and a major step forward in identity. Thumbs became a cultural moment, and Evolution showed exactly where Sabrina was headed — bold, witty, and completely her own.</p>
             <p class="tracklist-title">Tracklist</p>
-            <ol class="tracklist">
+            <ul class="tracklist">
               <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">On Purpose</span></li>
               <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Feels Like Loneliness</span></li>
               <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">Thumbs</span></li>
@@ -796,7 +840,7 @@
               <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">Shadows</span></li>
               <li class="track"><span class="track-num">9</span><span class="track-play">▶</span><span class="track-name">Space</span></li>
               <li class="track"><span class="track-num">10</span><span class="track-play">▶</span><span class="track-name">All We Have Is Love</span></li>
-            </ol>
+            </ul>
           </div>
         </div>
 
@@ -819,11 +863,11 @@
               <span class="sep">·</span>
               <span>Hollywood Records</span>
               <span class="sep">·</span>
-              <span class="album-type">Debut Album</span>
+              <span class="album-type" style="background:var(--baby-blue); color:var(--espresso);">Debut Album</span>
             </div>
             <p class="album-desc">Where it all began. A debut full of warmth and pop charm from a 16-year-old who already knew exactly how to own a melody. The foundation of everything that came after.</p>
             <p class="tracklist-title">Tracklist</p>
-            <ol class="tracklist">
+            <ul class="tracklist">
               <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">Eyes Wide Open</span></li>
               <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Can't Blame a Girl for Trying</span></li>
               <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">The Middle of Starting Over</span></li>
@@ -836,12 +880,14 @@
               <li class="track"><span class="track-num">10</span><span class="track-play">▶</span><span class="track-name">Darling I'm a Mess</span></li>
               <li class="track"><span class="track-num">11</span><span class="track-play">▶</span><span class="track-name">White Flag</span></li>
               <li class="track"><span class="track-num">12</span><span class="track-play">▶</span><span class="track-name">Best Thing I Got</span></li>
-            </ol>
+            </ul>
           </div>
         </div>
       </div>
 
-    </div><footer class="reveal">
+    </div>
+
+    <footer class="reveal">
       <div class="footer-top">
         <a href="/" class="footer-logo" aria-label="Sabrina Home">
           <img src="images/logo.webp" alt="Sabrina Logo" />
@@ -862,6 +908,24 @@
   </main>
 
   <script>
+    /* ── 3D Parallax Mouse Tracking ── */
+    document.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth) - 0.5;
+      const y = (e.clientY / window.innerHeight) - 0.5;
+      document.documentElement.style.setProperty('--mx', x);
+      document.documentElement.style.setProperty('--my', y);
+    });
+
+    /* ── Falling Petals ── */
+    const pc = document.getElementById('petals');
+    const pColors = ['#FDE5E9', '#BFE1F6', '#FFFDF9'];
+    for (let i = 0; i < 35; i++) {
+      const p = document.createElement('div'); p.className = 'petal';
+      const s = 12 + Math.random() * 24;
+      p.style.cssText = `left:${Math.random()*100}vw; width:${s}px; height:${s}px; background:${pColors[Math.floor(Math.random()*3)]}; animation-duration:${8+Math.random()*12}s; animation-delay:${Math.random()*15}s;`;
+      pc.appendChild(p);
+    }
+
     /* ── Mobile Toggle Fix ── */
     const headerWrapper = document.getElementById('header-wrapper');
     const menuToggle = document.getElementById('menu-toggle');
@@ -917,7 +981,19 @@
       requestAnimationFrame(renderCursor);
     }
 
-    /* ── Filter Logic ── */
+    /* ── Apple-Style Scroll Reveal ── */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* ── 3D Filter Logic ── */
     const filterBtns = document.querySelectorAll('.filter-btn');
     const eraSections = document.querySelectorAll('.era-section');
     
@@ -930,38 +1006,20 @@
         eraSections.forEach(sec => {
           if (f === 'all' || sec.dataset.era === f) {
             sec.classList.remove('hidden');
-            // Re-trigger reveal animation for smoothness
-            sec.style.animation = 'none';
-            sec.offsetHeight; // trigger reflow
-            sec.style.animation = `pageIn 0.8s var(--spring) forwards`;
+            // Re-trigger the fluid reveal animations
+            const reveals = sec.querySelectorAll('.reveal');
+            reveals.forEach(r => {
+              r.classList.remove('visible');
+              r.style.animation = 'none';
+              r.offsetHeight; 
+              setTimeout(() => r.classList.add('visible'), 50);
+            });
           } else {
             sec.classList.add('hidden');
           }
         });
       });
     });
-
-    /* ── Falling Petals ── */
-    const pc = document.getElementById('petals');
-    const pColors = ['#FDE5E9', '#BFE1F6', '#FFFDF9'];
-    for (let i = 0; i < 35; i++) {
-      const p = document.createElement('div'); p.className = 'petal';
-      const s = 12 + Math.random() * 24;
-      p.style.cssText = `left:${Math.random()*100}vw; width:${s}px; height:${s}px; background:${pColors[Math.floor(Math.random()*3)]}; animation-duration:${8+Math.random()*12}s; animation-delay:${Math.random()*15}s;`;
-      pc.appendChild(p);
-    }
-
-    /* ── Apple-Style Scroll Reveal ── */
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
-
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
