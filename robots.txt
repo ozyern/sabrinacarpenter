@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Host: sabrina.ozyern.me
 
 Sitemap: https://sabrina.ozyern.me/sitemap.xml
