@@ -9,431 +9,312 @@
   <meta name="description" content="Complete Sabrina Carpenter discography on Ozyern's unofficial fan website, with albums, eras, and highlights." />
   <meta name="keywords" content="Sabrina Carpenter discography, Sabrina Carpenter fan website, Ozyern Sabrina Carpenter, Sabrina Carpetner fan website, Espresso, Short n Sweet" />
   <meta name="author" content="Aditya Jha (Ozyern)" />
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-  <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-  <meta name="bingbot" content="index, follow" />
   <link rel="canonical" href="https://sabrina.ozyern.me/discography.html" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Sabrina Carpenter Fan Website | Ozyern" />
-  <meta property="og:title" content="Sabrina Carpenter Discography | Ozyern Fan Website" />
-  <meta property="og:description" content="Complete Sabrina Carpenter discography on Ozyern's unofficial fan website." />
-  <meta property="og:url" content="https://sabrina.ozyern.me/discography.html" />
-  <meta property="og:image" content="https://sabrina.ozyern.me/images/logo.webp" />
-  <meta property="og:image:alt" content="Sabrina Carpenter fan website logo" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Sabrina Carpenter Discography | Ozyern Fan Website" />
-  <meta name="twitter:description" content="Complete Sabrina Carpenter discography on Ozyern's unofficial fan website." />
-  <meta name="twitter:image" content="https://sabrina.ozyern.me/images/logo.webp" />
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "name": "Sabrina Carpenter Discography",
-      "url": "https://sabrina.ozyern.me/discography.html",
-      "isPartOf": {
-        "@type": "WebSite",
-        "name": "Sabrina Carpenter Fan Website",
-        "url": "https://sabrina.ozyern.me/"
-      },
-      "about": {
-        "@type": "Person",
-        "name": "Sabrina Carpenter"
-      },
-      "inLanguage": "en"
-    }
-  </script>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Great+Vibes&family=Jost:wght@200;300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Great+Vibes&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  
   <style>
+    /* ── RTX ULTRA TOKENS ── */
     :root {
-      --yellow:   #FFD700;
-      --light-yellow: #FFF8DC;
-      --baby-blue: #ADD8E6;
-      --sky-blue: #E0FFFF;
-      --cream:    #FFFBF5;
-      --yellow-accent: #FFC107;
-      --deep:     #003D5C;
-      --mid:      #2F7FA1;
-      --soft:     #7EB9D4;
-      --white:    #FFFEF8;
-      --border:   rgba(47, 127, 161, 0.18);
+      --butter:       #FFFDF9;
+      --espresso:     #2A1B14;
+      --cherry:       #A6192E;
+      --baby-blue:    #BFE1F6;
+      --pale-pink:    #FDE5E9;
+      
+      /* Premium Liquid Glass */
+      --glass-bg:     rgba(255, 253, 249, 0.65);
+      --glass-blur:   blur(24px) saturate(180%);
+      --glass-border: rgba(255, 255, 255, 0.7);
+      --glass-shadow: 0 16px 40px rgba(42, 27, 20, 0.08);
+      
+      /* Apple iOS Motion Physics */
+      --spring:       cubic-bezier(0.19, 1, 0.22, 1);
+      --speed:        1.2s;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
+    /* ── RESET (NUCLEAR CURSOR FIX) ── */
+    html, body, *, *::before, *::after { 
+      box-sizing: border-box; margin: 0; padding: 0; 
+      cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='), none !important; 
+    }
+    
+    html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; background: var(--butter); }
+    
     body {
       font-family: 'Jost', sans-serif;
-      background: var(--cream);
-      color: var(--deep);
-      overflow-x: hidden;
-      cursor: none;
+      color: var(--espresso);
+      overflow-x: hidden; 
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ISOLATED APP WRAPPER (Prevents Cursor Trapping) */
+    #app-wrapper {
       opacity: 0;
-      animation: pageFade .78s cubic-bezier(.33,.11,.13,1) forwards;
+      animation: pageIn 1s var(--spring) forwards;
+      position: relative;
+      z-index: 2;
     }
+
+    @keyframes pageIn {
+      from { opacity: 0; filter: blur(12px); transform: scale(0.98); }
+      to { opacity: 1; filter: blur(0); transform: scale(1); }
+    }
+
+    /* ── HARDWARE-DECOUPLED AMBIENT BACKGROUND ── */
+    .ambient-bg {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background-color: var(--butter);
+      background-image: radial-gradient(circle at 15% 15%, rgba(191, 225, 246, 0.4) 0%, transparent 50%),
+                        radial-gradient(circle at 85% 85%, rgba(253, 229, 233, 0.5) 0%, transparent 50%);
+      transform: translateZ(0); 
+    }
+
     a { text-decoration: none; color: inherit; }
-    img { display: block; max-width: 100%; }
+    img { display: block; max-width: 100%; height: auto; }
 
-    /* ── CURSOR ── */
+    /* ── HEAVY PHYSICS CURSOR ── */
     #cur {
-      font-size: 24px; line-height: 1;
-      position: fixed; pointer-events: none; z-index: 999999;
-      width: 32px; height: 32px;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(255, 254, 248, 0.9);
-      border: 1px solid rgba(47, 127, 161, 0.55);
-      border-radius: 999px;
-      transform: translate(-50%,-50%) rotate(-15deg);
-      transition: transform .12s ease; user-select: none;
-      filter: drop-shadow(0 2px 8px rgba(47, 127, 161, 0.4));
-      text-shadow: 0 0 4px rgba(255, 215, 0, 0.6), 0 0 8px rgba(173, 216, 230, 0.4);
-      will-change: transform;
+      font-size: 26px; line-height: 1; position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 2147483647;
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      background: rgba(255, 253, 249, 0.95);
+      border: 1px solid rgba(166, 25, 46, 0.3); border-radius: 999px;
+      will-change: transform; box-shadow: 0 4px 12px rgba(166, 25, 46, 0.2);
     }
-    #cur.hovered  { transform: translate(-50%,-50%) rotate(-15deg) scale(1.4); }
-    #cur.clicking { transform: translate(-50%,-50%) rotate(-15deg) scale(.85); }
     #cur-ring {
-      width: 50px; height: 50px; border-radius: 50%;
-      border: 2px solid rgba(47, 127, 161, 0.8);
-      position: fixed; pointer-events: none; z-index: 99998;
-      transform: translate(-50%,-50%);
-      transition: opacity .25s, transform .18s ease; opacity: 0.35;
-      background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%);
-      box-shadow: 0 0 15px rgba(173, 216, 230, 0.4);
-      will-change: transform, opacity;
+      width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--baby-blue);
+      position: fixed; top: 0; left: 0; pointer-events: none; z-index: 2147483646;
+      opacity: 0.7; background: radial-gradient(circle, rgba(191, 225, 246, 0.3) 0%, transparent 70%);
+      will-change: transform; transition: border-color 0.4s var(--spring), background 0.4s var(--spring);
     }
-    #cur-ring.hovered { opacity: 1; transform: translate(-50%,-50%) scale(1.15); border-color: rgba(47, 127, 161, 1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 8px rgba(47, 127, 161, 0.6); }
-    body, a, button { cursor: none; }
+    #cur-ring.hovered {
+      border-color: var(--cherry); background: radial-gradient(circle, rgba(166, 25, 46, 0.15) 0%, transparent 70%);
+    }
 
-    /* ── PETALS ── */
+    /* ── FALLING PETALS ── */
     #petals { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
-    .p {
-      position: absolute; top: -40px;
-      border-radius: 150% 0 150% 0; opacity: 0;
-      animation: pfall linear infinite;
+    .petal {
+      position: absolute; top: -50px; border-radius: 150% 0 150% 0;
+      opacity: 0; animation: fall linear infinite;
     }
-    @keyframes pfall {
-      0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 0; }
-      8%   { opacity: .75; }
-      85%  { opacity: .45; }
-      100% { transform: translateY(105vh) rotate(320deg) scale(.8); opacity: 0; }
+    @keyframes fall {
+      0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0; }
+      15% { opacity: 0.7; }
+      85% { opacity: 0.4; }
+      100% { transform: translate3d(15vw, 105vh, 0) rotate(360deg); opacity: 0; }
     }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; width: 100%; z-index: 200;
+    /* ── FLOATING GLASS HEADER ── */
+    .header-wrapper {
+      position: fixed; top: 24px; left: 0; width: 100%;
+      display: flex; flex-direction: column; align-items: center; z-index: 1000;
+      padding: 0 12px; pointer-events: none;
+    }
+    header {
+      pointer-events: auto; width: 100%; max-width: 900px;
+      background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);
       display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 56px;
-      background: rgba(253,247,242,.82); backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border); transition: padding .3s;
+      padding: 10px 16px 10px 32px; border-radius: 100px;
     }
-    nav.scrolled { padding: 12px 56px; }
-    .nav-logo { display: flex; align-items: center; line-height: 1; }
-    .nav-logo img { height: 38px; width: auto; display: block; }
-    .nav-links { display: flex; gap: 40px; list-style: none; }
-    .nav-toggle {
-      display: none; flex-direction: column; gap: 5px;
-      width: 38px; height: 34px; justify-content: center; align-items: flex-start;
-      background: none; border: 1px solid var(--border); border-radius: 10px;
-      padding: 7px 9px; cursor: none;
-    }
-    .nav-toggle span {
-      display: block; height: 2px; width: 100%; background: var(--mid);
-      transition: transform .25s ease, width .25s ease;
-    }
-    .nav-toggle span:nth-child(2) { width: 70%; }
-    .nav-toggle span:nth-child(3) { width: 55%; }
-    nav.open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-    nav.open .nav-toggle span:nth-child(2) { opacity: 0; width: 0; }
-    nav.open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); width: 100%; }
-
-    .nav-drawer {
-      position: fixed; top: 68px; right: 18px; left: 18px;
-      background: rgba(253,247,242,.98);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      box-shadow: 0 20px 50px rgba(61,34,48,.16);
-      padding: 18px 20px;
-      display: none; flex-direction: column; gap: 14px;
-      backdrop-filter: blur(10px);
-    }
-    nav.open .nav-drawer { display: flex; }
-    .nav-drawer a { font-family: 'Jost', sans-serif; font-weight: 300; letter-spacing: .2em; text-transform: uppercase; color: var(--deep); }
+    .nav-logo { display: flex; align-items: center; justify-content: center; height: 38px; transition: transform 0.4s var(--spring); }
+    .nav-logo:hover { transform: scale(1.05) rotate(-2deg); }
+    .nav-logo img { height: 100%; width: auto; object-fit: contain; }
+    
+    .nav-links { display: flex; gap: 40px; list-style: none; margin: 0; padding: 0; }
     .nav-links a {
-      font-family: 'Jost', sans-serif; font-weight: 300;
-      font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
-      color: var(--soft); position: relative; transition: color .3s;
+      font-weight: 600; font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(42, 27, 20, 0.7); position: relative; transition: color 0.3s ease;
     }
     .nav-links a::after {
-      content: ''; position: absolute; bottom: -3px; left: 0;
-      width: 0; height: 1px; background: var(--yellow); transition: width .35s ease;
+      content: ''; position: absolute; bottom: -6px; left: 50%; width: 0; height: 2px;
+      background: var(--cherry); transition: width 0.4s var(--spring), left 0.4s var(--spring);
     }
-    .nav-links a.nav-active { color: var(--deep); }
-    .nav-links a.nav-active::after { width: 100%; }
-    .nav-links a.nav-soon { opacity: .45; }
-    .nav-links a.nav-soon:hover { opacity: 1; color: var(--soft); }
-    .nav-links a.nav-soon::before {
-      content: attr(data-tip); position: absolute;
-      top: calc(100% + 10px); left: 50%; transform: translateX(-50%);
-      background: var(--deep); color: var(--yellow); font-size: .6rem;
-      letter-spacing: .15em; white-space: nowrap; padding: 5px 10px;
-      border-radius: 20px; opacity: 0; pointer-events: none; transition: opacity .25s;
+    .nav-links a:hover, .nav-links a.nav-active { color: var(--espresso); }
+    .nav-links a:hover::after, .nav-links a.nav-active::after { width: 100%; left: 0; }
+    
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .nav-btn {
+      font-weight: 600; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--butter); background: var(--espresso);
+      padding: 12px 28px; border-radius: 50px;
+      transition: background 0.4s var(--spring), transform 0.4s var(--spring);
     }
-    .nav-links a.nav-soon:hover::before { opacity: 1; }
-    .nav-cta {
-      font-family: 'Jost', sans-serif; font-weight: 300; font-size: .72rem;
-      letter-spacing: .18em; text-transform: uppercase; color: var(--white);
-      background: var(--mid); border: none; padding: 9px 22px;
-      border-radius: 40px; cursor: none; transition: background .3s, transform .2s;
+    .nav-btn:hover { background: var(--cherry); transform: translate3d(0, -3px, 0); box-shadow: 0 10px 20px rgba(166, 25, 46, 0.2); }
+
+    .menu-toggle {
+      display: none; flex-direction: column; gap: 6px; background: transparent; border: none; padding: 10px; pointer-events: auto;
     }
-    .nav-cta:hover { background: var(--deep); transform: scale(1.04); }
+    .menu-toggle span { display: block; width: 24px; height: 2px; background: var(--espresso); transition: 0.4s var(--spring); }
+    
+    .mobile-menu {
+      display: none; width: 95%; max-width: 400px; margin-top: 12px; pointer-events: auto;
+      background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); 
+      border-radius: 24px; box-shadow: var(--glass-shadow);
+      flex-direction: column; gap: 16px; padding: 0; max-height: 0; overflow: hidden; opacity: 0;
+      transition: max-height 0.6s var(--spring), padding 0.6s var(--spring), opacity 0.4s ease;
+    }
+    .mobile-menu a { font-weight: 600; font-size: 1.1rem; text-transform: uppercase; color: var(--espresso); text-align: center; }
 
     /* ── PAGE HERO ── */
     .page-hero {
-      min-height: 42vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 140px 24px 60px;
-      text-align: center; position: relative; overflow: hidden;
-      background:
-        radial-gradient(ellipse 80% 70% at 20% 30%, rgba(173, 216, 230, .6) 0%, transparent 55%),
-        radial-gradient(ellipse 65% 55% at 80% 70%, rgba(224, 255, 255, .75) 0%, transparent 55%),
-        var(--cream);
-      z-index: 2;
+      min-height: 55vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 180px 20px 60px; position: relative; z-index: 2; overflow: hidden;
     }
-    .page-hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-      pointer-events: none; opacity: .5;
-    }
-    .orb { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; }
-    .orb-1 { width: 300px; height: 300px; background: rgba(173, 216, 230, .5); top: 0; left: -60px; animation: drift 12s cubic-bezier(.32,.12,.15,1) infinite; }
-    .orb-2 { width: 220px; height: 220px; background: rgba(224, 255, 255, .65); bottom: 0; right: -40px; animation: drift 15s cubic-bezier(.32,.12,.15,1) infinite reverse; }
-    @keyframes drift { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-12px) scale(1.04); } }
+    .hero-orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
+    .orb-1 { width: 500px; height: 500px; background: rgba(166, 25, 46, 0.1); top: -50px; left: -100px; animation: orbDrift 15s ease-in-out infinite alternate; }
+    .orb-2 { width: 450px; height: 450px; background: rgba(191, 225, 246, 0.3); bottom: -50px; right: -50px; animation: orbDrift 20s ease-in-out infinite alternate-reverse; }
+    @keyframes orbDrift { 0% { transform: translate3d(0,0,0) scale(1); } 100% { transform: translate3d(8vw, 12vh, 0) scale(1.1); } }
 
-    @keyframes pageFade {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
+    .page-hero-inner { max-width: 900px; width: 100%; position: relative; z-index: 3; animation: revealUp 1.2s var(--spring) forwards; }
+    
     .page-eyebrow {
-      font-family: 'Jost', sans-serif; font-weight: 200;
-      font-size: .68rem; letter-spacing: .4em; text-transform: uppercase;
-      color: var(--mid); margin-bottom: 20px;
-      opacity: 0; animation: fadeUp .7s ease .15s forwards;
+      font-weight: 600; font-size: 0.85rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--cherry); display: inline-block; padding: 12px 36px;
+      background: rgba(253, 229, 233, 0.95); border-radius: 50px; margin-bottom: 24px;
+      box-shadow: 0 12px 32px rgba(166, 25, 46, 0.15); border: 1px solid rgba(255,255,255,0.8);
     }
     .page-title {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(4rem, 11vw, 9rem);
-      line-height: .9; color: var(--mid);
-      opacity: 0; animation: fadeUp .9s ease .35s forwards;
+      font-family: 'Great Vibes', cursive; font-size: clamp(5.5rem, 16vw, 13rem);
+      line-height: 0.85; color: var(--espresso); margin-bottom: 8px;
+      text-shadow: 0 12px 40px rgba(255,255,255,0.9);
     }
     .page-title-sub {
-      font-family: 'Cormorant Garamond', serif; font-style: italic;
-      font-weight: 300; font-size: clamp(1rem, 2.5vw, 1.5rem);
-      color: var(--mid); margin-top: 16px; letter-spacing: .06em;
-      opacity: 0; animation: fadeUp .9s ease .55s forwards;
+      font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400;
+      font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--cherry); letter-spacing: 0.02em;
+      margin-top: 16px;
     }
 
-    /* ── FILTER TABS ── */
+    /* ── FILTER TABS (Liquid Glass Sticky) ── */
     .filter-wrap {
-      position: sticky; top: 70px; z-index: 100;
-      background: rgba(253,247,242,.9); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 56px;
-      overflow-x: hidden;
+      position: sticky; top: 96px; z-index: 100;
+      background: rgba(255, 253, 249, 0.85); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);
+      padding: 0 56px; overflow-x: hidden; box-shadow: 0 8px 24px rgba(42, 27, 20, 0.05);
     }
     .filter-inner {
       max-width: 1200px; margin: 0 auto;
-      display: flex; gap: 0; overflow-x: auto;
+      display: flex; gap: 16px; overflow-x: auto;
       scrollbar-width: none;
     }
     .filter-inner::-webkit-scrollbar { display: none; }
     .filter-btn {
-      font-family: 'Jost', sans-serif; font-weight: 300;
-      font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
-      color: var(--soft); background: none; border: none;
-      padding: 18px 24px; white-space: nowrap;
-      position: relative; transition: color .3s; cursor: none;
+      font-weight: 600; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(42, 27, 20, 0.6); background: none; border: none;
+      padding: 24px 16px; white-space: nowrap;
+      position: relative; transition: color 0.3s ease;
       flex-shrink: 0;
     }
     .filter-btn::after {
-      content: ''; position: absolute; bottom: 0; left: 0;
-      width: 0; height: 2px; background: var(--yellow); transition: width .3s;
+      content: ''; position: absolute; bottom: 0; left: 50%;
+      width: 0; height: 3px; background: var(--cherry); transition: width 0.4s var(--spring), left 0.4s var(--spring);
     }
-    .filter-btn.active { color: var(--deep); }
-    .filter-btn.active::after { width: 100%; }
-    .filter-btn:hover { color: var(--deep); }
+    .filter-btn.active { color: var(--espresso); }
+    .filter-btn.active::after { width: 100%; left: 0; }
+    .filter-btn:hover { color: var(--cherry); }
 
     /* ── MAIN CONTENT ── */
-    .disco-wrap {
-      max-width: 1200px; margin: 0 auto;
-      padding: 80px 56px 120px;
-    }
+    .disco-wrap { max-width: 1200px; margin: 0 auto; padding: 80px 56px 120px; position: relative; z-index: 2; }
 
     /* ── ERA SECTION ── */
-    .era-section {
-      margin-bottom: 100px;
-      opacity: 1; transition: opacity .4s;
-    }
+    .era-section { margin-bottom: 120px; opacity: 1; transition: opacity 0.4s ease; }
     .era-section.hidden { display: none; }
 
     .era-header {
       display: flex; align-items: flex-end; gap: 24px;
-      margin-bottom: 48px; padding-bottom: 20px;
-      border-bottom: 1px solid var(--border);
+      margin-bottom: 56px; padding-bottom: 24px;
+      border-bottom: 1px solid rgba(42, 27, 20, 0.1);
     }
     .era-year {
       font-family: 'Cormorant Garamond', serif; font-weight: 300;
-      font-size: 5rem; line-height: 1; color: var(--light-yellow);
-      letter-spacing: -.03em; user-select: none;
+      font-size: 6rem; line-height: 1; color: var(--pale-pink);
+      letter-spacing: -0.03em; user-select: none; text-shadow: 0 4px 12px rgba(166, 25, 46, 0.1);
     }
     .era-info { padding-bottom: 8px; }
     .era-label {
-      font-family: 'Jost', sans-serif; font-weight: 200;
-      font-size: .62rem; letter-spacing: .4em; text-transform: uppercase;
-      color: var(--yellow); margin-bottom: 6px;
+      font-weight: 600; font-size: 0.8rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--cherry); margin-bottom: 8px;
     }
     .era-name {
-      font-family: 'Cormorant Garamond', serif; font-style: italic;
-      font-weight: 300; font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      color: var(--deep); line-height: 1.1;
+      font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400;
+      font-size: clamp(2rem, 4vw, 3.5rem); color: var(--espresso); line-height: 1.1;
     }
 
     /* ── ALBUM LAYOUT ── */
     .album-layout {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 48px; align-items: start;
-      margin-bottom: 64px;
+      display: grid; grid-template-columns: 360px 1fr; gap: 64px; align-items: start; margin-bottom: 80px;
     }
     .album-layout:last-child { margin-bottom: 0; }
-    .album-layout.reverse { grid-template-columns: 1fr 280px; }
+    .album-layout.reverse { grid-template-columns: 1fr 360px; }
     .album-layout.reverse .album-cover-wrap { order: 2; }
-    .album-layout.reverse .album-detail   { order: 1; }
+    .album-layout.reverse .album-detail { order: 1; }
 
-    /* cover art */
-    .album-cover-wrap {
-      position: sticky; top: 140px;
-    }
+    /* Cover Art */
+    .album-cover-wrap { position: sticky; top: 180px; }
     .album-cover {
-      width: 100%; aspect-ratio: 1;
-      border-radius: 18px; overflow: hidden;
-      box-shadow: 0 20px 50px rgba(61,34,48,.14);
-      position: relative;
-      transition: transform .4s ease, box-shadow .4s ease;
+      width: 100%; aspect-ratio: 1; border-radius: 32px; overflow: hidden;
+      box-shadow: 0 20px 50px rgba(42, 27, 20, 0.1); position: relative;
+      transition: transform var(--speed) var(--spring), box-shadow var(--speed) var(--spring);
     }
-    .album-cover:hover { transform: translateY(-6px) rotate(1deg); box-shadow: 0 30px 70px rgba(61,34,48,.2); }
+    .album-cover:hover { transform: translate3d(0, -12px, 0) scale(1.03) rotate(-1deg); box-shadow: 0 40px 80px rgba(166, 25, 46, 0.15); z-index: 10; }
+    
     .album-cover-art {
-      width: 100%; height: 100%;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Great Vibes', cursive; font-size: 4rem;
-      color: rgba(255,255,255,.35); position: relative;
-      background-size: cover; background-position: center; background-repeat: no-repeat;
-    }
-    .album-cover-art::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 30% 25%, rgba(255,255,255,.25) 0%, transparent 55%);
+      width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat;
     }
     .cover-badge {
-      position: absolute; bottom: -12px; right: -12px;
-      background: var(--deep); border-radius: 50%;
-      width: 56px; height: 56px;
+      position: absolute; bottom: -16px; right: -16px;
+      background: var(--butter); border-radius: 50%; width: 80px; height: 80px;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      box-shadow: 0 8px 24px rgba(61,34,48,.3);
+      box-shadow: 0 12px 32px rgba(42, 27, 20, 0.15); border: 2px solid rgba(255,255,255,0.8);
     }
-    .cover-badge span:first-child {
-      font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
-      font-weight: 300; color: var(--yellow); line-height: 1;
-    }
-    .cover-badge span:last-child {
-      font-size: .45rem; letter-spacing: .1em; text-transform: uppercase;
-      color: rgba(255,255,255,.45); margin-top: 1px;
-    }
-    .streaming-links {
-      display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;
-    }
+    .cover-badge span:first-child { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--cherry); line-height: 1; }
+    .cover-badge span:last-child { font-weight: 600; font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--espresso); margin-top: 4px; }
+    
+    .streaming-links { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; justify-content: center; }
     .stream-btn {
-      font-family: 'Jost', sans-serif; font-weight: 300;
-      font-size: .62rem; letter-spacing: .15em; text-transform: uppercase;
-      color: var(--mid); border: 1px solid var(--border);
-      padding: 7px 14px; border-radius: 30px;
-      transition: border-color .3s, color .3s, background .3s;
+      font-weight: 600; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--espresso); border: 1px solid var(--glass-border); background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur); padding: 12px 24px; border-radius: 50px;
+      transition: all 0.4s var(--spring); box-shadow: var(--glass-shadow);
     }
-    .stream-btn:hover { border-color: var(--yellow); color: var(--deep); background: var(--light-yellow); }
+    .stream-btn:hover { background: var(--espresso); color: var(--butter); transform: translate3d(0, -4px, 0); }
 
-    /* album detail */
-    .album-detail-title {
-      font-family: 'Cormorant Garamond', serif; font-weight: 300;
-      font-size: clamp(1.6rem, 3vw, 2.4rem); color: var(--deep);
-      line-height: 1.1; margin-bottom: 6px;
-    }
+    /* Album Detail */
+    .album-detail-title { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(2.2rem, 4vw, 3.2rem); color: var(--espresso); line-height: 1.1; margin-bottom: 12px; }
     .album-detail-meta {
-      font-family: 'Jost', sans-serif; font-weight: 300;
-      font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
-      color: var(--soft); margin-bottom: 20px;
-      display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+      font-weight: 600; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(42, 27, 20, 0.6); margin-bottom: 24px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
     }
-    .album-detail-meta .sep { color: var(--border); }
-    .album-type {
-      background: var(--light-yellow); color: var(--mid);
-      padding: 3px 10px; border-radius: 20px;
-      font-size: .6rem; letter-spacing: .12em;
-    }
-    .album-desc {
-      font-family: 'Jost', sans-serif; font-weight: 300;
-      font-size: .9rem; line-height: 1.85; color: var(--soft);
-      max-width: 520px; margin-bottom: 32px;
-    }
+    .album-detail-meta .sep { color: rgba(42, 27, 20, 0.3); }
+    .album-type { background: var(--pale-pink); color: var(--cherry); padding: 6px 16px; border-radius: 50px; font-size: 0.7rem; letter-spacing: 0.15em; }
+    .album-desc { font-size: 1.15rem; line-height: 1.8; color: rgba(42, 27, 20, 0.85); max-width: 600px; margin-bottom: 40px; font-weight: 400; }
 
-    /* tracklist */
-    .tracklist-title {
-      font-family: 'Jost', sans-serif; font-weight: 300;
-      font-size: .62rem; letter-spacing: .35em; text-transform: uppercase;
-      color: var(--yellow); margin-bottom: 12px;
-    }
+    /* Tracklist */
+    .tracklist-title { font-weight: 600; font-size: 0.85rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cherry); margin-bottom: 16px; border-bottom: 1px solid rgba(42, 27, 20, 0.1); padding-bottom: 12px; }
     .tracklist { list-style: none; }
     .track {
-      display: flex; align-items: center; gap: 16px;
-      padding: 10px 0; border-bottom: 1px solid rgba(178,120,145,.08);
-      transition: background .2s; border-radius: 8px;
-      padding-left: 8px; padding-right: 8px;
-      margin: 0 -8px;
-      cursor: none;
+      display: flex; align-items: center; gap: 20px; padding: 14px 16px;
+      border-bottom: 1px solid rgba(42, 27, 20, 0.05); border-radius: 16px;
+      transition: background 0.3s ease, transform 0.3s ease; position: relative;
     }
-    .track:hover { background: rgba(242,167,179,.07); }
+    .track:hover { background: rgba(253, 229, 233, 0.4); transform: translateX(8px); }
     .track:last-child { border-bottom: none; }
-    .track-num {
-      font-family: 'Cormorant Garamond', serif; font-weight: 300;
-      font-size: .95rem; color: var(--soft); opacity: .5;
-      width: 20px; text-align: right; flex-shrink: 0;
-    }
+    .track-num { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.2rem; color: rgba(42, 27, 20, 0.4); width: 24px; text-align: right; flex-shrink: 0; transition: opacity 0.3s ease; }
     .track:hover .track-num { opacity: 0; }
     .track-play {
-      width: 20px; text-align: center; flex-shrink: 0;
-      font-size: .7rem; color: var(--yellow);
-      opacity: 0; transition: opacity .2s;
-      position: absolute;
+      width: 24px; text-align: center; flex-shrink: 0; font-size: 0.9rem; color: var(--cherry);
+      opacity: 0; transition: opacity 0.3s ease; position: absolute;
     }
-    .track { position: relative; }
     .track:hover .track-play { opacity: 1; }
-    .track-name {
-      font-family: 'Jost', sans-serif; font-weight: 300;
-      font-size: .88rem; color: var(--deep); flex: 1;
-      transition: color .2s;
-    }
-    .track:hover .track-name { color: var(--mid); }
-    .track-feat {
-      font-style: italic; color: var(--soft);
-      font-size: .8rem;
-    }
-    .track-flag {
-      font-size: .58rem; letter-spacing: .1em; text-transform: uppercase;
-      background: var(--baby-blue); color: var(--mid);
-      padding: 2px 8px; border-radius: 20px; flex-shrink: 0;
-    }
-    .track-flag.bonus { background: var(--light-yellow); }
+    .track-name { font-weight: 500; font-size: 1.05rem; color: var(--espresso); flex: 1; transition: color 0.3s ease; }
+    .track:hover .track-name { color: var(--cherry); }
+    .track-feat { font-style: italic; color: rgba(42, 27, 20, 0.6); font-size: 0.95rem; font-weight: 400; }
+    .track-flag { font-weight: 600; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; background: var(--baby-blue); color: var(--espresso); padding: 4px 12px; border-radius: 50px; flex-shrink: 0; }
+    .track-flag.bonus { background: var(--pale-pink); color: var(--cherry); }
 
-    /* album colors */
+    /* Album Covers */
     .ac-sns  { background-image: url("images/Short n' Sweet.jpg"); }
     .ac-sns2 { background-image: url("images/Short n' Sweet Deluxe.jpg"); }
     .ac-mbf  { background-image: url("images/Man's Best Friend.jpg"); }
@@ -444,628 +325,615 @@
     .ac-evo  { background-image: url("images/EVOlution.jpg"); }
     .ac-ewo  { background-image: url("images/Eyes Wide Open.jpg"); }
 
-    /* ── DIVIDER ── */
-    .era-divider {
-      text-align: center; margin: 80px 0;
-      display: flex; align-items: center; gap: 24px;
-    }
-    .era-divider::before, .era-divider::after {
-      content: ''; flex: 1; height: 1px; background: var(--border);
-    }
-    .era-divider span {
-      font-family: 'Pinyon Script', cursive; font-size: 1.8rem; color: var(--yellow);
-    }
+    /* ── ERA DIVIDER ── */
+    .era-divider { text-align: center; margin: 100px 0; display: flex; align-items: center; gap: 32px; }
+    .era-divider::before, .era-divider::after { content: ''; flex: 1; height: 1px; background: rgba(42, 27, 20, 0.1); }
+    .era-divider span { font-family: 'Great Vibes', cursive; font-size: 3rem; color: var(--cherry); }
 
     /* ── FOOTER ── */
-    footer {
-      background: var(--deep); padding: 60px 56px 40px;
-      color: rgba(255,255,255,.4);
-    }
-    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
-    .footer-top { display: flex; align-items: center; justify-content: space-between; }
-    .footer-logo { font-family: 'Pinyon Script', cursive; font-size: 2.2rem; color: var(--yellow); }
-    .footer-links { display: flex; gap: 32px; list-style: none; }
-    .footer-links a {
-      font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
-      font-weight: 300; color: rgba(255,255,255,.35); transition: color .3s;
-    }
-    .footer-links a:hover { color: var(--yellow); }
-    .footer-bottom {
-      display: flex; justify-content: space-between; align-items: center;
-      border-top: 1px solid rgba(255,255,255,.07); padding-top: 28px;
-      font-size: .68rem; letter-spacing: .12em; font-weight: 300;
-    }
-    .footer-heart { color: var(--yellow); }
+    footer { padding: 60px 20px 80px; max-width: 1240px; margin: 0 auto; position: relative; z-index: 2;}
+    .footer-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 40px; margin-bottom: 60px; }
+    .footer-logo { display: flex; align-items: center; height: 48px; transition: transform var(--speed) var(--spring); }
+    .footer-logo:hover { transform: scale(1.05) rotate(-2deg); }
+    .footer-logo img { height: 100%; width: auto; object-fit: contain; }
+    .footer-links { display: flex; gap: 48px; list-style: none; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.9rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--cherry); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; padding-top: 40px; border-top: 2px solid rgba(42, 27, 20, 0.1); font-size: 0.9rem; font-weight: 500; color: rgba(42, 27, 20, 0.6); letter-spacing: 0.1em; }
 
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .82s cubic-bezier(.22,.61,.36,1), transform .82s cubic-bezier(.22,.61,.36,1); }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: .08s; }
-    .reveal-delay-2 { transition-delay: .18s; }
-    .reveal-delay-3 { transition-delay: .3s; }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0s !important; transition-duration: 0s !important; }
-      body { opacity: 1; animation: none; filter: none; }
-      .reveal { opacity: 1; transform: none; }
-      .orb, .ticker { animation: none; }
-    }
+    /* ── ULTRA-FLUID REVEALS ── */
+    .reveal { opacity: 0; transform: translate3d(0, 60px, 0) scale(0.96); transition: opacity 1s ease-out, transform var(--speed) var(--spring); will-change: transform, opacity; }
+    .reveal.visible { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
 
     /* ── RESPONSIVE ── */
-    @media (pointer: coarse), (hover: none) {
-      *, *::before, *::after { cursor: auto !important; }
-      #cur, #cur-ring { display: none !important; }
-    }
-
     @media (max-width: 900px) {
-      nav { padding: 16px 20px; }
-      .nav-links { display: none; }
-      .nav-toggle { display: flex; }
-      .filter-wrap { padding: 0 24px; }
+      .nav-links, .nav-btn { display: none !important; }
+      .menu-toggle { display: flex; }
+      header { width: auto; max-width: max-content; padding: 8px 16px 8px 24px; gap: 32px; }
+      .nav-logo { height: 32px; }
+      .header-wrapper.open .mobile-menu { display: flex; opacity: 1; max-height: 500px; padding: 32px; }
+      .header-wrapper.open .menu-toggle span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+      .header-wrapper.open .menu-toggle span:nth-child(2) { opacity: 0; }
+      .header-wrapper.open .menu-toggle span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+      
+      .filter-wrap { padding: 0 24px; top: 80px; }
       .disco-wrap { padding: 60px 24px 80px; }
-      .album-layout, .album-layout.reverse {
-        grid-template-columns: 1fr;
-      }
+      .album-layout, .album-layout.reverse { grid-template-columns: 1fr; gap: 40px; }
       .album-layout.reverse .album-cover-wrap { order: 0; }
       .album-layout.reverse .album-detail { order: 0; }
-      .album-cover-wrap { position: static; max-width: 240px; }
-      footer { padding: 48px 24px 32px; }
-      .footer-top { flex-direction: column; gap: 24px; align-items: flex-start; }
-      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .album-cover-wrap { position: static; max-width: 320px; margin: 0 auto; }
+      
+      .footer-top { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      .era-year { font-size: 4rem; }
+      .album-detail-title { font-size: 2rem; }
+      .track-name { font-size: 0.95rem; }
     }
   </style>
 </head>
 <body>
 
-  <div id="cur">💋</div>
-  <div id="cur-ring"></div>
+  <div class="ambient-bg"></div>
   <div id="petals"></div>
 
-  <!-- Nav -->
-  <nav id="nav">
-    <a href="/" class="nav-logo" aria-label="Sabrina Carpenter home">
-      <img src="images/logo.webp" alt="Sabrina Carpenter logo" />
-    </a>
-    <button class="nav-toggle" aria-label="Toggle navigation">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links">
-      <li><a href="/">Home</a></li>
-      <li><a href="/about">About</a></li>
-      <li><a href="/discography" class="nav-active">Music</a></li>
-      <li><a href="/gallery">Gallery</a></li>
-      <li><a href="/tours">Tours</a></li>
-    </ul>
-    <div class="nav-drawer" id="nav-drawer">
-      <a href="/">Home</a>
-      <a href="/about">About</a>
-      <a href="/discography">Music</a>
-      <a href="/gallery">Gallery</a>
-      <a href="/tours">Tours</a>
-    </div>
-    <a href="/discography" class="nav-cta">Listen</a>
-  </nav>
+  <div id="cur">💋</div>
+  <div id="cur-ring"></div>
 
-  <!-- Page Hero -->
-  <div class="page-hero">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <p class="page-eyebrow">✦ &nbsp; every song, every era &nbsp; ✦</p>
-    <h1 class="page-title">Discography</h1>
-    <p class="page-title-sub">From 2015 to now — a universe of sound</p>
-  </div>
+  <main id="app-wrapper">
 
-  <!-- Filter Tabs -->
-  <div class="filter-wrap">
-    <div class="filter-inner">
-      <button class="filter-btn active" data-filter="all">All Eras</button>
-      <button class="filter-btn" data-filter="2025">2025 ✦ Man's Best Friend</button>
-      <button class="filter-btn" data-filter="2024">2024 ✦ Short n' Sweet</button>
-      <button class="filter-btn" data-filter="2022">2022 ✦ emails i can't send</button>
-      <button class="filter-btn" data-filter="singular">2018–2019 ✦ Singular</button>
-      <button class="filter-btn" data-filter="early">2015–2016 ✦ Early Era</button>
-    </div>
-  </div>
+    <div class="header-wrapper" id="header-wrapper">
+      <header id="header" class="liquid-glass">
+        <a href="/" class="nav-logo" aria-label="Sabrina Home">
+          <img src="images/logo.webp" alt="Sabrina Logo" />
+        </a>
+        
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/discography" class="nav-active">Music</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/tours">Tours</a></li>
+        </ul>
 
-  <!-- Discography -->
-  <div class="disco-wrap">
-
-    <!-- ── 2025 ERA ── -->
-    <div class="era-section reveal" data-era="2025">
-      <div class="era-header">
-        <div class="era-year">2025</div>
-        <div class="era-info">
-          <p class="era-label">Latest Era</p>
-          <h2 class="era-name">Man's Best Friend</h2>
+        <div class="nav-actions">
+          <a href="/discography" class="nav-btn">Listen Now</a>
+          <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+          </button>
         </div>
+      </header>
+      
+      <div class="mobile-menu liquid-glass">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/discography">Music</a>
+        <a href="/gallery">Gallery</a>
+        <a href="/tours">Tours</a>
       </div>
+    </div>
 
-      <!-- Man's Best Friend (Bonus Track Version) -->
-      <div class="album-layout">
-        <div class="album-cover-wrap">
-          <div class="album-cover">
-            <div class="album-cover-art ac-mbf2"></div>
-            <div class="cover-badge">
-              <span>✦</span>
-              <span>Bonus</span>
+    <div class="page-hero">
+      <div class="hero-orb orb-1"></div>
+      <div class="hero-orb orb-2"></div>
+      <div class="page-hero-inner">
+        <span class="page-eyebrow">✦ every song, every era ✦</span>
+        <h1 class="page-title">Discography</h1>
+        <p class="page-title-sub">From 2015 to now — a universe of sound</p>
+      </div>
+    </div>
+
+    <div class="filter-wrap">
+      <div class="filter-inner">
+        <button class="filter-btn active" data-filter="all">All Eras</button>
+        <button class="filter-btn" data-filter="2025">2025 ✦ Man's Best Friend</button>
+        <button class="filter-btn" data-filter="2024">2024 ✦ Short n' Sweet</button>
+        <button class="filter-btn" data-filter="2022">2022 ✦ emails i can't send</button>
+        <button class="filter-btn" data-filter="singular">2018–2019 ✦ Singular</button>
+        <button class="filter-btn" data-filter="early">2015–2016 ✦ Early Era</button>
+      </div>
+    </div>
+
+    <div class="disco-wrap">
+
+      <div class="era-section reveal" data-era="2025">
+        <div class="era-header">
+          <div class="era-year">2025</div>
+          <div class="era-info">
+            <p class="era-label">Latest Era</p>
+            <h2 class="era-name">Man's Best Friend</h2>
+          </div>
+        </div>
+
+        <div class="album-layout">
+          <div class="album-cover-wrap">
+            <div class="album-cover">
+              <div class="album-cover-art ac-mbf2"></div>
+              <div class="cover-badge">
+                <span>✦</span>
+                <span>Bonus</span>
+              </div>
+            </div>
+            <div class="streaming-links">
+              <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="stream-btn">Spotify</a>
+              <a href="https://music.apple.com/us/artist/sabrina-carpenter/459546798" target="_blank" class="stream-btn">Apple Music</a>
             </div>
           </div>
-          <div class="streaming-links">
-            <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="stream-btn">Spotify</a>
-            <a href="https://music.apple.com/us/artist/sabrina-carpenter/459546798" target="_blank" class="stream-btn">Apple Music</a>
-            <a href="https://www.youtube.com/sabrinacarpenter" target="_blank" class="stream-btn">YouTube</a>
+          <div class="album-detail">
+            <h3 class="album-detail-title">Man's Best Friend <span style="font-style:italic;color:rgba(42,27,20,0.5);font-size:.8em">(Bonus Track Version)</span></h3>
+            <div class="album-detail-meta">
+              <span>2025</span>
+              <span class="sep">·</span>
+              <span>Island Records</span>
+              <span class="sep">·</span>
+              <span class="album-type">Bonus Edition</span>
+            </div>
+            <p class="album-desc">The expanded edition of Man's Best Friend with additional tracks continuing Sabrina's evolution into her boldest, most self-assured chapter yet.</p>
+            <p class="tracklist-title">Tracklist</p>
+            <ol class="tracklist">
+              <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">Manchild</span></li>
+              <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Tears</span></li>
+              <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">My Man on Willpower</span></li>
+              <li class="track"><span class="track-num">4</span><span class="track-play">▶</span><span class="track-name">Sugar Talking</span></li>
+              <li class="track"><span class="track-num">5</span><span class="track-play">▶</span><span class="track-name">We Almost Broke Up Again Last Night</span></li>
+              <li class="track"><span class="track-num">6</span><span class="track-play">▶</span><span class="track-name">Nobody's Son</span></li>
+              <li class="track"><span class="track-num">7</span><span class="track-play">▶</span><span class="track-name">Never Getting Laid</span></li>
+              <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">When Did You Get Hot?</span></li>
+              <li class="track"><span class="track-num">9</span><span class="track-play">▶</span><span class="track-name">Go Go Juice</span></li>
+              <li class="track"><span class="track-num">10</span><span class="track-play">▶</span><span class="track-name">Don't Worry I'll Make You Worry</span></li>
+              <li class="track"><span class="track-num">11</span><span class="track-play">▶</span><span class="track-name">House Tour</span></li>
+              <li class="track"><span class="track-num">12</span><span class="track-play">▶</span><span class="track-name">Goodbye</span></li>
+              <li class="track"><span class="track-num">13</span><span class="track-play">▶</span><span class="track-name">Such A Funny Way</span><span class="track-flag bonus">Bonus</span></li>
+            </ol>
           </div>
         </div>
-        <div class="album-detail">
-          <h3 class="album-detail-title">Man's Best Friend <span style="font-style:italic;color:var(--soft);font-size:.8em">(Bonus Track Version)</span></h3>
-          <div class="album-detail-meta">
-            <span>2025</span>
-            <span class="sep">·</span>
-            <span>Island Records</span>
-            <span class="sep">·</span>
-            <span class="album-type">Bonus Edition</span>
-          </div>
-          <p class="album-desc">The expanded edition of Man's Best Friend with additional tracks continuing Sabrina's evolution into her boldest, most self-assured chapter yet.</p>
-          <p class="tracklist-title">Tracklist</p>
-          <ol class="tracklist">
-            <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">Manchild</span></li>
-            <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Tears</span></li>
-            <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">My Man on Willpower</span></li>
-            <li class="track"><span class="track-num">4</span><span class="track-play">▶</span><span class="track-name">Sugar Talking</span></li>
-            <li class="track"><span class="track-num">5</span><span class="track-play">▶</span><span class="track-name">We Almost Broke Up Again Last Night</span></li>
-            <li class="track"><span class="track-num">6</span><span class="track-play">▶</span><span class="track-name">Nobody's Son</span></li>
-            <li class="track"><span class="track-num">7</span><span class="track-play">▶</span><span class="track-name">Never Getting Laid</span></li>
-            <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">When Did You Get Hot?</span></li>
-            <li class="track"><span class="track-num">9</span><span class="track-play">▶</span><span class="track-name">Go Go Juice</span></li>
-            <li class="track"><span class="track-num">10</span><span class="track-play">▶</span><span class="track-name">Don't Worry I'll Make You Worry</span></li>
-            <li class="track"><span class="track-num">11</span><span class="track-play">▶</span><span class="track-name">House Tour</span></li>
-            <li class="track"><span class="track-num">12</span><span class="track-play">▶</span><span class="track-name">Goodbye</span></li>
-            <li class="track"><span class="track-num">13</span><span class="track-play">▶</span><span class="track-name">Such A Funny Way</span><span class="track-flag bonus">Bonus</span></li>
-          </ol>
-        </div>
-      </div>
 
-      <div class="era-divider"><span>✦</span></div>
+        <div class="era-divider"><span>✦</span></div>
 
-      <!-- Man's Best Friend -->
-      <div class="album-layout reverse">
-        <div class="album-cover-wrap">
-          <div class="album-cover">
-            <div class="album-cover-art ac-mbf"></div>
-          </div>
-          <div class="streaming-links">
-            <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="stream-btn">Spotify</a>
-            <a href="https://music.apple.com/us/artist/sabrina-carpenter/459546798" target="_blank" class="stream-btn">Apple Music</a>
-          </div>
-        </div>
-        <div class="album-detail">
-          <h3 class="album-detail-title">Man's Best Friend</h3>
-          <div class="album-detail-meta">
-            <span>2025</span>
-            <span class="sep">·</span>
-            <span>Island Records</span>
-            <span class="sep">·</span>
-            <span class="album-type">Studio Album</span>
-          </div>
-          <p class="album-desc">Sabrina's seventh studio album. Dark, playful, and completely on her own terms — Man's Best Friend shows an artist fully in command of her craft and her narrative.</p>
-          <p class="tracklist-title">Tracklist</p>
-          <ol class="tracklist">
-            <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">Manchild</span></li>
-            <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Tears</span></li>
-            <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">My Man on Willpower</span></li>
-            <li class="track"><span class="track-num">4</span><span class="track-play">▶</span><span class="track-name">Sugar Talking</span></li>
-            <li class="track"><span class="track-num">5</span><span class="track-play">▶</span><span class="track-name">We Almost Broke Up Again Last Night</span></li>
-            <li class="track"><span class="track-num">6</span><span class="track-play">▶</span><span class="track-name">Nobody's Son</span></li>
-            <li class="track"><span class="track-num">7</span><span class="track-play">▶</span><span class="track-name">Never Getting Laid</span></li>
-            <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">When Did You Get Hot?</span></li>
-            <li class="track"><span class="track-num">9</span><span class="track-play">▶</span><span class="track-name">Go Go Juice</span></li>
-            <li class="track"><span class="track-num">10</span><span class="track-play">▶</span><span class="track-name">Don't Worry I'll Make You Worry</span></li>
-            <li class="track"><span class="track-num">11</span><span class="track-play">▶</span><span class="track-name">House Tour</span></li>
-            <li class="track"><span class="track-num">12</span><span class="track-play">▶</span><span class="track-name">Goodbye</span></li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── 2024 ERA ── -->
-    <div class="era-section reveal" data-era="2024">
-      <div class="era-header">
-        <div class="era-year">2024</div>
-        <div class="era-info">
-          <p class="era-label">Breakthrough Era</p>
-          <h2 class="era-name">Short n' Sweet</h2>
-        </div>
-      </div>
-
-      <!-- Short n' Sweet Deluxe -->
-      <div class="album-layout">
-        <div class="album-cover-wrap">
-          <div class="album-cover">
-            <div class="album-cover-art ac-sns2"></div>
-            <div class="cover-badge">
-              <span>✦</span>
-              <span>Deluxe</span>
+        <div class="album-layout reverse">
+          <div class="album-cover-wrap">
+            <div class="album-cover">
+              <div class="album-cover-art ac-mbf"></div>
+            </div>
+            <div class="streaming-links">
+              <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="stream-btn">Spotify</a>
+              <a href="https://music.apple.com/us/artist/sabrina-carpenter/459546798" target="_blank" class="stream-btn">Apple Music</a>
             </div>
           </div>
-          <div class="streaming-links">
-            <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="stream-btn">Spotify</a>
-            <a href="https://music.apple.com/us/artist/sabrina-carpenter/459546798" target="_blank" class="stream-btn">Apple Music</a>
-            <a href="https://www.youtube.com/sabrinacarpenter" target="_blank" class="stream-btn">YouTube</a>
+          <div class="album-detail">
+            <h3 class="album-detail-title">Man's Best Friend</h3>
+            <div class="album-detail-meta">
+              <span>2025</span>
+              <span class="sep">·</span>
+              <span>Island Records</span>
+              <span class="sep">·</span>
+              <span class="album-type">Studio Album</span>
+            </div>
+            <p class="album-desc">Sabrina's seventh studio album. Dark, playful, and completely on her own terms — Man's Best Friend shows an artist fully in command of her craft and her narrative.</p>
+            <p class="tracklist-title">Tracklist</p>
+            <ol class="tracklist">
+              <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">Manchild</span></li>
+              <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Tears</span></li>
+              <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">My Man on Willpower</span></li>
+              <li class="track"><span class="track-num">4</span><span class="track-play">▶</span><span class="track-name">Sugar Talking</span></li>
+              <li class="track"><span class="track-num">5</span><span class="track-play">▶</span><span class="track-name">We Almost Broke Up Again Last Night</span></li>
+              <li class="track"><span class="track-num">6</span><span class="track-play">▶</span><span class="track-name">Nobody's Son</span></li>
+              <li class="track"><span class="track-num">7</span><span class="track-play">▶</span><span class="track-name">Never Getting Laid</span></li>
+              <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">When Did You Get Hot?</span></li>
+              <li class="track"><span class="track-num">9</span><span class="track-play">▶</span><span class="track-name">Go Go Juice</span></li>
+              <li class="track"><span class="track-num">10</span><span class="track-play">▶</span><span class="track-name">Don't Worry I'll Make You Worry</span></li>
+              <li class="track"><span class="track-num">11</span><span class="track-play">▶</span><span class="track-name">House Tour</span></li>
+              <li class="track"><span class="track-num">12</span><span class="track-play">▶</span><span class="track-name">Goodbye</span></li>
+            </ol>
           </div>
-        </div>
-        <div class="album-detail">
-          <h3 class="album-detail-title">Short n' Sweet <span style="font-style:italic;color:var(--soft);font-size:.8em">(Deluxe)</span></h3>
-          <div class="album-detail-meta">
-            <span>2025</span>
-            <span class="sep">·</span>
-            <span>Island Records</span>
-            <span class="sep">·</span>
-            <span class="album-type">Deluxe Edition</span>
-          </div>
-          <p class="album-desc">The expanded edition of her global breakthrough, featuring additional tracks that deepen the album's world of wit, longing, and irresistible pop craft.</p>
-          <p class="tracklist-title">Tracklist</p>
-          <ol class="tracklist">
-            <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">Taste</span></li>
-            <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Please Please Please</span></li>
-            <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">Good Graces</span></li>
-            <li class="track"><span class="track-num">4</span><span class="track-play">▶</span><span class="track-name">Sharpest Tool</span></li>
-            <li class="track"><span class="track-num">5</span><span class="track-play">▶</span><span class="track-name">Coincidence</span></li>
-            <li class="track"><span class="track-num">6</span><span class="track-play">▶</span><span class="track-name">Bed Chem</span></li>
-            <li class="track"><span class="track-num">7</span><span class="track-play">▶</span><span class="track-name">Espresso</span></li>
-            <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">Dumb &amp; Poetic</span></li>
-            <li class="track"><span class="track-num">9</span><span class="track-play">▶</span><span class="track-name">Slim Pickins</span></li>
-            <li class="track"><span class="track-num">10</span><span class="track-play">▶</span><span class="track-name">Juno</span></li>
-            <li class="track"><span class="track-num">11</span><span class="track-play">▶</span><span class="track-name">Lie To Girls</span></li>
-            <li class="track"><span class="track-num">12</span><span class="track-play">▶</span><span class="track-name">Don't Smile</span></li>
-            <li class="track"><span class="track-num">13</span><span class="track-play">▶</span><span class="track-name">15 Minutes</span><span class="track-flag bonus">Deluxe</span></li>
-            <li class="track"><span class="track-num">14</span><span class="track-play">▶</span><span class="track-name">Please Please Please (Remix) (Ft. Dolly Parton)</span><span class="track-flag bonus">Deluxe</span></li>
-            <li class="track"><span class="track-num">15</span><span class="track-play">▶</span><span class="track-name">Couldn't Make It Any Harder</span><span class="track-flag bonus">Deluxe</span></li>
-            <li class="track"><span class="track-num">16</span><span class="track-play">▶</span><span class="track-name">Busy Woman</span><span class="track-flag bonus">Deluxe</span></li>
-            <li class="track"><span class="track-num">17</span><span class="track-play">▶</span><span class="track-name">Bad Reviews</span><span class="track-flag bonus">Deluxe</span></li>
-          </ol>
         </div>
       </div>
 
-      <div class="era-divider"><span>✦</span></div>
+      <div class="era-section reveal" data-era="2024">
+        <div class="era-header">
+          <div class="era-year">2024</div>
+          <div class="era-info">
+            <p class="era-label">Breakthrough Era</p>
+            <h2 class="era-name">Short n' Sweet</h2>
+          </div>
+        </div>
 
-      <!-- Short n' Sweet -->
-      <div class="album-layout reverse">
-        <div class="album-cover-wrap">
-          <div class="album-cover">
-            <div class="album-cover-art ac-sns"></div>
+        <div class="album-layout">
+          <div class="album-cover-wrap">
+            <div class="album-cover">
+              <div class="album-cover-art ac-sns2"></div>
+              <div class="cover-badge">
+                <span>✦</span>
+                <span>Deluxe</span>
+              </div>
+            </div>
+            <div class="streaming-links">
+              <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="stream-btn">Spotify</a>
+              <a href="https://music.apple.com/us/artist/sabrina-carpenter/459546798" target="_blank" class="stream-btn">Apple Music</a>
+            </div>
           </div>
-          <div class="streaming-links">
-            <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="stream-btn">Spotify</a>
-            <a href="https://music.apple.com/us/artist/sabrina-carpenter/459546798" target="_blank" class="stream-btn">Apple Music</a>
+          <div class="album-detail">
+            <h3 class="album-detail-title">Short n' Sweet <span style="font-style:italic;color:rgba(42,27,20,0.5);font-size:.8em">(Deluxe)</span></h3>
+            <div class="album-detail-meta">
+              <span>2025</span>
+              <span class="sep">·</span>
+              <span>Island Records</span>
+              <span class="sep">·</span>
+              <span class="album-type">Deluxe Edition</span>
+            </div>
+            <p class="album-desc">The expanded edition of her global breakthrough, featuring additional tracks that deepen the album's world of wit, longing, and irresistible pop craft.</p>
+            <p class="tracklist-title">Tracklist</p>
+            <ol class="tracklist">
+              <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">Taste</span></li>
+              <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Please Please Please</span></li>
+              <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">Good Graces</span></li>
+              <li class="track"><span class="track-num">4</span><span class="track-play">▶</span><span class="track-name">Sharpest Tool</span></li>
+              <li class="track"><span class="track-num">5</span><span class="track-play">▶</span><span class="track-name">Coincidence</span></li>
+              <li class="track"><span class="track-num">6</span><span class="track-play">▶</span><span class="track-name">Bed Chem</span></li>
+              <li class="track"><span class="track-num">7</span><span class="track-play">▶</span><span class="track-name">Espresso</span></li>
+              <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">Dumb & Poetic</span></li>
+              <li class="track"><span class="track-num">9</span><span class="track-play">▶</span><span class="track-name">Slim Pickins</span></li>
+              <li class="track"><span class="track-num">10</span><span class="track-play">▶</span><span class="track-name">Juno</span></li>
+              <li class="track"><span class="track-num">11</span><span class="track-play">▶</span><span class="track-name">Lie To Girls</span></li>
+              <li class="track"><span class="track-num">12</span><span class="track-play">▶</span><span class="track-name">Don't Smile</span></li>
+              <li class="track"><span class="track-num">13</span><span class="track-play">▶</span><span class="track-name">15 Minutes</span><span class="track-flag bonus">Deluxe</span></li>
+              <li class="track"><span class="track-num">14</span><span class="track-play">▶</span><span class="track-name">Please Please Please (Remix)</span><span class="track-feat">Ft. Dolly Parton</span><span class="track-flag bonus">Deluxe</span></li>
+              <li class="track"><span class="track-num">15</span><span class="track-play">▶</span><span class="track-name">Couldn't Make It Any Harder</span><span class="track-flag bonus">Deluxe</span></li>
+              <li class="track"><span class="track-num">16</span><span class="track-play">▶</span><span class="track-name">Busy Woman</span><span class="track-flag bonus">Deluxe</span></li>
+              <li class="track"><span class="track-num">17</span><span class="track-play">▶</span><span class="track-name">Bad Reviews</span><span class="track-flag bonus">Deluxe</span></li>
+            </ol>
           </div>
         </div>
-        <div class="album-detail">
-          <h3 class="album-detail-title">Short n' Sweet</h3>
-          <div class="album-detail-meta">
-            <span>August 2024</span>
-            <span class="sep">·</span>
-            <span>Island Records</span>
-            <span class="sep">·</span>
-            <span class="album-type">Studio Album</span>
-          </div>
-          <p class="album-desc">The album that made the whole world stop. Featuring the global smash Espresso and Please Please Please, Short n' Sweet is Sabrina at her most confident, most clever, and most irresistible.</p>
-          <p class="tracklist-title">Tracklist</p>
-          <ol class="tracklist">
-            <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">Taste</span></li>
-            <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Please Please Please</span></li>
-            <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">Good Graces</span></li>
-            <li class="track"><span class="track-num">4</span><span class="track-play">▶</span><span class="track-name">Sharpest Tool</span></li>
-            <li class="track"><span class="track-num">5</span><span class="track-play">▶</span><span class="track-name">Coincidence</span></li>
-            <li class="track"><span class="track-num">6</span><span class="track-play">▶</span><span class="track-name">Bed Chem</span></li>
-            <li class="track"><span class="track-num">7</span><span class="track-play">▶</span><span class="track-name">Espresso</span></li>
-            <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">Dumb &amp; Poetic</span></li>
-            <li class="track"><span class="track-num">9</span><span class="track-play">▶</span><span class="track-name">Slim Pickins</span></li>
-            <li class="track"><span class="track-num">10</span><span class="track-play">▶</span><span class="track-name">Juno</span></li>
-            <li class="track"><span class="track-num">11</span><span class="track-play">▶</span><span class="track-name">Lie To Girls</span></li>
-            <li class="track"><span class="track-num">12</span><span class="track-play">▶</span><span class="track-name">Don't Smile</span></li>
-          </ol>
-        </div>
-      </div>
-    </div>
 
-    <!-- ── 2022 ERA ── -->
-    <div class="era-section reveal" data-era="2022">
-      <div class="era-header">
-        <div class="era-year">2022</div>
-        <div class="era-info">
-          <p class="era-label">Coming of Age</p>
-          <h2 class="era-name">emails i can't send</h2>
-        </div>
-      </div>
-      <div class="album-layout">
-        <div class="album-cover-wrap">
-          <div class="album-cover">
-            <div class="album-cover-art ac-eics"></div>
-          </div>
-          <div class="streaming-links">
-            <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="stream-btn">Spotify</a>
-            <a href="https://music.apple.com/us/artist/sabrina-carpenter/459546798" target="_blank" class="stream-btn">Apple Music</a>
-          </div>
-        </div>
-        <div class="album-detail">
-          <h3 class="album-detail-title">emails i can't send</h3>
-          <div class="album-detail-meta">
-            <span>August 2022</span>
-            <span class="sep">·</span>
-            <span>Island Records</span>
-            <span class="sep">·</span>
-            <span class="album-type">Studio Album</span>
-          </div>
-          <p class="album-desc">Raw, honest, and laced with the kind of wit that makes heartbreak feel almost beautiful. This album introduced the world to a sharper, more personal Sabrina — and nobody was ready.</p>
-          <p class="tracklist-title">Tracklist</p>
-          <ol class="tracklist">
-            <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">emails i can't send</span></li>
-            <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Vicious</span></li>
-            <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">Read your Mind</span></li>
-            <li class="track"><span class="track-num">4</span><span class="track-play">▶</span><span class="track-name">Tornado Warnings</span></li>
-            <li class="track"><span class="track-num">5</span><span class="track-play">▶</span><span class="track-name">because i liked a boy</span></li>
-            <li class="track"><span class="track-num">6</span><span class="track-play">▶</span><span class="track-name">Already Over</span></li>
-            <li class="track"><span class="track-num">7</span><span class="track-play">▶</span><span class="track-name">how many things</span></li>
-            <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">bet u wanna</span></li>
-            <li class="track"><span class="track-num">9</span><span class="track-play">▶</span><span class="track-name">Nonsense</span></li>
-            <li class="track"><span class="track-num">10</span><span class="track-play">▶</span><span class="track-name">Fast Times</span></li>
-            <li class="track"><span class="track-num">11</span><span class="track-play">▶</span><span class="track-name">skinny dipping</span></li>
-            <li class="track"><span class="track-num">12</span><span class="track-play">▶</span><span class="track-name">Bad for Business</span></li>
-            <li class="track"><span class="track-num">13</span><span class="track-play">▶</span><span class="track-name">decode</span></li>
-          </ol>
-        </div>
-      </div>
-    </div>
+        <div class="era-divider"><span>✦</span></div>
 
-    <!-- ── SINGULAR ERA ── -->
-    <div class="era-section reveal" data-era="singular">
-      <div class="era-header">
-        <div class="era-year">2018–19</div>
-        <div class="era-info">
-          <p class="era-label">The Singular Years</p>
-          <h2 class="era-name">Singular: Act I &amp; II</h2>
+        <div class="album-layout reverse">
+          <div class="album-cover-wrap">
+            <div class="album-cover">
+              <div class="album-cover-art ac-sns"></div>
+            </div>
+            <div class="streaming-links">
+              <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="stream-btn">Spotify</a>
+              <a href="https://music.apple.com/us/artist/sabrina-carpenter/459546798" target="_blank" class="stream-btn">Apple Music</a>
+            </div>
+          </div>
+          <div class="album-detail">
+            <h3 class="album-detail-title">Short n' Sweet</h3>
+            <div class="album-detail-meta">
+              <span>August 2024</span>
+              <span class="sep">·</span>
+              <span>Island Records</span>
+              <span class="sep">·</span>
+              <span class="album-type">Studio Album</span>
+            </div>
+            <p class="album-desc">The album that made the whole world stop. Featuring the global smash Espresso and Please Please Please, Short n' Sweet is Sabrina at her most confident, most clever, and most irresistible.</p>
+            <p class="tracklist-title">Tracklist</p>
+            <ol class="tracklist">
+              <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">Taste</span></li>
+              <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Please Please Please</span></li>
+              <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">Good Graces</span></li>
+              <li class="track"><span class="track-num">4</span><span class="track-play">▶</span><span class="track-name">Sharpest Tool</span></li>
+              <li class="track"><span class="track-num">5</span><span class="track-play">▶</span><span class="track-name">Coincidence</span></li>
+              <li class="track"><span class="track-num">6</span><span class="track-play">▶</span><span class="track-name">Bed Chem</span></li>
+              <li class="track"><span class="track-num">7</span><span class="track-play">▶</span><span class="track-name">Espresso</span></li>
+              <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">Dumb & Poetic</span></li>
+              <li class="track"><span class="track-num">9</span><span class="track-play">▶</span><span class="track-name">Slim Pickins</span></li>
+              <li class="track"><span class="track-num">10</span><span class="track-play">▶</span><span class="track-name">Juno</span></li>
+              <li class="track"><span class="track-num">11</span><span class="track-play">▶</span><span class="track-name">Lie To Girls</span></li>
+              <li class="track"><span class="track-num">12</span><span class="track-play">▶</span><span class="track-name">Don't Smile</span></li>
+            </ol>
+          </div>
         </div>
       </div>
 
-      <!-- Singular Act II -->
-      <div class="album-layout">
-        <div class="album-cover-wrap">
-          <div class="album-cover">
-            <div class="album-cover-art ac-sg2"></div>
-          </div>
-          <div class="streaming-links">
-            <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="stream-btn">Spotify</a>
-            <a href="https://music.apple.com/us/artist/sabrina-carpenter/459546798" target="_blank" class="stream-btn">Apple Music</a>
+      <div class="era-section reveal" data-era="2022">
+        <div class="era-header">
+          <div class="era-year">2022</div>
+          <div class="era-info">
+            <p class="era-label">Coming of Age</p>
+            <h2 class="era-name">emails i can't send</h2>
           </div>
         </div>
-        <div class="album-detail">
-          <h3 class="album-detail-title">Singular: Act II</h3>
-          <div class="album-detail-meta">
-            <span>May 2019</span>
-            <span class="sep">·</span>
-            <span>Hollywood Records</span>
-            <span class="sep">·</span>
-            <span class="album-type">Studio Album</span>
+        <div class="album-layout">
+          <div class="album-cover-wrap">
+            <div class="album-cover">
+              <div class="album-cover-art ac-eics"></div>
+            </div>
+            <div class="streaming-links">
+              <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="stream-btn">Spotify</a>
+              <a href="https://music.apple.com/us/artist/sabrina-carpenter/459546798" target="_blank" class="stream-btn">Apple Music</a>
+            </div>
           </div>
-          <p class="album-desc">The second act of the Singular story, revealing deeper layers of Sabrina's artistry with a warmer, more reflective sound and a growing confidence in her songwriting voice.</p>
-          <p class="tracklist-title">Tracklist</p>
-          <ol class="tracklist">
-            <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">In My Bed</span></li>
-            <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Pushing 20</span></li>
-            <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">I Can't Stop Me (Ft. Saweetie)</span></li>
-            <li class="track"><span class="track-num">4</span><span class="track-play">▶</span><span class="track-name">I'm Fakin</span></li>
-            <li class="track"><span class="track-num">5</span><span class="track-play">▶</span><span class="track-name">Take Off All Your Cool</span></li>
-            <li class="track"><span class="track-num">6</span><span class="track-play">▶</span><span class="track-name">Tell Em</span></li>
-            <li class="track"><span class="track-num">7</span><span class="track-play">▶</span><span class="track-name">Exhale</span></li>
-            <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">Take You Back</span></li>
-            <li class="track"><span class="track-num">9</span><span class="track-play">▶</span><span class="track-name">Looking at Me</span></li>
-          </ol>
-        </div>
-      </div>
-
-      <div class="era-divider"><span>✦</span></div>
-
-      <!-- Singular Act I -->
-      <div class="album-layout reverse">
-        <div class="album-cover-wrap">
-          <div class="album-cover">
-            <div class="album-cover-art ac-sg1"></div>
+          <div class="album-detail">
+            <h3 class="album-detail-title">emails i can't send</h3>
+            <div class="album-detail-meta">
+              <span>August 2022</span>
+              <span class="sep">·</span>
+              <span>Island Records</span>
+              <span class="sep">·</span>
+              <span class="album-type">Studio Album</span>
+            </div>
+            <p class="album-desc">Raw, honest, and laced with the kind of wit that makes heartbreak feel almost beautiful. This album introduced the world to a sharper, more personal Sabrina — and nobody was ready.</p>
+            <p class="tracklist-title">Tracklist</p>
+            <ol class="tracklist">
+              <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">emails i can't send</span></li>
+              <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Vicious</span></li>
+              <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">Read your Mind</span></li>
+              <li class="track"><span class="track-num">4</span><span class="track-play">▶</span><span class="track-name">Tornado Warnings</span></li>
+              <li class="track"><span class="track-num">5</span><span class="track-play">▶</span><span class="track-name">because i liked a boy</span></li>
+              <li class="track"><span class="track-num">6</span><span class="track-play">▶</span><span class="track-name">Already Over</span></li>
+              <li class="track"><span class="track-num">7</span><span class="track-play">▶</span><span class="track-name">how many things</span></li>
+              <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">bet u wanna</span></li>
+              <li class="track"><span class="track-num">9</span><span class="track-play">▶</span><span class="track-name">Nonsense</span></li>
+              <li class="track"><span class="track-num">10</span><span class="track-play">▶</span><span class="track-name">Fast Times</span></li>
+              <li class="track"><span class="track-num">11</span><span class="track-play">▶</span><span class="track-name">skinny dipping</span></li>
+              <li class="track"><span class="track-num">12</span><span class="track-play">▶</span><span class="track-name">Bad for Business</span></li>
+              <li class="track"><span class="track-num">13</span><span class="track-play">▶</span><span class="track-name">decode</span></li>
+            </ol>
           </div>
-          <div class="streaming-links">
-            <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="stream-btn">Spotify</a>
-            <a href="https://music.apple.com/us/artist/sabrina-carpenter/459546798" target="_blank" class="stream-btn">Apple Music</a>
-          </div>
-        </div>
-        <div class="album-detail">
-          <h3 class="album-detail-title">Singular: Act I</h3>
-          <div class="album-detail-meta">
-            <span>October 2018</span>
-            <span class="sep">·</span>
-            <span>Hollywood Records</span>
-            <span class="sep">·</span>
-            <span class="album-type">Studio Album</span>
-          </div>
-          <p class="album-desc">A pivotal moment — Sabrina stepping into her own identity as an artist. Heartfelt pop with a new emotional depth, anchored by standout tracks like Almost Love and Paris.</p>
-          <p class="tracklist-title">Tracklist</p>
-          <ol class="tracklist">
-            <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">Almost Love</span></li>
-            <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Paris</span></li>
-            <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">Hold Tight (Ft. UHMEER)</span></li>
-            <li class="track"><span class="track-num">4</span><span class="track-play">▶</span><span class="track-name">Sue Me</span></li>
-            <li class="track"><span class="track-num">5</span><span class="track-play">▶</span><span class="track-name">prfct</span></li>
-            <li class="track"><span class="track-num">6</span><span class="track-play">▶</span><span class="track-name">Bad Time</span></li>
-            <li class="track"><span class="track-num">7</span><span class="track-play">▶</span><span class="track-name">Mona Lisa</span></li>
-            <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">Diamonds Are Forever</span></li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── EARLY ERA ── -->
-    <div class="era-section reveal" data-era="early">
-      <div class="era-header">
-        <div class="era-year">2015–16</div>
-        <div class="era-info">
-          <p class="era-label">The Beginning</p>
-          <h2 class="era-name">Eyes Wide Open &amp; EVOlution</h2>
         </div>
       </div>
 
-      <!-- Evolution -->
-      <div class="album-layout">
-        <div class="album-cover-wrap">
-          <div class="album-cover">
-            <div class="album-cover-art ac-evo"></div>
-          </div>
-          <div class="streaming-links">
-            <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="stream-btn">Spotify</a>
-            <a href="https://music.apple.com/us/artist/sabrina-carpenter/459546798" target="_blank" class="stream-btn">Apple Music</a>
+      <div class="era-section reveal" data-era="singular">
+        <div class="era-header">
+          <div class="era-year">2018–19</div>
+          <div class="era-info">
+            <p class="era-label">The Singular Years</p>
+            <h2 class="era-name">Singular: Act I & II</h2>
           </div>
         </div>
-        <div class="album-detail">
-          <h3 class="album-detail-title">EVOlution</h3>
-          <div class="album-detail-meta">
-            <span>October 2016</span>
-            <span class="sep">·</span>
-            <span>Hollywood Records</span>
-            <span class="sep">·</span>
-            <span class="album-type">Studio Album</span>
+
+        <div class="album-layout">
+          <div class="album-cover-wrap">
+            <div class="album-cover">
+              <div class="album-cover-art ac-sg2"></div>
+            </div>
+            <div class="streaming-links">
+              <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="stream-btn">Spotify</a>
+              <a href="https://music.apple.com/us/artist/sabrina-carpenter/459546798" target="_blank" class="stream-btn">Apple Music</a>
+            </div>
           </div>
-          <p class="album-desc">Her second studio album and a major step forward in identity. Thumbs became a cultural moment, and Evolution showed exactly where Sabrina was headed — bold, witty, and completely her own.</p>
-          <p class="tracklist-title">Tracklist</p>
-          <ol class="tracklist">
-            <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">On Purpose</span></li>
-            <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Feels Like Loneliness</span></li>
-            <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">Thumbs</span></li>
-            <li class="track"><span class="track-num">4</span><span class="track-play">▶</span><span class="track-name">No Words</span></li>
-            <li class="track"><span class="track-num">5</span><span class="track-play">▶</span><span class="track-name">Run and Hide</span></li>
-            <li class="track"><span class="track-num">6</span><span class="track-play">▶</span><span class="track-name">Mirage</span></li>
-            <li class="track"><span class="track-num">7</span><span class="track-play">▶</span><span class="track-name">Don't Want It Back</span></li>
-            <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">Shadows</span></li>
-            <li class="track"><span class="track-num">9</span><span class="track-play">▶</span><span class="track-name">Space</span></li>
-            <li class="track"><span class="track-num">10</span><span class="track-play">▶</span><span class="track-name">All We Have Is Love</span></li>
-          </ol>
+          <div class="album-detail">
+            <h3 class="album-detail-title">Singular: Act II</h3>
+            <div class="album-detail-meta">
+              <span>May 2019</span>
+              <span class="sep">·</span>
+              <span>Hollywood Records</span>
+              <span class="sep">·</span>
+              <span class="album-type">Studio Album</span>
+            </div>
+            <p class="album-desc">The second act of the Singular story, revealing deeper layers of Sabrina's artistry with a warmer, more reflective sound and a growing confidence in her songwriting voice.</p>
+            <p class="tracklist-title">Tracklist</p>
+            <ol class="tracklist">
+              <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">In My Bed</span></li>
+              <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Pushing 20</span></li>
+              <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">I Can't Stop Me</span><span class="track-feat">Ft. Saweetie</span></li>
+              <li class="track"><span class="track-num">4</span><span class="track-play">▶</span><span class="track-name">I'm Fakin</span></li>
+              <li class="track"><span class="track-num">5</span><span class="track-play">▶</span><span class="track-name">Take Off All Your Cool</span></li>
+              <li class="track"><span class="track-num">6</span><span class="track-play">▶</span><span class="track-name">Tell Em</span></li>
+              <li class="track"><span class="track-num">7</span><span class="track-play">▶</span><span class="track-name">Exhale</span></li>
+              <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">Take You Back</span></li>
+              <li class="track"><span class="track-num">9</span><span class="track-play">▶</span><span class="track-name">Looking at Me</span></li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="era-divider"><span>✦</span></div>
+
+        <div class="album-layout reverse">
+          <div class="album-cover-wrap">
+            <div class="album-cover">
+              <div class="album-cover-art ac-sg1"></div>
+            </div>
+            <div class="streaming-links">
+              <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="stream-btn">Spotify</a>
+              <a href="https://music.apple.com/us/artist/sabrina-carpenter/459546798" target="_blank" class="stream-btn">Apple Music</a>
+            </div>
+          </div>
+          <div class="album-detail">
+            <h3 class="album-detail-title">Singular: Act I</h3>
+            <div class="album-detail-meta">
+              <span>October 2018</span>
+              <span class="sep">·</span>
+              <span>Hollywood Records</span>
+              <span class="sep">·</span>
+              <span class="album-type">Studio Album</span>
+            </div>
+            <p class="album-desc">A pivotal moment — Sabrina stepping into her own identity as an artist. Heartfelt pop with a new emotional depth, anchored by standout tracks like Almost Love and Paris.</p>
+            <p class="tracklist-title">Tracklist</p>
+            <ol class="tracklist">
+              <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">Almost Love</span></li>
+              <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Paris</span></li>
+              <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">Hold Tight</span><span class="track-feat">Ft. UHMEER</span></li>
+              <li class="track"><span class="track-num">4</span><span class="track-play">▶</span><span class="track-name">Sue Me</span></li>
+              <li class="track"><span class="track-num">5</span><span class="track-play">▶</span><span class="track-name">prfct</span></li>
+              <li class="track"><span class="track-num">6</span><span class="track-play">▶</span><span class="track-name">Bad Time</span></li>
+              <li class="track"><span class="track-num">7</span><span class="track-play">▶</span><span class="track-name">Mona Lisa</span></li>
+              <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">Diamonds Are Forever</span></li>
+            </ol>
+          </div>
         </div>
       </div>
 
-      <div class="era-divider"><span>✦</span></div>
-
-      <!-- Eyes Wide Open -->
-      <div class="album-layout reverse">
-        <div class="album-cover-wrap">
-          <div class="album-cover">
-            <div class="album-cover-art ac-ewo"></div>
-          </div>
-          <div class="streaming-links">
-            <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="stream-btn">Spotify</a>
-            <a href="https://music.apple.com/us/artist/sabrina-carpenter/459546798" target="_blank" class="stream-btn">Apple Music</a>
+      <div class="era-section reveal" data-era="early">
+        <div class="era-header">
+          <div class="era-year">2015–16</div>
+          <div class="era-info">
+            <p class="era-label">The Beginning</p>
+            <h2 class="era-name">Eyes Wide Open & EVOlution</h2>
           </div>
         </div>
-        <div class="album-detail">
-          <h3 class="album-detail-title">Eyes Wide Open</h3>
-          <div class="album-detail-meta">
-            <span>April 2015</span>
-            <span class="sep">·</span>
-            <span>Hollywood Records</span>
-            <span class="sep">·</span>
-            <span class="album-type">Debut Album</span>
+
+        <div class="album-layout">
+          <div class="album-cover-wrap">
+            <div class="album-cover">
+              <div class="album-cover-art ac-evo"></div>
+            </div>
+            <div class="streaming-links">
+              <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="stream-btn">Spotify</a>
+              <a href="https://music.apple.com/us/artist/sabrina-carpenter/459546798" target="_blank" class="stream-btn">Apple Music</a>
+            </div>
           </div>
-          <p class="album-desc">Where it all began. A debut full of warmth and pop charm from a 16-year-old who already knew exactly how to own a melody. The foundation of everything that came after.</p>
-          <p class="tracklist-title">Tracklist</p>
-          <ol class="tracklist">
-            <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">Eyes Wide Open</span></li>
-            <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Can't Blame a Girl for Trying</span></li>
-            <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">The Middle of Starting Over</span></li>
-            <li class="track"><span class="track-num">4</span><span class="track-play">▶</span><span class="track-name">We'll Be the Stars</span></li>
-            <li class="track"><span class="track-num">5</span><span class="track-play">▶</span><span class="track-name">Two Young Hearts</span></li>
-            <li class="track"><span class="track-num">6</span><span class="track-play">▶</span><span class="track-name">Your Love's Like</span></li>
-            <li class="track"><span class="track-num">7</span><span class="track-play">▶</span><span class="track-name">Too Young</span></li>
-            <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">Seamless</span></li>
-            <li class="track"><span class="track-num">9</span><span class="track-play">▶</span><span class="track-name">Right Now</span></li>
-            <li class="track"><span class="track-num">10</span><span class="track-play">▶</span><span class="track-name">Darling I'm a Mess</span></li>
-            <li class="track"><span class="track-num">11</span><span class="track-play">▶</span><span class="track-name">White Flag</span></li>
-            <li class="track"><span class="track-num">12</span><span class="track-play">▶</span><span class="track-name">Best Thing I Got</span></li>
-          </ol>
+          <div class="album-detail">
+            <h3 class="album-detail-title">EVOlution</h3>
+            <div class="album-detail-meta">
+              <span>October 2016</span>
+              <span class="sep">·</span>
+              <span>Hollywood Records</span>
+              <span class="sep">·</span>
+              <span class="album-type">Studio Album</span>
+            </div>
+            <p class="album-desc">Her second studio album and a major step forward in identity. Thumbs became a cultural moment, and Evolution showed exactly where Sabrina was headed — bold, witty, and completely her own.</p>
+            <p class="tracklist-title">Tracklist</p>
+            <ol class="tracklist">
+              <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">On Purpose</span></li>
+              <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Feels Like Loneliness</span></li>
+              <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">Thumbs</span></li>
+              <li class="track"><span class="track-num">4</span><span class="track-play">▶</span><span class="track-name">No Words</span></li>
+              <li class="track"><span class="track-num">5</span><span class="track-play">▶</span><span class="track-name">Run and Hide</span></li>
+              <li class="track"><span class="track-num">6</span><span class="track-play">▶</span><span class="track-name">Mirage</span></li>
+              <li class="track"><span class="track-num">7</span><span class="track-play">▶</span><span class="track-name">Don't Want It Back</span></li>
+              <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">Shadows</span></li>
+              <li class="track"><span class="track-num">9</span><span class="track-play">▶</span><span class="track-name">Space</span></li>
+              <li class="track"><span class="track-num">10</span><span class="track-play">▶</span><span class="track-name">All We Have Is Love</span></li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="era-divider"><span>✦</span></div>
+
+        <div class="album-layout reverse">
+          <div class="album-cover-wrap">
+            <div class="album-cover">
+              <div class="album-cover-art ac-ewo"></div>
+            </div>
+            <div class="streaming-links">
+              <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="stream-btn">Spotify</a>
+              <a href="https://music.apple.com/us/artist/sabrina-carpenter/459546798" target="_blank" class="stream-btn">Apple Music</a>
+            </div>
+          </div>
+          <div class="album-detail">
+            <h3 class="album-detail-title">Eyes Wide Open</h3>
+            <div class="album-detail-meta">
+              <span>April 2015</span>
+              <span class="sep">·</span>
+              <span>Hollywood Records</span>
+              <span class="sep">·</span>
+              <span class="album-type">Debut Album</span>
+            </div>
+            <p class="album-desc">Where it all began. A debut full of warmth and pop charm from a 16-year-old who already knew exactly how to own a melody. The foundation of everything that came after.</p>
+            <p class="tracklist-title">Tracklist</p>
+            <ol class="tracklist">
+              <li class="track"><span class="track-num">1</span><span class="track-play">▶</span><span class="track-name">Eyes Wide Open</span></li>
+              <li class="track"><span class="track-num">2</span><span class="track-play">▶</span><span class="track-name">Can't Blame a Girl for Trying</span></li>
+              <li class="track"><span class="track-num">3</span><span class="track-play">▶</span><span class="track-name">The Middle of Starting Over</span></li>
+              <li class="track"><span class="track-num">4</span><span class="track-play">▶</span><span class="track-name">We'll Be the Stars</span></li>
+              <li class="track"><span class="track-num">5</span><span class="track-play">▶</span><span class="track-name">Two Young Hearts</span></li>
+              <li class="track"><span class="track-num">6</span><span class="track-play">▶</span><span class="track-name">Your Love's Like</span></li>
+              <li class="track"><span class="track-num">7</span><span class="track-play">▶</span><span class="track-name">Too Young</span></li>
+              <li class="track"><span class="track-num">8</span><span class="track-play">▶</span><span class="track-name">Seamless</span></li>
+              <li class="track"><span class="track-num">9</span><span class="track-play">▶</span><span class="track-name">Right Now</span></li>
+              <li class="track"><span class="track-num">10</span><span class="track-play">▶</span><span class="track-name">Darling I'm a Mess</span></li>
+              <li class="track"><span class="track-num">11</span><span class="track-play">▶</span><span class="track-name">White Flag</span></li>
+              <li class="track"><span class="track-num">12</span><span class="track-play">▶</span><span class="track-name">Best Thing I Got</span></li>
+            </ol>
+          </div>
         </div>
       </div>
-    </div>
 
-  </div><!-- end disco-wrap -->
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-inner">
+    </div><footer class="reveal">
       <div class="footer-top">
-        <div class="footer-logo">Sabrina</div>
+        <a href="/" class="footer-logo" aria-label="Sabrina Home">
+          <img src="images/logo.webp" alt="Sabrina Logo" />
+        </a>
         <ul class="footer-links">
           <li><a href="/">Home</a></li>
           <li><a href="/about">About</a></li>
           <li><a href="/discography">Music</a></li>
           <li><a href="/gallery">Gallery</a></li>
-          <li><a href="/tours">Tours</a></li>
         </ul>
       </div>
       <div class="footer-bottom">
-        <span>sabrina.ozyern.me &nbsp;·&nbsp; built by <a href="https://about.ozyern.me" style="color:var(--yellow)">Aditya Jha</a></span>
-        <span>unofficial fan site &nbsp;<span class="footer-heart">♥</span>&nbsp; built on late nights & her music.</span>
+        <span>sabrina.ozyern.me &nbsp;·&nbsp; built by <a href="https://about.ozyern.me" style="color:var(--cherry); font-weight: 600;">Aditya Jha</a></span>
+        <span>unofficial fan site &nbsp;<span style="color:var(--cherry);">♥</span>&nbsp; built on late nights.</span>
       </div>
-    </div>
-  </footer>
+    </footer>
+
+  </main>
 
   <script>
-    /* ── Cursor ── */
+    /* ── Mobile Toggle Fix ── */
+    const headerWrapper = document.getElementById('header-wrapper');
+    const menuToggle = document.getElementById('menu-toggle');
+    if (menuToggle && headerWrapper) {
+      menuToggle.addEventListener('click', () => {
+        headerWrapper.classList.toggle('open');
+      });
+    }
+
+    /* ── UNSTOPPABLE GPU CURSOR ── */
     const cur = document.getElementById('cur');
     const ring = document.getElementById('cur-ring');
-    const disableCustomCursor = window.matchMedia('(hover: none), (pointer: coarse)').matches;
-    let mx = 0, my = 0, rx = 0, ry = 0;
+    const isMobile = window.matchMedia('(hover: none), (pointer: coarse)').matches;
 
-    if (disableCustomCursor) {
-      if (cur) cur.style.display = 'none';
-      if (ring) ring.style.display = 'none';
-    } else if (cur && ring) {
-      document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-      document.addEventListener('mousedown', () => cur.classList.add('clicking'));
-      document.addEventListener('mouseup',   () => cur.classList.remove('clicking'));
-      document.querySelectorAll('a, button, .track').forEach(el => {
-        el.addEventListener('mouseenter', () => { cur.classList.add('hovered'); ring.classList.add('hovered'); });
-        el.addEventListener('mouseleave', () => { cur.classList.remove('hovered'); ring.classList.remove('hovered'); });
-      });
-      function animCursor() {
-        cur.style.left = mx + 'px'; cur.style.top = my + 'px';
-        rx += (mx - rx) * .15; ry += (my - ry) * .15;
-        ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-        requestAnimationFrame(animCursor);
+    if (isMobile) {
+      cur.style.display = 'none'; ring.style.display = 'none';
+      document.documentElement.style.cursor = 'auto';
+      document.body.style.cursor = 'auto';
+    } else {
+      let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+      let curX = mouseX, curY = mouseY;
+      let ringX = mouseX, ringY = mouseY;
+      let curScale = 1, ringScale = 1;
+      let curTarget = 1, ringTarget = 1;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX; mouseY = e.clientY;
+      }, { passive: true });
+
+      const setupHover = () => {
+        document.querySelectorAll('a, button, .filter-btn, .album-cover, .stream-btn, .track, .nav-logo').forEach(el => {
+          if (el.dataset.cursorBound) return;
+          el.dataset.cursorBound = "true";
+          el.addEventListener('mouseenter', () => { curTarget = 1.3; ringTarget = 1.2; ring.classList.add('hovered'); });
+          el.addEventListener('mouseleave', () => { curTarget = 1; ringTarget = 1; ring.classList.remove('hovered'); });
+        });
+      };
+      setupHover(); 
+
+      document.addEventListener('mousedown', () => { curTarget = 0.8; });
+      document.addEventListener('mouseup', () => { curTarget = ring.classList.contains('hovered') ? 1.3 : 1; });
+
+      function renderCursor() {
+        curX += (mouseX - curX) * 0.3; curY += (mouseY - curY) * 0.3;
+        ringX += (mouseX - ringX) * 0.15; ringY += (mouseY - ringY) * 0.15;
+        curScale += (curTarget - curScale) * 0.2; ringScale += (ringTarget - ringScale) * 0.2;
+
+        cur.style.transform = `translate3d(${curX - 16}px, ${curY - 16}px, 0) scale3d(${curScale}, ${curScale}, 1)`;
+        ring.style.transform = `translate3d(${ringX - 25}px, ${ringY - 25}px, 0) scale3d(${ringScale}, ${ringScale}, 1)`;
+        
+        requestAnimationFrame(renderCursor);
       }
-      animCursor();
+      requestAnimationFrame(renderCursor);
     }
 
-    /* ── Petals ── */
-    const pc = document.getElementById('petals');
-    const colors = ['#E0FFFF','#ADD8E6','#FFD700','#FFF8DC','#87CEEB'];
-    for (let i = 0; i < 14; i++) {
-      const p = document.createElement('div'); p.className = 'p';
-      const s = 8 + Math.random() * 12;
-      p.style.cssText = `left:${Math.random()*100}%;width:${s}px;height:${s}px;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${8+Math.random()*10}s;animation-delay:${Math.random()*14}s;`;
-      pc.appendChild(p);
-    }
-
-    /* ── Nav shrink ── */
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); });
-
-    /* ── Filter ── */
+    /* ── Filter Logic ── */
     const filterBtns = document.querySelectorAll('.filter-btn');
     const eraSections = document.querySelectorAll('.era-section');
+    
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         filterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const f = btn.dataset.filter;
+        
         eraSections.forEach(sec => {
           if (f === 'all' || sec.dataset.era === f) {
             sec.classList.remove('hidden');
+            // Re-trigger reveal animation for smoothness
+            sec.style.animation = 'none';
+            sec.offsetHeight; // trigger reflow
+            sec.style.animation = `pageIn 0.8s var(--spring) forwards`;
           } else {
             sec.classList.add('hidden');
           }
@@ -1073,19 +941,27 @@
       });
     });
 
-    const navToggle = document.querySelector('.nav-toggle');
-    const navEl = document.getElementById('nav');
-    navToggle.addEventListener('click', () => {
-      navEl.classList.toggle('open');
-    });
+    /* ── Falling Petals ── */
+    const pc = document.getElementById('petals');
+    const pColors = ['#FDE5E9', '#BFE1F6', '#FFFDF9'];
+    for (let i = 0; i < 35; i++) {
+      const p = document.createElement('div'); p.className = 'petal';
+      const s = 12 + Math.random() * 24;
+      p.style.cssText = `left:${Math.random()*100}vw; width:${s}px; height:${s}px; background:${pColors[Math.floor(Math.random()*3)]}; animation-duration:${8+Math.random()*12}s; animation-delay:${Math.random()*15}s;`;
+      pc.appendChild(p);
+    }
 
-    /* ── Scroll reveal ── */
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-    }, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
-    reveals.forEach(r => observer.observe(r));
+    /* ── Apple-Style Scroll Reveal ── */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
-  <script src="/scripts/birthday.js" defer></script>
 </body>
 </html>
