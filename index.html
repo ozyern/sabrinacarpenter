@@ -321,10 +321,10 @@
       transition: all var(--island-speed) var(--island-ease);
     }
     .analog-clock::before {
-      content: 'S'; font-family: 'Great Vibes', cursive;
-      font-size: 26px; color: rgba(166,25,46,0.15);
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -55%);
+      content: '';
+      position: absolute; inset: 0;
+      background: url('images/logo.webp') center/cover no-repeat;
+      opacity: 0.4; border-radius: 50%;
       z-index: 0;
     }
     .hand {
@@ -388,7 +388,7 @@
       box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.22);
     }
     .bday-countdown.island-mode .analog-clock::before {
-      color: rgba(255,255,255,0.15); font-size: 16px;
+      opacity: 0.15;
     }
     .bday-countdown.island-mode .hour-hand,
     .bday-countdown.island-mode .min-hand {
