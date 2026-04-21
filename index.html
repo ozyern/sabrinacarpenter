@@ -437,16 +437,35 @@
     .section-wrapper.blue .sec-title em { color: var(--cherry); }
     .section-wrapper.dark .sec-title { color: var(--butter); }
 
-    /* ── FAST TICKER ── */
-    .ticker-bar {
-      background: var(--espresso); color: var(--butter); padding: 20px 0;
-      overflow: hidden; display: flex; white-space: nowrap; transform: rotate(-1deg) scale(1.05);
-      margin: 40px 0 60px; z-index: 3; position: relative;
+    /* ── SIGNATURE DIVIDER ── */
+    .sc-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 80px auto;
+      width: 90%;
+      max-width: 320px;
+      position: relative;
+      z-index: 3;
     }
-    .ticker-track { display: flex; width: max-content; animation: tick 20s linear infinite; will-change: transform; }
-    .ticker-item { font-family: 'Jost', sans-serif; font-weight: 500; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 0.15em; padding: 0 40px; display: flex; align-items: center; gap: 40px; }
-    .ticker-item::after { content: ''; display: block; width: 6px; height: 6px; background: var(--cherry); border-radius: 50%; }
-    @keyframes tick { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+    .sc-divider-line {
+      flex: 1;
+      height: 1px;
+      opacity: 0.4;
+    }
+    .sc-divider-line.left { background: linear-gradient(to right, transparent, var(--cherry)); }
+    .sc-divider-line.right { background: linear-gradient(to left, transparent, var(--cherry)); }
+    .sc-divider-icon {
+      margin: 0 20px;
+      font-size: 1.8rem;
+      line-height: 1;
+      filter: drop-shadow(0 4px 6px rgba(166,25,46,0.3));
+      animation: kissBreath 4s infinite ease-in-out;
+    }
+    @keyframes kissBreath {
+      0%, 100% { transform: scale(1) rotate(-5deg); filter: drop-shadow(0 2px 4px rgba(166,25,46,0.2)); }
+      50% { transform: scale(1.15) rotate(5deg); filter: drop-shadow(0 6px 12px rgba(166,25,46,0.5)); }
+    }
 
     /* ── ABOUT GRID ── */
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 8vw, 80px); align-items: center; }
@@ -703,19 +722,10 @@
       </div>
     </section>
 
-    <div class="ticker-bar reveal">
-      <div class="ticker-track">
-        <span class="ticker-item">Please Please Please</span>
-        <span class="ticker-item">Espresso</span>
-        <span class="ticker-item">Nonsense</span>
-        <span class="ticker-item">Because I Liked A Boy</span>
-        <span class="ticker-item">Taste</span>
-        <span class="ticker-item">Please Please Please</span>
-        <span class="ticker-item">Espresso</span>
-        <span class="ticker-item">Nonsense</span>
-        <span class="ticker-item">Because I Liked A Boy</span>
-        <span class="ticker-item">Taste</span>
-      </div>
+    <div class="sc-divider reveal">
+      <div class="sc-divider-line left"></div>
+      <div class="sc-divider-icon">💋</div>
+      <div class="sc-divider-line right"></div>
     </div>
 
     <div class="section-wrapper pink">
