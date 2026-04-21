@@ -76,8 +76,8 @@
       /* Apple iOS Motion Physics */
       --spring:       cubic-bezier(0.19, 1, 0.22, 1);
       --speed:        1.2s;
-      --island-speed: 0.6s;
-      --island-ease:  cubic-bezier(0.2, 0.9, 0.2, 1);
+      --island-speed: 0.45s;
+      --island-ease: cubic-bezier(0.34, 1.15, 0.64, 1); /* OxygenOS 16 signature fluid spring */
     }
 
     /* ── RESET (NUCLEAR CURSOR FIX) ── */
@@ -318,20 +318,29 @@
       width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
       border: 2px solid var(--cherry); position: relative;
       background: var(--butter); box-shadow: inset 0 2px 8px rgba(0,0,0,0.08);
+      transition: all var(--island-speed) var(--island-ease);
+    }
+    .analog-clock::before {
+      content: 'S'; font-family: 'Great Vibes', cursive;
+      font-size: 26px; color: rgba(166,25,46,0.15);
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -55%);
+      z-index: 0;
     }
     .hand {
       position: absolute; bottom: 50%; left: 50%;
-      transform-origin: bottom; border-radius: 4px;
+      transform-origin: bottom; border-radius: 4px; z-index: 1;
       background: var(--espresso); transform: translateX(-50%) rotate(0deg);
     }
     .hour-hand { width: 3px; height: 12px; background: rgba(42, 27, 20, 0.9); }
     .min-hand  { width: 2px; height: 16px; }
     .sec-hand  { width: 1.5px; height: 18px; background: var(--cherry); transition: transform 0.15s cubic-bezier(0.4, 2.08, 0.55, 0.44); }
     .clock-center {
-      width: 8px; height: 8px; background: var(--cherry); border-radius: 50%;
+      width: 6px; height: 6px; background: var(--cherry); border-radius: 50%;
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      border: 2px solid var(--butter);
+      border: 1px solid var(--butter); z-index: 2;
     }
+    
     .bday-text {
       text-align: left; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.15em;
       text-transform: uppercase; color: rgba(42, 27, 20, 0.7); line-height: 1.4;
@@ -378,6 +387,9 @@
       background: rgba(255, 255, 255, 0.08);
       box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.22);
     }
+    .bday-countdown.island-mode .analog-clock::before {
+      color: rgba(255,255,255,0.15); font-size: 16px;
+    }
     .bday-countdown.island-mode .hour-hand,
     .bday-countdown.island-mode .min-hand {
       background: rgba(255, 255, 255, 0.82);
@@ -386,6 +398,7 @@
       background: #F29AA7;
     }
     .bday-countdown.island-mode .clock-center {
+      background: #F29AA7;
       border-color: rgba(27, 23, 22, 0.9);
     }
     .bday-countdown.island-mode .bday-text {
@@ -842,7 +855,7 @@
       document.querySelector('.sec-hand').style.transform = `translateX(-50%) rotate(${s * 6}deg)`;
       document.querySelector('.min-hand').style.transform = `translateX(-50%) rotate(${m * 6 + s/10}deg)`;
       document.querySelector('.hour-hand').style.transform = `translateX(-50%) rotate(${h * 30 + m/2}deg)`;
-      
+
       const bday = new Date(now.getFullYear(), 4, 11);
       if (now > bday) bday.setFullYear(now.getFullYear() + 1);
       const diff = Math.ceil((bday - now) / (1000 * 60 * 60 * 24));
