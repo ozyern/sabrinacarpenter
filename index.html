@@ -76,8 +76,8 @@
       /* Apple iOS Motion Physics */
       --spring:       cubic-bezier(0.19, 1, 0.22, 1);
       --speed:        1.2s;
-      --island-speed: 0.45s;
-      --island-ease: cubic-bezier(0.34, 1.15, 0.64, 1); /* OxygenOS 16 signature fluid spring */
+      --island-speed: 0.42s;
+      --island-ease: cubic-bezier(0.22, 1, 0.36, 1); /* OxygenOS 16-style fluid spring */
     }
 
     /* ── RESET (NUCLEAR CURSOR FIX) ── */
@@ -168,13 +168,13 @@
       background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
       border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);
       display: flex; align-items: center; justify-content: space-between;
-      padding: 8px 12px 8px 20px; border-radius: 100px;
+      padding: 8px 14px 8px 16px; border-radius: 100px;
       transition: width var(--island-speed) var(--island-ease), max-width var(--island-speed) var(--island-ease),
                   padding var(--island-speed) var(--island-ease), gap var(--island-speed) var(--island-ease),
                   border-radius var(--island-speed) var(--island-ease), box-shadow 0.45s var(--island-ease),
-                  background-color 0.45s ease, border-color 0.45s ease;
+                  background-color 0.38s ease, border-color 0.38s ease, transform var(--island-speed) var(--island-ease);
     }
-    header.island-transitioning { will-change: width, max-width, padding, gap; }
+    header.island-transitioning { will-change: width, max-width, padding, gap, transform; }
     .nav-actions { display: flex; align-items: center; gap: 8px; }
     .header-island-slot {
       display: none; align-items: center; justify-content: center;
@@ -183,17 +183,17 @@
       margin: 0;
       overflow: hidden;
       opacity: 0;
-      transform: scale(0.86);
+      transform: translateY(4px) scale(0.86);
       transform-origin: center;
       pointer-events: none;
       transition: max-width var(--island-speed) var(--island-ease), min-width var(--island-speed) var(--island-ease),
-          margin var(--island-speed) var(--island-ease), opacity 0.34s ease-out, transform var(--island-speed) var(--island-ease);
+          margin var(--island-speed) var(--island-ease), opacity 0.24s ease-out, transform var(--island-speed) var(--island-ease);
     }
     .nav-logo { display: flex; align-items: center; justify-content: center; height: 38px; transition: transform 0.4s var(--spring); }
     .nav-logo:hover { transform: scale(1.05) rotate(-2deg); }
     .nav-logo img { height: 100%; width: auto; object-fit: contain; }
     
-    .nav-links { display: flex; gap: 36px; list-style: none; margin: 0; padding: 0; }
+    .nav-links { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; }
     .nav-links a {
       font-weight: 600; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase;
       color: rgba(42, 27, 20, 0.7); position: relative; transition: color 0.3s ease;
@@ -420,6 +420,7 @@
       will-change: transform, filter, opacity;
       backface-visibility: hidden;
       transform: translateZ(0);
+      filter: saturate(1.05);
       isolation: isolate;
     }
 
@@ -946,8 +947,10 @@
           const deltaY = firstRect.top - lastRect.top;
           const scaleX = firstRect.width / Math.max(lastRect.width, 1);
           const scaleY = firstRect.height / Math.max(lastRect.height, 1);
-          const settleScale = toHeader ? 1.015 : 1.01;
-          const settleY = toHeader ? -1.1 : 0.8;
+          const squashScaleX = toHeader ? 1.028 : 0.988;
+          const squashScaleY = toHeader ? 0.982 : 1.012;
+          const settleScale = toHeader ? 1.012 : 1.006;
+          const settleY = toHeader ? -1.8 : 1.1;
           const fromRadius = toHeader ? '50px' : '999px';
           const toRadius = toHeader ? '999px' : '50px';
           const fromBg = toHeader ? 'rgba(255, 253, 249, 0.85)' : 'rgba(27, 23, 22, 0.86)';
@@ -961,15 +964,30 @@
             {
               transformOrigin: 'top left',
               transform: `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})`,
+              opacity: 0.98,
+              filter: 'saturate(1.06) blur(0.4px)',
               borderRadius: fromRadius,
               backgroundColor: fromBg,
               borderColor: fromBorder,
               boxShadow: fromShadow
             },
             {
-              offset: 0.74,
+              offset: 0.56,
               transformOrigin: 'top left',
-              transform: `translate(0px, ${settleY}px) scale(${settleScale}, ${settleScale})`,
+              transform: `translate(0px, ${settleY}px) scale(${squashScaleX}, ${squashScaleY})`,
+              opacity: 1,
+              filter: 'saturate(1.04) blur(0)',
+              borderRadius: toRadius,
+              backgroundColor: toBg,
+              borderColor: toBorder,
+              boxShadow: toShadow
+            },
+            {
+              offset: 0.82,
+              transformOrigin: 'top left',
+              transform: `translate(0px, ${settleY * 0.3}px) scale(${settleScale}, ${settleScale})`,
+              opacity: 1,
+              filter: 'saturate(1.02) blur(0)',
               borderRadius: toRadius,
               backgroundColor: toBg,
               borderColor: toBorder,
@@ -978,14 +996,16 @@
             {
               transformOrigin: 'top left',
               transform: 'translate(0, 0) scale(1, 1)',
+              opacity: 1,
+              filter: 'saturate(1) blur(0)',
               borderRadius: toRadius,
               backgroundColor: toBg,
               borderColor: toBorder,
               boxShadow: toShadow
             }
           ], {
-            duration: toHeader ? 680 : 620,
-            easing: 'cubic-bezier(0.2, 0.9, 0.2, 1)',
+            duration: toHeader ? 560 : 520,
+            easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
             fill: 'both'
           });
 
