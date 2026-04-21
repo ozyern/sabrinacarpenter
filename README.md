@@ -2,9 +2,7 @@
 
 <br />
 
-```
- ✦ ˚  ·    ✦   ˚ · .  ✦  ˚   ·    ✦ ˚  ·    ✦   ˚ · .  ✦
-```
+✦ ˚  ·    ✦   ˚ · .  ✦  ˚   ·    ✦ ˚  ·    ✦   ˚ · .  ✦
 
 
 # 🎀 sabrina.ozyern.me
@@ -72,11 +70,54 @@ cd sabrina
 
 # Open the masterpiece
 open index.html
-✦ contribution & disclaimer
-This is a personal labor of love. If you're a fan and want to enhance the experience, feel free to fork the repo.
+```
 
-Unofficial Fan Site: This project is a non-commercial tribute. All images, music, and branding belong to Sabrina Carpenter and her respective labels. No copyright infringement is intended.
+---
 
-Built by Aditya Jha · for her · always
+## ✦ project structure
 
-🎀 "I'm a latte, I'm a Short n' Sweet." — S.C.
+```
+sabrina/
+├── index.html
+├── about.html
+├── discography.html
+├── gallery.html
+├── tours.html
+├── README.md
+├── assets/
+│   ├── css/
+│   │   ├── global.css
+│   │   └── components.css
+│   ├── js/
+│   │   └── main.js
+│   └── img/
+└── pages/
+```
+
+---
+
+## ✦ contributing
+
+This is a personal fan project but if you're also a Sabrina fan and want to contribute — fork the repo . Fellow fans welcome.
+
+---
+
+## ✦ disclaimer
+
+This is an **unofficial** fan site. All images, music, and related content belong to their respective owner aka Sabrina Carpenter. No copyright infringement intended. This project is non-commercial and made purely out of admiration.
+
+---
+
+<div align="center">
+
+<br />
+
+*built by [@ozyern_](https://twitter.com/ozyern_) · for her · always*
+
+<br />
+
+```
+🎀 "please please please" — S.C.
+```
+
+</div>
