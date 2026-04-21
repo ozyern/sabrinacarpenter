@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sabrina Carpenter Fan Website | Ozyern</title>
+  <title>Sabrina Carpenter Fan Website</title>
   <link rel="icon" href="images/logo.webp" type="image/webp" />
   <link rel="apple-touch-icon" href="images/logo.webp" />
   <meta name="description" content="Unofficial Sabrina Carpenter fan website by Ozyern with biography, discography, gallery, tours, and fan moments." />
@@ -76,6 +76,8 @@
       /* Apple iOS Motion Physics */
       --spring:       cubic-bezier(0.19, 1, 0.22, 1);
       --speed:        1.2s;
+      --island-speed: 0.6s;
+      --island-ease:  cubic-bezier(0.2, 0.9, 0.2, 1);
     }
 
     /* ── RESET (NUCLEAR CURSOR FIX) ── */
@@ -167,9 +169,26 @@
       border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);
       display: flex; align-items: center; justify-content: space-between;
       padding: 8px 12px 8px 20px; border-radius: 100px;
-      transition: all 0.4s var(--spring);
+      transition: width var(--island-speed) var(--island-ease), max-width var(--island-speed) var(--island-ease),
+                  padding var(--island-speed) var(--island-ease), gap var(--island-speed) var(--island-ease),
+                  border-radius var(--island-speed) var(--island-ease), box-shadow 0.45s var(--island-ease),
+                  background-color 0.45s ease, border-color 0.45s ease;
     }
+    header.island-transitioning { will-change: width, max-width, padding, gap; }
     .nav-actions { display: flex; align-items: center; gap: 8px; }
+    .header-island-slot {
+      display: none; align-items: center; justify-content: center;
+      flex: 0 0 auto; min-height: 44px;
+      width: 0; min-width: 0; max-width: 0;
+      margin: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: scale(0.86);
+      transform-origin: center;
+      pointer-events: none;
+      transition: max-width var(--island-speed) var(--island-ease), min-width var(--island-speed) var(--island-ease),
+          margin var(--island-speed) var(--island-ease), opacity 0.34s ease-out, transform var(--island-speed) var(--island-ease);
+    }
     .nav-logo { display: flex; align-items: center; justify-content: center; height: 38px; transition: transform 0.4s var(--spring); }
     .nav-logo:hover { transform: scale(1.05) rotate(-2deg); }
     .nav-logo img { height: 100%; width: auto; object-fit: contain; }
@@ -259,8 +278,9 @@
       background: rgba(255, 253, 249, 0.85); backdrop-filter: blur(24px) saturate(150%); -webkit-backdrop-filter: blur(24px) saturate(150%);
       border: 1px solid rgba(166, 25, 46, 0.25); border-radius: 50px;
       box-shadow: 0 12px 32px rgba(166, 25, 46, 0.08);
-      transition: transform 0.4s var(--spring), box-shadow 0.4s var(--spring), border-color 0.4s ease;
-      position: relative; overflow: hidden;
+      transition: transform 0.45s var(--spring), box-shadow 0.45s var(--spring), border-color 0.45s ease,
+                  border-radius 0.45s var(--spring), padding 0.45s var(--spring), gap 0.45s var(--spring), background 0.45s ease;
+      position: relative; overflow: hidden; transform-origin: center;
     }
     .bday-countdown:hover { 
       transform: translate3d(0, -8px, 0) scale(1.03); 
@@ -321,6 +341,73 @@
       font-family: 'Great Vibes', cursive; font-size: 2rem; 
       color: var(--cherry); text-transform: none; letter-spacing: 0.02em;
       display: block; margin-top: -2px; text-shadow: 0 2px 8px rgba(166,25,46,0.1);
+    }
+    .bday-placeholder {
+      --bday-placeholder-height: 0px;
+      height: 0;
+      pointer-events: none;
+      transition: height 0.55s var(--spring);
+    }
+    .bday-placeholder.active { height: var(--bday-placeholder-height); }
+
+    .bday-countdown.island-mode {
+      margin-top: 0;
+      padding: 8px 14px 8px 10px;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+      border-radius: 999px;
+      background: rgba(27, 23, 22, 0.86);
+      border-color: rgba(255, 255, 255, 0.22);
+      box-shadow: 0 12px 26px rgba(10, 7, 7, 0.28);
+      pointer-events: none;
+    }
+    .bday-countdown.island-mode:hover {
+      transform: none;
+      box-shadow: 0 12px 26px rgba(10, 7, 7, 0.28);
+      border-color: rgba(255, 255, 255, 0.22);
+    }
+    .bday-countdown.island-mode .bday-bg,
+    .bday-countdown.island-mode #bday-confetti-container {
+      opacity: 0;
+    }
+    .bday-countdown.island-mode .analog-clock {
+      width: 28px;
+      height: 28px;
+      border-color: rgba(255, 255, 255, 0.35);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.22);
+    }
+    .bday-countdown.island-mode .hour-hand,
+    .bday-countdown.island-mode .min-hand {
+      background: rgba(255, 255, 255, 0.82);
+    }
+    .bday-countdown.island-mode .sec-hand {
+      background: #F29AA7;
+    }
+    .bday-countdown.island-mode .clock-center {
+      border-color: rgba(27, 23, 22, 0.9);
+    }
+    .bday-countdown.island-mode .bday-text {
+      text-align: left;
+      font-size: 0.56rem;
+      letter-spacing: 0.12em;
+      line-height: 1.2;
+      color: rgba(255, 255, 255, 0.78);
+    }
+    .bday-countdown.island-mode .bday-text br,
+    .bday-countdown.island-mode .bday-name {
+      display: none;
+    }
+    .bday-countdown.island-mode .bday-text #bday-days {
+      font-size: 1rem;
+      color: #FFF;
+    }
+    .bday-countdown.island-animating {
+      will-change: transform, filter, opacity;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+      isolation: isolate;
     }
 
     /* ── DIVIDED SECTIONS ── */
@@ -470,7 +557,31 @@
       .menu-toggle { display: flex; }
       header { max-width: max-content; width: auto; padding: 8px 16px 8px 24px; justify-content: space-between; gap: 32px; }
       .nav-logo { height: 26px; }
+      .header-island-slot { display: none; }
+      header.island-active {
+        width: min(96vw, 430px);
+        max-width: 430px;
+        padding: 8px 12px 8px 18px;
+        gap: 12px;
+      }
+      header.island-active .header-island-slot {
+        display: flex;
+        flex: 1 1 auto;
+        min-width: 156px;
+        max-width: 236px;
+        margin: 0 6px 0 8px;
+        opacity: 1;
+        transform: scale(1);
+      }
       .header-wrapper.open .mobile-menu { display: flex; opacity: 1; transform: translateY(0) scale(1); }
+      .header-wrapper.open .header-island-slot {
+        display: none;
+        min-width: 0;
+        max-width: 0;
+        margin: 0;
+        opacity: 0;
+        transform: scale(0.92);
+      }
       .header-wrapper.open .menu-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
       .header-wrapper.open .menu-toggle span:nth-child(2) { opacity: 0; }
       .header-wrapper.open .menu-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -500,6 +611,17 @@
       .bday-text { text-align: center; }
       .footer-links { gap: 12px; } /* Tighter links on small phones */
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bday-countdown,
+      .header-island-slot,
+      .bday-placeholder {
+        transition: none !important;
+      }
+      .bday-bg {
+        animation: none !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -514,15 +636,15 @@
       <a href="/" class="nav-logo" aria-label="Sabrina Home">
         <img src="images/logo.webp" alt="Sabrina Logo" />
       </a>
+      <div class="header-island-slot" id="header-island-slot" aria-hidden="true"></div>
       <ul class="nav-links">
         <li><a href="/" class="nav-active">Home</a></li>
-        <li><a href="/about.html">About</a></li>
-        <li><a href="/discography.html">Music</a></li>
-        <li><a href="/gallery.html">Gallery</a></li>
-        <li><a href="/tours.html">Tours</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/discography/">Music</a></li>
+        <li><a href="/gallery/">Gallery</a></li>
+        <li><a href="/tours/">Tours</a></li>
       </ul>
       <div class="nav-actions">
-        <a href="/discography.html" class="nav-btn">Listen Now</a>
         <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
           <span></span><span></span><span></span>
         </button>
@@ -531,10 +653,10 @@
     
     <div class="mobile-menu liquid-glass">
       <a href="/">Home</a>
-      <a href="/about.html">About</a>
-      <a href="/discography.html">Music</a>
-      <a href="/gallery.html">Gallery</a>
-      <a href="/tours.html">Tours</a>
+      <a href="/about/">About</a>
+      <a href="/discography/">Music</a>
+      <a href="/gallery/">Gallery</a>
+      <a href="/tours/">Tours</a>
     </div>
   </div>
 
@@ -547,8 +669,8 @@
         <p class="hero-desc">Singer. Actress. The reason my Spotify Wrapped is going to be real again. A love letter in the form of a website.</p>
         
         <div class="hero-actions">
-          <a href="/discography.html" class="btn btn-dark">Explore Music</a>
-          <a href="/about.html" class="btn btn-outline">Her Story</a>
+          <a href="/discography/" class="btn btn-dark">Explore Music</a>
+          <a href="/about/" class="btn btn-outline">Her Story</a>
         </div>
 
         <div class="bday-countdown reveal delay-1" id="bday-card">
@@ -615,7 +737,7 @@
             <p class="sec-label">Discography</p>
             <h2 class="sec-title" style="margin-bottom:0;">Her <em>universe</em><br>of sound</h2>
           </div>
-          <a href="/discography.html" class="btn btn-dark">View All Music</a>
+          <a href="/discography/" class="btn btn-dark">View All Music</a>
         </div>
         
         <div class="album-grid">
@@ -663,10 +785,10 @@
         </a>
         <ul class="footer-links">
           <li><a href="/">Home</a></li>
-          <li><a href="/about.html">About</a></li>
-          <li><a href="/discography.html">Music</a></li>
-          <li><a href="/gallery.html">Gallery</a></li>
-          <li><a href="/tours.html">Tours</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/discography/">Music</a></li>
+          <li><a href="/gallery/">Gallery</a></li>
+          <li><a href="/tours/">Tours</a></li>
         </ul>
       </div>
       <div class="footer-bottom">
@@ -728,9 +850,179 @@
     }
     setInterval(updateClock, 1000); updateClock();
 
+    /* ── Mobile Dynamic Island Clock ── */
+    const bdayCardNode = document.getElementById('bday-card');
+    const headerIslandSlot = document.getElementById('header-island-slot');
+    const headerNode = document.getElementById('header');
+    const heroSection = document.querySelector('.hero');
+    const heroInner = document.querySelector('.hero-inner');
+    const mobileIslandQuery = window.matchMedia('(max-width: 900px)');
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    if (bdayCardNode && headerIslandSlot && heroInner) {
+      const bdayPlaceholder = document.createElement('div');
+      bdayPlaceholder.className = 'bday-placeholder';
+      heroInner.insertBefore(bdayPlaceholder, bdayCardNode);
+
+      let islandDocked = false;
+      let islandTicking = false;
+      let islandAnimation = null;
+      let pendingLayoutFinalize = null;
+
+      function runPendingLayoutFinalize() {
+        if (typeof pendingLayoutFinalize === 'function') pendingLayoutFinalize();
+        pendingLayoutFinalize = null;
+      }
+
+      function clearIslandMotionState() {
+        bdayCardNode.classList.remove('island-animating');
+        if (headerNode) headerNode.classList.remove('island-transitioning');
+      }
+
+      function moveBirthdayClock(toHeader, animate = true) {
+        if (toHeader === islandDocked) return;
+
+        if (islandAnimation) {
+          islandAnimation.cancel();
+          islandAnimation = null;
+          pendingLayoutFinalize = null;
+          clearIslandMotionState();
+        }
+
+        const canAnimateIsland = typeof bdayCardNode.animate === 'function';
+        const shouldAnimateIsland = animate && !reducedMotionQuery.matches && canAnimateIsland;
+        if (shouldAnimateIsland) {
+          bdayCardNode.classList.add('island-animating');
+          if (headerNode) headerNode.classList.add('island-transitioning');
+        } else {
+          clearIslandMotionState();
+        }
+
+        const firstRect = bdayCardNode.getBoundingClientRect();
+        bdayPlaceholder.style.setProperty('--bday-placeholder-height', `${Math.round(firstRect.height)}px`);
+
+        if (toHeader) {
+          if (headerNode) headerNode.classList.add('island-active');
+          bdayPlaceholder.classList.add('active');
+          headerIslandSlot.appendChild(bdayCardNode);
+          bdayCardNode.classList.add('island-mode');
+          pendingLayoutFinalize = null;
+        } else {
+          bdayPlaceholder.insertAdjacentElement('afterend', bdayCardNode);
+          bdayCardNode.classList.remove('island-mode');
+          pendingLayoutFinalize = () => {
+            bdayPlaceholder.classList.remove('active');
+            if (headerNode) headerNode.classList.remove('island-active');
+          };
+        }
+
+        const lastRect = bdayCardNode.getBoundingClientRect();
+
+        if (shouldAnimateIsland) {
+          const deltaX = firstRect.left - lastRect.left;
+          const deltaY = firstRect.top - lastRect.top;
+          const scaleX = firstRect.width / Math.max(lastRect.width, 1);
+          const scaleY = firstRect.height / Math.max(lastRect.height, 1);
+          const settleScale = toHeader ? 1.015 : 1.01;
+          const settleY = toHeader ? -1.1 : 0.8;
+          const fromRadius = toHeader ? '50px' : '999px';
+          const toRadius = toHeader ? '999px' : '50px';
+          const fromBg = toHeader ? 'rgba(255, 253, 249, 0.85)' : 'rgba(27, 23, 22, 0.86)';
+          const toBg = toHeader ? 'rgba(27, 23, 22, 0.86)' : 'rgba(255, 253, 249, 0.85)';
+          const fromBorder = toHeader ? 'rgba(166, 25, 46, 0.25)' : 'rgba(255, 255, 255, 0.22)';
+          const toBorder = toHeader ? 'rgba(255, 255, 255, 0.22)' : 'rgba(166, 25, 46, 0.25)';
+          const fromShadow = toHeader ? '0 12px 32px rgba(166, 25, 46, 0.08)' : '0 12px 26px rgba(10, 7, 7, 0.28)';
+          const toShadow = toHeader ? '0 12px 26px rgba(10, 7, 7, 0.28)' : '0 12px 32px rgba(166, 25, 46, 0.08)';
+
+          const currentAnimation = bdayCardNode.animate([
+            {
+              transformOrigin: 'top left',
+              transform: `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})`,
+              borderRadius: fromRadius,
+              backgroundColor: fromBg,
+              borderColor: fromBorder,
+              boxShadow: fromShadow
+            },
+            {
+              offset: 0.74,
+              transformOrigin: 'top left',
+              transform: `translate(0px, ${settleY}px) scale(${settleScale}, ${settleScale})`,
+              borderRadius: toRadius,
+              backgroundColor: toBg,
+              borderColor: toBorder,
+              boxShadow: toShadow
+            },
+            {
+              transformOrigin: 'top left',
+              transform: 'translate(0, 0) scale(1, 1)',
+              borderRadius: toRadius,
+              backgroundColor: toBg,
+              borderColor: toBorder,
+              boxShadow: toShadow
+            }
+          ], {
+            duration: toHeader ? 680 : 620,
+            easing: 'cubic-bezier(0.2, 0.9, 0.2, 1)',
+            fill: 'both'
+          });
+
+          islandAnimation = currentAnimation;
+          currentAnimation.finished
+            .catch(() => null)
+            .finally(() => {
+              if (islandAnimation === currentAnimation) {
+                islandAnimation = null;
+                runPendingLayoutFinalize();
+              }
+              clearIslandMotionState();
+            });
+        } else {
+          runPendingLayoutFinalize();
+          clearIslandMotionState();
+        }
+
+        islandDocked = toHeader;
+      }
+
+      function syncBirthdayIsland(forceInstant = false) {
+        if (!mobileIslandQuery.matches) {
+          moveBirthdayClock(false, !forceInstant);
+          return;
+        }
+
+        const heroBottom = heroSection ? heroSection.getBoundingClientRect().bottom : window.innerHeight;
+        const headerBottom = headerNode ? headerNode.getBoundingClientRect().bottom : 78;
+        const dockLine = headerBottom + 16;
+        const releaseLine = headerBottom + 96;
+        const menuExpanded = headerWrapper ? headerWrapper.classList.contains('open') : false;
+        const shouldDock = !menuExpanded && (islandDocked ? heroBottom <= releaseLine : heroBottom <= dockLine);
+        moveBirthdayClock(shouldDock, !forceInstant);
+      }
+
+      function queueBirthdayIslandSync() {
+        if (islandTicking) return;
+        islandTicking = true;
+        requestAnimationFrame(() => {
+          syncBirthdayIsland();
+          islandTicking = false;
+        });
+      }
+
+      window.addEventListener('scroll', queueBirthdayIslandSync, { passive: true });
+      window.addEventListener('resize', queueBirthdayIslandSync);
+      const handleIslandMediaChange = () => syncBirthdayIsland(true);
+      if (typeof mobileIslandQuery.addEventListener === 'function') {
+        mobileIslandQuery.addEventListener('change', handleIslandMediaChange);
+      } else if (typeof mobileIslandQuery.addListener === 'function') {
+        mobileIslandQuery.addListener(handleIslandMediaChange);
+      }
+
+      syncBirthdayIsland(true);
+    }
+
     /* ── Confetti ── */
     function createConfetti() {
-      if(document.hidden) return;
+      if (document.hidden || !bdayCardNode || bdayCardNode.classList.contains('island-mode')) return;
       const conf = document.createElement('div');
       conf.className = 'mini-confetti';
       conf.style.left = Math.random() * 100 + '%';

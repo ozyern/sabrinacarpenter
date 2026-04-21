@@ -6,19 +6,18 @@
  ✦ ˚  ·    ✦   ˚ · .  ✦  ˚   ·    ✦ ˚  ·    ✦   ˚ · .  ✦
 ```
 
-# 🎀 sabrina
 
-### *a fan's love , written in html & css*
+# 🎀 sabrina.ozyern.me
+### *An editorial fan tribute, written in pure HTML & CSS*
 
-```
- ✦ ˚  ·    ✦   ˚ · .  ✦  ˚   ·    ✦ ˚  ·    ✦   ˚ · .  ✦
-```
+✦ ˚  ·    ✦   ˚ · .  ✦  ˚   ·    ✦ ˚  ·    ✦   ˚ · .  ✦
+
 
 <br />
 
-![Status](https://img.shields.io/badge/status-in%20progress-f2a7b3?style=flat-square&labelColor=fdf0f3)
-![Built with](https://img.shields.io/badge/built%20with-html%20·%20css%20·%20js-e0d4f0?style=flat-square&labelColor=fdf0f3)
-![Love](https://img.shields.io/badge/powered%20by-6%2C418%20minutes%20of%20march-f9d5db?style=flat-square&labelColor=fdf0f3)
+[![Status](https://img.shields.io/badge/status-RTX_ULTRA-A6192E?style=for-the-badge&labelColor=2A1B14)](https://sabrina.ozyern.me)
+[![Built with](https://img.shields.io/badge/Engine-Apple_Motion_Physics-BFE1F6?style=for-the-badge&labelColor=2A1B14)](https://sabrina.ozyern.me)
+[![Love](https://img.shields.io/badge/Powered_by-Short_n_Sweet-FDE5E9?style=for-the-badge&labelColor=2A1B14)](https://sabrina.ozyern.me)
 
 <br />
 
@@ -26,103 +25,58 @@
 
 ---
 
-## ✦ what is this?
+## ✦ the vision
 
-A multi-page fan tribute website dedicated to **Sabrina Carpenter** — singer, actress, and the reason my Spotify Wrapped is going to be real again this year.
-
-Built from scratch with pure HTML, CSS, and vanilla JS. No frameworks. No libraries. Just genuine appreciation and too much free time.
+A multi-page, high-performance fan archive dedicated to **Sabrina Carpenter**. This isn't just a fansite; it's a digital magazine experience designed to push the boundaries of vanilla web technologies. Built with an obsession for micro-interactions, hardware-accelerated physics, and high-fashion editorial layouts.
 
 ---
 
-## ✦ pages
+## ✦ premium features
 
-| Page | Description |
+- **⚡ RTX Ultra Engine**: Hardware-decoupled ambient backgrounds and fluid 60FPS animations using GPU-bound `translate3d` and `will-change` properties.
+- **🎨 Apple Motion Physics**: Every interaction uses custom `cubic-bezier(0.19, 1, 0.22, 1)` spring math to mimic the snappy, premium feel of native iOS applications.
+- **🕒 Celebration Clock**: A Rolex-style ticking analog widget that counts down to May 11th, complete with an integrated confetti engine.
+- **🗺️ Direct Live Touring**: Real-time tour data fetched directly from the **Bandsintown API**, featuring dynamic time-filtering to automatically purge expired dates.
+- **💋 Signature Cursor**: A custom-engineered, unblockable "Kiss" cursor with heavy-drag physics and a Max-Z-Index failsafe.
+
+---
+
+## ✦ the pages
+
+| Page | Aesthetic Direction |
 |------|-------------|
-| `index.html` | Hero landing — animated entrance, dreamy vibes |
-| `about.html` | Biography & career timeline |
-| `discography.html` | Albums, EPs, and singles with tracklists |
-| `gallery.html` | Photo grid |
-| `tours.html` | Past & upcoming tour dates |
+| `index.html` | **Vogue Landing** — High-contrast typography and festive birthday modules. |
+| `about.html` | **3D Editorial** — Liquid glass Polaroids floating in a parallax 3D space. |
+| `discography.html` | **Tactile Archive** — 3D album cards that pitch and roll on hover. |
+| `gallery.html` | **Moments in Bloom** — Masonry grid with a 32px blur glass lightbox. |
+| `tours.html` | **Ticket Stub** — API-driven glass ticket cards with live status badges. |
 
 ---
 
-## ✦ stack
+## ✦ technology stack
 
-- **HTML5** — semantic, clean markup
-- **CSS3** — custom properties, animations, grid & flexbox
-- **Vanilla JS** — no dependencies, no bloat
-- **Google Fonts** — Cormorant Garamond + Pinyon Script
-
----
-
-## ✦ design direction
-
-> Aesthetic & dreamy. Pastel. Soft. Romantic.
-
-Inspired by the warmth of *Short n' Sweet*, the nostalgia of *emails i can't send*, and the general feeling of listening to Sabrina on a rainy afternoon.
-
-Color palette — uses Sabrina's favourite coloros - blue , yellow 
-
-Uses a api to detect her upcoming shows from Bandistown 
+- **Core**: Semantic HTML5 & Modern CSS3 (Custom Properties / Flexbox / Grid).
+- **Animations**: Apple-style Scroll Observer API & Bezier Spring Curves.
+- **Fonts**: *Cormorant Garamond* (Serif), *Jost* (Modern Sans), and *Great Vibes* (Script).
+- **Performance**: Zero dependencies. Zero frameworks. Pure vanilla optimization.
 
 ---
 
-## ✦ running locally
+## ✦ local deployment
+
+No build steps, no `npm install`, no bloat. Just the code and your browser.
 
 ```bash
-git clone https://github.com/reimagine/sabrina.git
+git clone [https://github.com/ozyern/sabrinacarpenter.git](https://github.com/ozyern/sabrinacarpenter.git)
 cd sabrina
 
-# just open index.html in your browser — no build step needed
+# Open the masterpiece
 open index.html
-```
+✦ contribution & disclaimer
+This is a personal labor of love. If you're a fan and want to enhance the experience, feel free to fork the repo.
 
----
+Unofficial Fan Site: This project is a non-commercial tribute. All images, music, and branding belong to Sabrina Carpenter and her respective labels. No copyright infringement is intended.
 
-## ✦ project structure
+Built by Aditya Jha · for her · always
 
-```
-sabrina/
-├── index.html
-├── about.html
-├── discography.html
-├── gallery.html
-├── tours.html
-├── README.md
-├── assets/
-│   ├── css/
-│   │   ├── global.css
-│   │   └── components.css
-│   ├── js/
-│   │   └── main.js
-│   └── img/
-└── pages/
-```
-
----
-
-## ✦ contributing
-
-This is a personal fan project but if you're also a Sabrina fan and want to contribute — fork the repo . Fellow fans welcome.
-
----
-
-## ✦ disclaimer
-
-This is an **unofficial** fan site. All images, music, and related content belong to their respective owner aka Sabrina Carpenter. No copyright infringement intended. This project is non-commercial and made purely out of admiration.
-
----
-
-<div align="center">
-
-<br />
-
-*built by [@ozyern_](https://twitter.com/ozyern_) · for her · always*
-
-<br />
-
-```
-🎀 "please please please" — S.C.
-```
-
-</div>
+🎀 "I'm a latte, I'm a Short n' Sweet." — S.C.

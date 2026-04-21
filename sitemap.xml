@@ -7,25 +7,25 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://sabrina.ozyern.me/about.html</loc>
+    <loc>https://sabrina.ozyern.me/about/</loc>
     <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sabrina.ozyern.me/discography.html</loc>
+    <loc>https://sabrina.ozyern.me/discography/</loc>
     <lastmod>2026-04-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://sabrina.ozyern.me/gallery.html</loc>
+    <loc>https://sabrina.ozyern.me/gallery/</loc>
     <lastmod>2026-04-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sabrina.ozyern.me/tours.html</loc>
+    <loc>https://sabrina.ozyern.me/tours/</loc>
     <lastmod>2026-04-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
