@@ -68,8 +68,8 @@
       --gold:         #FFD700;
       
       /* Premium Liquid Glass */
-      --glass-bg:     rgba(255, 253, 249, 0.85);
-      --glass-blur:   blur(12px);
+      --glass-bg: rgba(255, 253, 249, 0.4);
+      --glass-blur: blur(35px) saturate(220%);
       --glass-border: rgba(255, 255, 255, 0.6);
       --glass-shadow: 0 8px 32px rgba(42, 27, 20, 0.08);
       
@@ -586,6 +586,7 @@
 
     /* ── RESPONSIVE MOBILE FIXES ── */
     @media (max-width: 900px) {
+      .header-live-clock { display: none; }
       .nav-links, .nav-btn { display: none !important; }
       .menu-toggle { display: flex; }
       header { max-width: max-content; width: auto; padding: 8px 16px 8px 24px; justify-content: space-between; gap: 32px; }
@@ -655,6 +656,51 @@
         animation: none !important;
       }
     }
+  
+    .header-live-clock {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(166, 25, 46, 0.45);
+      background: rgba(255, 253, 249, 0.88);
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+      position: relative;
+      flex-shrink: 0;
+      opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+    }
+    .header-live-clock::before {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+      background: url('images/logo.webp') center/cover no-repeat;
+      opacity: 0.22;
+      z-index: 0;
+    }
+    .header-clock-hand {
+      position: absolute;
+      left: 50%;
+      bottom: 50%;
+      transform-origin: bottom center;
+      transform: translateX(-50%) rotate(0deg);
+      border-radius: 4px;
+      z-index: 1;
+    }
+    .header-clock-hour { width: 2.5px; height: 8px; background: rgba(42, 27, 20, 0.88); }
+    .header-clock-min { width: 2px; height: 10px; background: rgba(42, 27, 20, 0.82); }
+    .header-clock-sec { width: 1.5px; height: 11px; background: var(--cherry); }
+    .header-clock-center {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--cherry);
+      border: 1px solid var(--butter);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
   </style>
 </head>
 <body>
@@ -678,7 +724,13 @@
         <li><a href="/tours/">Tours</a></li>
       </ul>
       <div class="nav-actions">
-        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+                  <div class="header-live-clock" aria-hidden="true">
+            <div class="header-clock-hand header-clock-hour"></div>
+            <div class="header-clock-hand header-clock-min"></div>
+            <div class="header-clock-hand header-clock-sec"></div>
+            <div class="header-clock-center"></div>
+          </div>
+<button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -793,7 +845,7 @@
           </div>
         </div>
         <div class="gallery-grid">
-          <div class="g-card big reveal"><div class="g-inner g-c1">✦</div><div class="g-overlay"><span>Short n' Sweet</span></div></div>
+          <div class="g-card big reveal"><div class="g-inner" style="background-image: url('Moments%20in%20bloom/sab(1).jpg'); background-size: cover; background-position: center; font-size: 0;">✦</div><div class="g-overlay"><span>Man's Best Friend</span></div></div>
           <div class="g-card reveal delay-1"><div class="g-inner g-c2">✦</div><div class="g-overlay"><span>Emails Era</span></div></div>
           <div class="g-card reveal delay-2"><div class="g-inner g-c3">✦</div><div class="g-overlay"><span>On Stage</span></div></div>
           <div class="g-card reveal delay-1"><div class="g-inner g-c4">✦</div><div class="g-overlay"><span>Espresso</span></div></div>
@@ -1074,6 +1126,35 @@
       setTimeout(() => conf.remove(), 2500);
     }
     setInterval(createConfetti, 500);
+  
+    function updateHeaderClock() {
+      const now = new Date();
+      const secDeg = now.getSeconds() * 6;
+      const minDeg = now.getMinutes() * 6 + secDeg / 60;
+      const hourDeg = (now.getHours() % 12) * 30 + now.getMinutes() * 0.5;
+      const hourHand = document.querySelector('.header-clock-hour');
+      const minHand = document.querySelector('.header-clock-min');
+      const secHand = document.querySelector('.header-clock-sec');
+      if (!hourHand || !minHand || !secHand) return;
+      hourHand.style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+      minHand.style.transform = `translateX(-50%) rotate(${minDeg}deg)`;
+      secHand.style.transform = `translateX(-50%) rotate(${secDeg}deg)`;
+    }
+    setInterval(updateHeaderClock, 1000);
+    updateHeaderClock();
+
+    window.addEventListener('scroll', () => {
+      const clock = document.querySelector('.header-live-clock');
+      if (clock) {
+        if (window.scrollY > window.innerHeight * 0.8) {
+          clock.style.opacity = '1';
+          clock.style.pointerEvents = 'auto';
+        } else {
+          clock.style.opacity = '0';
+          clock.style.pointerEvents = 'none';
+        }
+      }
+    });
   </script>
 </body>
 </html>
