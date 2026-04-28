@@ -6,7 +6,7 @@
 
 
 # 🎀 sabrina.ozyern.me
-### *An editorial fan tribute, written in pure HTML & CSS*
+### *An editorial fan website, written in pure HTML & CSS*
 
 ✦ ˚  ·    ✦   ˚ · .  ✦  ˚   ·    ✦ ˚  ·    ✦   ˚ · .  ✦
 
