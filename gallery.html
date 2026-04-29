@@ -43,10 +43,8 @@
     }
 
     /* ── RESET ── */
-    html, body, *, *::before, *::after { 
-      box-sizing: border-box; margin: 0; padding: 0; 
-      cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='), none !important; 
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { cursor: none; }
     
     html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; background: var(--butter); }
     
@@ -95,7 +93,8 @@
       width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--baby-blue);
       position: fixed; top: 0; left: 0; pointer-events: none; z-index: 2147483646;
       opacity: 0.7; background: radial-gradient(circle, rgba(191, 225, 246, 0.3) 0%, transparent 70%);
-      will-change: transform; transition: border-color 0.4s var(--spring), background 0.4s var(--spring);
+      will-change: transform;
+      transition: border-color 0.3s ease, background 0.3s ease;
     }
     #cur-ring.hovered { border-color: var(--cherry); background: radial-gradient(circle, rgba(166, 25, 46, 0.15) 0%, transparent 70%); }
 
@@ -201,11 +200,12 @@
       z-index: 1; pointer-events: none;
       animation: floatOrbit 14s ease-in-out infinite alternate;
       will-change: transform;
+      contain: layout style;
     }
     .floating-accent .art { border-radius: 14px; width: 100%; height: 100%; background-size: cover; background-position: center; }
-    .accent-left { top: 15%; left: 8%; width: 260px; aspect-ratio: 3/4; transform: translate3d(calc(var(--mx) * -40px), calc(var(--my) * -40px), 0) rotate(-6deg); transition: transform 0.3s cubic-bezier(0.1, 0.5, 0.3, 1); }
+    .accent-left { top: 15%; left: 8%; width: 260px; aspect-ratio: 3/4; transform: rotate(-6deg); }
     .accent-left .art { background-image: url("images/sab_7.jpg"); }
-    .accent-right { bottom: 10%; right: 8%; width: 320px; aspect-ratio: 4/5; transform: translate3d(calc(var(--mx) * 50px), calc(var(--my) * 50px), 0) rotate(8deg); transition: transform 0.3s cubic-bezier(0.1, 0.5, 0.3, 1); animation-delay: -3s; animation-duration: 18s; }
+    .accent-right { bottom: 10%; right: 8%; width: 320px; aspect-ratio: 4/5; transform: rotate(8deg); animation-delay: -3s; animation-duration: 18s; }
     .accent-right .art { background-image: url("images/sab_8.jpg"); }
 
     @keyframes floatOrbit { 0% { transform: translateY(0) rotate(inherit); } 100% { transform: translateY(-30px) rotate(calc(inherit + 5deg)); } }
@@ -216,34 +216,66 @@
     .page-title { font-family: 'Great Vibes', cursive; font-size: clamp(6rem, 16vw, 14rem); line-height: 0.85; color: var(--espresso); margin-bottom: 8px; text-shadow: 0 12px 40px rgba(255,255,255,0.9); }
     .page-title-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--cherry); letter-spacing: 0.02em; margin-top: 16px; }
 
-    /* ── DIRECTORY NAVIGATION (Year Tabs) ── */
+    /* ── ARCHIVE FILTER PILLS ── */
     .archive-nav {
-      max-width: 950px; margin: 0 auto 60px; padding: 0 20px;
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 16px;
+      max-width: 1100px; margin: 0 auto 64px; padding: 0 32px;
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 10px;
       position: relative; z-index: 10;
     }
     .year-tab {
-      position: relative; appearance: none; -webkit-appearance: none; outline: none; margin: 0;
-      width: 80px; height: 56px;
-      background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-      border: 1px solid var(--glass-border); border-radius: 0 8px 8px 8px; 
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Jost', sans-serif; font-weight: 600; font-size: 0.9rem; color: var(--espresso);
-      box-shadow: var(--glass-shadow); transition: all 0.3s var(--spring);
+      appearance: none; -webkit-appearance: none; outline: none; border: none; margin: 0;
+      padding: 0 22px; height: 38px;
+      background: rgba(255, 253, 249, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      border-radius: 100px;
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'Jost', sans-serif; font-weight: 600; font-size: 0.78rem;
+      letter-spacing: 0.05em; color: rgba(42, 27, 20, 0.6);
+      box-shadow: 0 2px 8px rgba(42,27,20,0.05), inset 0 1px 0 rgba(255,255,255,0.9);
+      transition: transform 0.28s var(--spring), background 0.22s ease,
+                  color 0.22s ease, box-shadow 0.28s ease, border-color 0.22s ease;
     }
-    .year-tab::before {
-      content: ''; position: absolute; top: -8px; left: -1px; width: 35px; height: 8px;
-      background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-      border: 1px solid var(--glass-border); border-bottom: none; border-radius: 6px 6px 0 0;
-      transition: all 0.3s var(--spring);
+    /* era color dot */
+    .year-tab:not([data-year="all"])::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: var(--era-dot, rgba(42,27,20,0.25));
+      flex-shrink: 0;
+      transition: transform 0.28s var(--spring), opacity 0.22s ease;
+      opacity: 0.5;
     }
-    .year-tab:hover, .year-tab.active {
-      background: var(--cherry); color: white; border-color: var(--cherry);
-      transform: translateY(-4px); box-shadow: 0 10px 20px rgba(166,25,46,0.2);
+    .year-tab:hover {
+      transform: translateY(-3px) scale(1.04);
+      color: var(--espresso);
+      background: rgba(255, 253, 249, 0.98);
+      box-shadow: 0 8px 20px rgba(42,27,20,0.1), inset 0 1px 0 rgba(255,255,255,1);
+      border-color: rgba(255,255,255,0.95);
     }
-    .year-tab:hover::before, .year-tab.active::before { background: var(--cherry); border-color: var(--cherry); }
-    .year-tab[data-year="all"] { width: 90px; }
-    .year-tab[data-year="all"]::before { width: 45px; }
+    .year-tab:hover::before { opacity: 0.85; transform: scale(1.3); }
+    .year-tab.active {
+      background: var(--cherry); color: #fff;
+      border-color: transparent;
+      box-shadow: 0 8px 22px rgba(166,25,46,0.3), inset 0 1px 0 rgba(255,255,255,0.18);
+      transform: translateY(-3px);
+    }
+    .year-tab.active::before { background: rgba(255,255,255,0.75); opacity: 1; }
+    .year-tab[data-year="all"] { padding: 0 26px; letter-spacing: 0.08em; }
+    /* era dot colors */
+    .year-tab[data-year="2026"] { --era-dot: #A6192E; }
+    .year-tab[data-year="2025"] { --era-dot: #2E7FAA; }
+    .year-tab[data-year="2024"] { --era-dot: #C4932A; }
+    .year-tab[data-year="2023"] { --era-dot: #9060B8; }
+    .year-tab[data-year="2022"] { --era-dot: #C84060; }
+    .year-tab[data-year="2021"] { --era-dot: #4A8A62; }
+    .year-tab[data-year="2020"] { --era-dot: #8A6875; }
+    .year-tab[data-year="2019"] { --era-dot: #C0782A; }
+    .year-tab[data-year="2018"] { --era-dot: #6A8AAA; }
+    .year-tab[data-year="2017"] { --era-dot: #7A7A8A; }
+    .year-tab[data-year="2016"] { --era-dot: #8A7A88; }
+    .year-tab[data-year="2015"] { --era-dot: #8A8072; }
+    .year-tab[data-year="2014"] { --era-dot: #9A8878; }
+    .year-tab[data-year="2013"] { --era-dot: #909080; }
+    .year-tab[data-year="2012"] { --era-dot: #9A9090; }
+    .year-tab[data-year="2011"] { --era-dot: #A0A0A0; }
 
     /* ── VIEW CONTAINERS ── */
     #albums-view { display: none; opacity: 0; transition: opacity 0.4s ease; }
@@ -253,56 +285,140 @@
     .albums-grid-wrap { max-width: 1300px; margin: 0 auto; padding: 20px 48px 120px; }
     .albums-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 40px;
-    }
-    
-    .album-folder {
-      background: rgba(255, 253, 249, 0.55);
-      backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-      border: 1px solid var(--glass-border); border-radius: 28px;
-      padding: 40px 32px; 
-      display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end;
-      text-align: left; 
-      box-shadow: 0 16px 40px rgba(42, 27, 20, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9);
-      transition: all 0.6s var(--spring-bouncy);
-      position: relative; overflow: hidden;
-      aspect-ratio: 4/3; cursor: none;
-    }
-    
-    /* Inner frosted sheen */
-    .album-folder::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(circle at top left, rgba(255,255,255,0.8) 0%, transparent 70%);
-      opacity: 0.6; pointer-events: none; transition: opacity 0.6s ease; z-index: 1;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 32px;
     }
 
+    .album-folder {
+      position: relative;
+      display: flex; flex-direction: column;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: none;
+      transition: transform 0.55s var(--spring-bouncy), box-shadow 0.55s ease, opacity 0.55s ease;
+      opacity: 0;
+      transform: translateY(28px) scale(0.96);
+      box-shadow: 0 4px 20px rgba(42,27,20,0.07);
+    }
+    .album-folder.visible { opacity: 1; transform: translateY(0) scale(1); }
     .album-folder:hover {
-      transform: translateY(-12px) scale(1.02);
-      box-shadow: 
-        inset 0 2px 4px rgba(255,255,255,1),
-        inset 0 -2px 10px rgba(0,0,0,0.05),
-        0 30px 60px rgba(166, 25, 46, 0.12);
-      border-color: #FFF;
-      background: rgba(255, 253, 249, 0.7);
+      transform: translateY(-12px) scale(1.022);
+      box-shadow: 0 28px 56px rgba(42,27,20,0.14);
       z-index: 10;
     }
-    .album-folder:hover::before { opacity: 1; }
-    
-    .folder-content { position: relative; z-index: 2; width: 100%; }
+
+    /* Preview / cover area */
+    .folder-preview {
+      width: 100%; aspect-ratio: 4/3;
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Stacked polaroid cards */
+    .folder-preview::before,
+    .folder-preview::after {
+      content: '';
+      position: absolute;
+      width: 38%; aspect-ratio: 3/4;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.28);
+      border: 1.5px solid rgba(255,255,255,0.55);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      transition: transform 0.55s var(--spring-bouncy);
+    }
+    .folder-preview::before { transform: rotate(-13deg) translate(-20px, 12px); z-index: 1; }
+    .folder-preview::after  { transform: rotate(9deg)  translate(16px, 6px);  z-index: 2; }
+    .album-folder:hover .folder-preview::before { transform: rotate(-17deg) translate(-26px, 16px); }
+    .album-folder:hover .folder-preview::after  { transform: rotate(13deg)  translate(22px, 10px); }
+
+    /* Era badge top-left */
+    .folder-era-badge {
+      position: absolute; top: 14px; left: 14px; z-index: 5;
+      padding: 4px 10px; border-radius: 100px;
+      font-family: 'Jost', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+
+    /* Central icon */
+    .folder-preview-icon {
+      font-size: 3.2rem; position: relative; z-index: 3;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.14));
+      transition: transform 0.55s var(--spring-bouncy);
+    }
+    .album-folder:hover .folder-preview-icon { transform: scale(1.2) rotate(-8deg) translateY(-4px); }
+
+    /* Sheen */
+    .folder-preview-sheen {
+      position: absolute; inset: 0; z-index: 4; pointer-events: none;
+      background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.55) 0%, transparent 55%);
+      opacity: 0.7; transition: opacity 0.45s ease;
+    }
+    .album-folder:hover .folder-preview-sheen { opacity: 1; }
+
+    /* Bottom label strip */
+    .folder-content {
+      position: relative; z-index: 2; width: 100%;
+      background: rgba(255, 253, 249, 0.88);
+      backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%);
+      border-top: 1px solid rgba(255,255,255,0.9);
+      padding: 16px 22px 20px;
+      transition: background 0.4s ease;
+    }
+    .album-folder:hover .folder-content { background: rgba(255, 253, 249, 0.97); }
 
     .folder-kicker {
-      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase;
-      color: rgba(42,27,20,0.6); margin-bottom: 8px; transition: color 0.4s ease; display: block;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase;
+      color: rgba(42,27,20,0.38); margin-bottom: 4px; display: block;
+      transition: color 0.35s ease;
     }
     .album-folder:hover .folder-kicker { color: var(--cherry); }
 
     .folder-title {
       font-family: 'Cormorant Garamond', serif; font-weight: 500;
-      font-size: 2.8rem; color: var(--espresso); line-height: 0.95; margin-bottom: 0;
-      letter-spacing: -0.02em; transition: transform 0.6s var(--spring-bouncy);
+      font-size: 1.75rem; color: var(--espresso); line-height: 1.05; margin-bottom: 0;
+      letter-spacing: -0.02em;
+      transition: transform 0.55s var(--spring-bouncy);
     }
-    .album-folder:hover .folder-title { transform: translateX(6px); }
+    .album-folder:hover .folder-title { transform: translateX(4px); }
+
+    /* ── YEAR ACCENT PALETTES ── */
+    [data-year="2026"] .folder-preview { background: linear-gradient(148deg, #FBDDE2 0%, #F5B0BA 45%, #EE8895 100%); }
+    [data-year="2026"] .folder-era-badge { background: rgba(166,25,46,0.75); }
+
+    [data-year="2025"] .folder-preview { background: linear-gradient(148deg, #D6EEF8 0%, #A8D8F0 45%, #7AC0E8 100%); }
+    [data-year="2025"] .folder-era-badge { background: rgba(46,127,170,0.75); }
+
+    [data-year="2024"] .folder-preview { background: linear-gradient(148deg, #FFF0CC 0%, #FFD980 45%, #FFC240 100%); }
+    [data-year="2024"] .folder-era-badge { background: rgba(196,147,42,0.75); }
+
+    [data-year="2023"] .folder-preview { background: linear-gradient(148deg, #EBD8F8 0%, #D0AAEA 45%, #B882DC 100%); }
+    [data-year="2023"] .folder-era-badge { background: rgba(144,96,184,0.75); }
+
+    [data-year="2022"] .folder-preview { background: linear-gradient(148deg, #FFD8E4 0%, #FFB0C8 45%, #F07098 100%); }
+    [data-year="2022"] .folder-era-badge { background: rgba(200,64,96,0.75); }
+
+    [data-year="2021"] .folder-preview { background: linear-gradient(148deg, #CEEED8 0%, #A0D8B0 45%, #72C088 100%); }
+    [data-year="2021"] .folder-era-badge { background: rgba(74,138,98,0.75); }
+
+    [data-year="2020"] .folder-preview { background: linear-gradient(148deg, #EDD8E4 0%, #D4B0C4 45%, #BA88A4 100%); }
+    [data-year="2020"] .folder-era-badge { background: rgba(138,104,117,0.75); }
+
+    [data-year="2019"] .folder-preview { background: linear-gradient(148deg, #FFE8C8 0%, #FFD090 45%, #F0B058 100%); }
+    [data-year="2019"] .folder-era-badge { background: rgba(192,120,42,0.75); }
+
+    [data-year="2018"] .folder-preview { background: linear-gradient(148deg, #D8E8F4 0%, #B0CCEC 45%, #88B0E0 100%); }
+    [data-year="2018"] .folder-era-badge { background: rgba(106,138,170,0.75); }
+
+    [data-year="2017"] .folder-preview, [data-year="2016"] .folder-preview { background: linear-gradient(148deg, #E4E4EC 0%, #C8C8D8 45%, #ACACC4 100%); }
+    [data-year="2017"] .folder-era-badge, [data-year="2016"] .folder-era-badge { background: rgba(122,122,138,0.75); }
+
+    [data-year="2015"] .folder-preview,[data-year="2014"] .folder-preview,[data-year="2013"] .folder-preview,
+    [data-year="2012"] .folder-preview,[data-year="2011"] .folder-preview { background: linear-gradient(148deg, #EAE6E0 0%, #D0C8BC 45%, #B8AFA4 100%); }
+    [data-year="2015"] .folder-era-badge,[data-year="2014"] .folder-era-badge,[data-year="2013"] .folder-era-badge,
+    [data-year="2012"] .folder-era-badge,[data-year="2011"] .folder-era-badge { background: rgba(138,128,114,0.75); }
 
     #albums-empty-state {
       display: none; flex-direction: column; align-items: center; justify-content: center;
@@ -346,7 +462,7 @@
       background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
       border: 1px solid var(--glass-border); border-radius: 20px; overflow: hidden; display: block;
       box-shadow: var(--glass-shadow);
-      transition: transform 0.6s var(--spring-bouncy), box-shadow 0.6s var(--spring-bouncy);
+      transition: transform 0.6s var(--spring-bouncy), box-shadow 0.6s var(--spring-bouncy), opacity 0.6s ease;
       opacity: 0; transform: translateY(20px) scale(0.98);
     }
     .m-item.visible { opacity: 1; transform: translateY(0) scale(1); }
@@ -431,6 +547,10 @@
     .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding-top: 32px; border-top: 1px solid rgba(42, 27, 20, 0.1); font-size: 0.85rem; font-weight: 500; color: rgba(42, 27, 20, 0.6); letter-spacing: 0.1em; }
 
     /* ── ULTRA-FLUID REVEALS ── */
+    @keyframes revealUp {
+      from { opacity: 0; transform: translateY(32px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
+    }
     .reveal { opacity: 0; transform: translate3d(0, 40px, 0) scale(0.98); transition: opacity 1s ease-out, transform var(--speed) var(--spring-bouncy); will-change: transform, opacity; }
     .reveal.visible { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
 
@@ -451,16 +571,18 @@
       .floating-accent { display: none; }
     }
     @media (max-width: 760px)  {
-      .albums-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
-      .album-folder { padding: 32px 20px; border-radius: 20px; }
-      .folder-title { font-size: 2rem; }
+      .albums-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+      .folder-preview-icon { font-size: 2.4rem; }
+      .folder-era-badge { font-size: 0.55rem; padding: 3px 8px; }
+      .folder-content { padding: 12px 14px 16px; }
+      .folder-title { font-size: 1.3rem; }
       .masonry { columns: 2; column-gap: 16px; }
       .m-item { border-radius: 12px; margin-bottom: 16px; }
       #lb-prev { left: 16px; } #lb-next { right: 16px; }
       #lb-close { top: 24px; right: 24px; }
       .footer-links { gap: 12px; }
-      .archive-nav { gap: 12px; }
-      .year-tab { width: 70px; height: 48px; font-size: 0.8rem; }
+      .archive-nav { gap: 6px 8px; padding: 0 16px; }
+      .year-tab { height: 34px; padding: 0 14px; font-size: 0.72rem; }
     }
     @media (max-width: 480px) { .masonry { columns: 1; } }
   </style>
@@ -568,99 +690,169 @@
         <div class="albums-grid" id="albums-grid">
 
           <div class="album-folder" data-year="2026" data-album="coachella-2026">
+            <div class="folder-preview">
+              <span class="folder-era-badge">'26</span>
+              <span class="folder-preview-icon">🌵</span>
+              <div class="folder-preview-sheen"></div>
+            </div>
             <div class="folder-content">
-              <span class="folder-kicker">Archive 26</span>
+              <span class="folder-kicker">Festival</span>
               <h3 class="folder-title">Coachella 2026</h3>
             </div>
           </div>
           
           <div class="album-folder" data-year="2026" data-album="estereo-2026">
+            <div class="folder-preview">
+              <span class="folder-era-badge">'26</span>
+              <span class="folder-preview-icon">🎸</span>
+              <div class="folder-preview-sheen"></div>
+            </div>
             <div class="folder-content">
-              <span class="folder-kicker">Archive 26</span>
+              <span class="folder-kicker">Festival</span>
               <h3 class="folder-title">Estéreo Picnic 2026</h3>
             </div>
           </div>
 
           <div class="album-folder" data-year="2026" data-album="grammys-2026">
+            <div class="folder-preview">
+              <span class="folder-era-badge">'26</span>
+              <span class="folder-preview-icon">🏆</span>
+              <div class="folder-preview-sheen"></div>
+            </div>
             <div class="folder-content">
-              <span class="folder-kicker">Archive 26</span>
+              <span class="folder-kicker">Award Show</span>
               <h3 class="folder-title">Grammy 2026</h3>
             </div>
           </div>
 
           <div class="album-folder" data-year="2026" data-album="lolla-arg-2026">
+            <div class="folder-preview">
+              <span class="folder-era-badge">'26</span>
+              <span class="folder-preview-icon">🇦🇷</span>
+              <div class="folder-preview-sheen"></div>
+            </div>
             <div class="folder-content">
-              <span class="folder-kicker">Archive 26</span>
-              <h3 class="folder-title">Lollapalooza Argentina 2026</h3>
+              <span class="folder-kicker">Festival</span>
+              <h3 class="folder-title">Lollapalooza Argentina</h3>
             </div>
           </div>
 
           <div class="album-folder" data-year="2026" data-album="lolla-chile-2026">
+            <div class="folder-preview">
+              <span class="folder-era-badge">'26</span>
+              <span class="folder-preview-icon">🇨🇱</span>
+              <div class="folder-preview-sheen"></div>
+            </div>
             <div class="folder-content">
-              <span class="folder-kicker">Archive 26</span>
-              <h3 class="folder-title">Lollapalooza Chile 2026</h3>
+              <span class="folder-kicker">Festival</span>
+              <h3 class="folder-title">Lollapalooza Chile</h3>
             </div>
           </div>
 
           <div class="album-folder" data-year="2025" data-album="grammys-2025">
+            <div class="folder-preview">
+              <span class="folder-era-badge">'25</span>
+              <span class="folder-preview-icon">🎶</span>
+              <div class="folder-preview-sheen"></div>
+            </div>
             <div class="folder-content">
-              <span class="folder-kicker">Archive 25</span>
-              <h3 class="folder-title">67th Annual (Grammys)</h3>
+              <span class="folder-kicker">Award Show</span>
+              <h3 class="folder-title">67th Grammys</h3>
             </div>
           </div>
 
           <div class="album-folder" data-year="2025" data-album="brit-2025">
+            <div class="folder-preview">
+              <span class="folder-era-badge">'25</span>
+              <span class="folder-preview-icon">🎖️</span>
+              <div class="folder-preview-sheen"></div>
+            </div>
             <div class="folder-content">
-              <span class="folder-kicker">Archive 25</span>
+              <span class="folder-kicker">Award Show</span>
               <h3 class="folder-title">2025 BRIT Awards</h3>
             </div>
           </div>
 
           <div class="album-folder" data-year="2025" data-album="acl1-2025">
+            <div class="folder-preview">
+              <span class="folder-era-badge">'25</span>
+              <span class="folder-preview-icon">🤠</span>
+              <div class="folder-preview-sheen"></div>
+            </div>
             <div class="folder-content">
-              <span class="folder-kicker">Archive 25</span>
+              <span class="folder-kicker">Festival</span>
               <h3 class="folder-title">Austin City Limits W1</h3>
             </div>
           </div>
           
           <div class="album-folder" data-year="2025" data-album="bst-2025">
+            <div class="folder-preview">
+              <span class="folder-era-badge">'25</span>
+              <span class="folder-preview-icon">🌿</span>
+              <div class="folder-preview-sheen"></div>
+            </div>
             <div class="folder-content">
-              <span class="folder-kicker">Archive 25</span>
+              <span class="folder-kicker">Festival</span>
               <h3 class="folder-title">BST Hyde Park 2025</h3>
             </div>
           </div>
           
           <div class="album-folder" data-year="2025" data-album="opry-2025">
+            <div class="folder-preview">
+              <span class="folder-era-badge">'25</span>
+              <span class="folder-preview-icon">🎹</span>
+              <div class="folder-preview-sheen"></div>
+            </div>
             <div class="folder-content">
-              <span class="folder-kicker">Archive 25</span>
+              <span class="folder-kicker">Live</span>
               <h3 class="folder-title">Grand Ole Opry</h3>
             </div>
           </div>
 
           <div class="album-folder" data-year="2025" data-album="lolla-chi-2025">
+            <div class="folder-preview">
+              <span class="folder-era-badge">'25</span>
+              <span class="folder-preview-icon">🎪</span>
+              <div class="folder-preview-sheen"></div>
+            </div>
             <div class="folder-content">
-              <span class="folder-kicker">Archive 25</span>
-              <h3 class="folder-title">Lollapalooza Chicago 2025</h3>
+              <span class="folder-kicker">Festival</span>
+              <h3 class="folder-title">Lollapalooza Chicago</h3>
             </div>
           </div>
 
           <div class="album-folder" data-year="2025" data-album="vma-2025">
+            <div class="folder-preview">
+              <span class="folder-era-badge">'25</span>
+              <span class="folder-preview-icon">📺</span>
+              <div class="folder-preview-sheen"></div>
+            </div>
             <div class="folder-content">
-              <span class="folder-kicker">Archive 25</span>
-              <h3 class="folder-title">MTV Video Music Awards 2025</h3>
+              <span class="folder-kicker">Award Show</span>
+              <h3 class="folder-title">MTV VMAs 2025</h3>
             </div>
           </div>
           
           <div class="album-folder" data-year="2025" data-album="primavera-2025">
+            <div class="folder-preview">
+              <span class="folder-era-badge">'25</span>
+              <span class="folder-preview-icon">🌸</span>
+              <div class="folder-preview-sheen"></div>
+            </div>
             <div class="folder-content">
-              <span class="folder-kicker">Archive 25</span>
+              <span class="folder-kicker">Festival</span>
               <h3 class="folder-title">Primavera Sound 2025</h3>
             </div>
           </div>
           
           <div class="album-folder" data-year="2025" data-album="snl-2025">
+            <div class="folder-preview">
+              <span class="folder-era-badge">'25</span>
+              <span class="folder-preview-icon">🎬</span>
+              <div class="folder-preview-sheen"></div>
+            </div>
             <div class="folder-content">
-              <span class="folder-kicker">Archive 25</span>
+              <span class="folder-kicker">TV</span>
               <h3 class="folder-title">SNL50</h3>
             </div>
           </div>
@@ -777,22 +969,34 @@
   <script>
     const perfMode = window.__SAB_PERF_MODE__ === true;
 
-    if (!perfMode) {
-      document.addEventListener('mousemove', (e) => {
-        const x = (e.clientX / window.innerWidth) - 0.5;
-        const y = (e.clientY / window.innerHeight) - 0.5;
-        document.documentElement.style.setProperty('--mx', x);
-        document.documentElement.style.setProperty('--my', y);
-      });
+    /* ── PARALLAX (pure JS rAF, no CSS vars) ── */
+    const accentLeft  = document.querySelector('.accent-left');
+    const accentRight = document.querySelector('.accent-right');
+    if (!perfMode && accentLeft && accentRight) {
+      let px = 0, py = 0, plx = 0, ply = 0, prx = 0, pry = 0;
+      document.addEventListener('mousemove', e => {
+        px = (e.clientX / window.innerWidth  - 0.5) * 2;
+        py = (e.clientY / window.innerHeight - 0.5) * 2;
+      }, { passive: true });
+      function tickParallax() {
+        plx += (px * -28 - plx) * 0.06;
+        ply += (py * -28 - ply) * 0.06;
+        prx += (px *  36 - prx) * 0.06;
+        pry += (py *  36 - pry) * 0.06;
+        accentLeft.style.transform  = `translate3d(${plx}px,${ply}px,0) rotate(-6deg)`;
+        accentRight.style.transform = `translate3d(${prx}px,${pry}px,0) rotate(8deg)`;
+        requestAnimationFrame(tickParallax);
+      }
+      requestAnimationFrame(tickParallax);
     }
 
     const pc = document.getElementById('petals');
     if (!perfMode && pc) {
       const pColors = ['#FDE5E9', '#BFE1F6', '#FFFDF9'];
-      for (let i = 0; i < 35; i++) {
+      for (let i = 0; i < 18; i++) {
         const p = document.createElement('div'); p.className = 'petal';
-        const s = 12 + Math.random() * 24;
-        p.style.cssText = `left:${Math.random()*100}vw; width:${s}px; height:${s}px; background:${pColors[Math.floor(Math.random()*3)]}; animation-duration:${8+Math.random()*12}s; animation-delay:${Math.random()*15}s;`;
+        const s = 10 + Math.random() * 20;
+        p.style.cssText = `left:${Math.random()*100}vw; width:${s}px; height:${s}px; background:${pColors[Math.floor(Math.random()*3)]}; animation-duration:${10+Math.random()*14}s; animation-delay:${Math.random()*18}s; will-change:transform;`;
         pc.appendChild(p);
       }
     }
@@ -810,44 +1014,44 @@
     const isMobile = window.matchMedia('(max-width: 900px) and (hover: none) and (pointer: coarse)').matches;
 
     if (isMobile || perfMode) {
-      cur.style.display = 'none'; ring.style.display = 'none';
+      if (cur)  cur.style.display  = 'none';
+      if (ring) ring.style.display = 'none';
       document.documentElement.style.cursor = 'auto';
       document.body.style.cursor = 'auto';
     } else {
       let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-      let curX = mouseX, curY = mouseY;
       let ringX = mouseX, ringY = mouseY;
-      let curScale = 1, ringScale = 1;
-      let curTarget = 1, ringTarget = 1;
+      let ringScale = 1, ringTarget = 1;
 
-      document.addEventListener('mousemove', (e) => {
+      /* Snap dot directly — zero lag */
+      document.addEventListener('mousemove', e => {
         mouseX = e.clientX; mouseY = e.clientY;
+        cur.style.transform = `translate3d(${mouseX - 16}px,${mouseY - 16}px,0)`;
       }, { passive: true });
 
-      const setupHover = () => {
-        document.querySelectorAll('a, button, .year-tab, .album-folder, .m-item, .nav-logo, #lb-close, #lb-prev, #lb-next').forEach(el => {
-          if (el.dataset.cursorBound) return;
-          el.dataset.cursorBound = "true";
-          el.addEventListener('mouseenter', () => { curTarget = 1.3; ringTarget = 1.2; ring.classList.add('hovered'); });
-          el.addEventListener('mouseleave', () => { curTarget = 1; ringTarget = 1; ring.classList.remove('hovered'); });
+      /* Hover states */
+      const bindHover = (root) => {
+        root.querySelectorAll('a, button, .year-tab, .album-folder, .m-item, .nav-logo, #lb-close, #lb-prev, #lb-next').forEach(el => {
+          if (el.dataset.cb) return; el.dataset.cb = '1';
+          el.style.cursor = 'none';
+          el.addEventListener('mouseenter', () => { ringTarget = 1.35; ring.classList.add('hovered'); });
+          el.addEventListener('mouseleave', () => { ringTarget = 1;    ring.classList.remove('hovered'); });
         });
       };
-      setupHover(); 
+      bindHover(document);
 
-      document.addEventListener('mousedown', () => { curTarget = 0.8; });
-      document.addEventListener('mouseup', () => { curTarget = ring.classList.contains('hovered') ? 1.3 : 1; });
+      document.addEventListener('mousedown', () => { cur.style.transform += ' scale(0.8)'; });
+      document.addEventListener('mouseup',   () => { cur.style.transform = cur.style.transform.replace(/ scale\([^)]+\)/, ''); });
 
-      function renderCursor() {
-        curX += (mouseX - curX) * 0.3; curY += (mouseY - curY) * 0.3;
-        ringX += (mouseX - ringX) * 0.15; ringY += (mouseY - ringY) * 0.15;
-        curScale += (curTarget - curScale) * 0.2; ringScale += (ringTarget - ringScale) * 0.2;
-
-        cur.style.transform = `translate3d(${curX - 16}px, ${curY - 16}px, 0) scale3d(${curScale}, ${curScale}, 1)`;
-        ring.style.transform = `translate3d(${ringX - 25}px, ${ringY - 25}px, 0) scale3d(${ringScale}, ${ringScale}, 1)`;
-        
-        requestAnimationFrame(renderCursor);
+      /* Ring lerps behind */
+      function tickRing() {
+        ringX += (mouseX - ringX) * 0.14;
+        ringY += (mouseY - ringY) * 0.14;
+        ringScale += (ringTarget - ringScale) * 0.18;
+        ring.style.transform = `translate3d(${ringX - 25}px,${ringY - 25}px,0) scale(${ringScale})`;
+        requestAnimationFrame(tickRing);
       }
-      requestAnimationFrame(renderCursor);
+      requestAnimationFrame(tickRing);
     }
 
     const observer = new IntersectionObserver((entries) => {
