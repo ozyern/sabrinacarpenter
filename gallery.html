@@ -26,7 +26,7 @@
       
       /* Original Premium Liquid Glass */
       --glass-bg:     rgba(255, 253, 249, 0.65);
-      --glass-blur:   blur(24px) saturate(180%);
+      --glass-blur:   blur(12px) saturate(140%);
       --glass-border: rgba(255, 255, 255, 0.7);
       --glass-shadow: 0 16px 40px rgba(42, 27, 20, 0.08);
       
@@ -44,7 +44,8 @@
 
     /* ── RESET ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { cursor: none; }
+    /* Native cursor remains by default; JS will enable custom cursor by adding `custom-cursor` to <html> */
+    .custom-cursor, .custom-cursor body { cursor: none; }
     
     html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; background: var(--butter); }
     
@@ -553,6 +554,13 @@
     }
     .reveal { opacity: 0; transform: translate3d(0, 40px, 0) scale(0.98); transition: opacity 1s ease-out, transform var(--speed) var(--spring-bouncy); will-change: transform, opacity; }
     .reveal.visible { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+
+    /* ── REDUCE MOTION WHEN NEEDED ── */
+    @media (prefers-reduced-motion: reduce), html.perf-mode {
+      * { animation-duration: 0.001ms !important; animation-delay: 0s !important; transition-duration: 0.001ms !important; }
+      .hero-orb, .floating-accent, #petals, .m-item, .reveal { animation: none !important; transition: none !important; }
+      .page-hero-inner { transform: none !important; }
+    }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 1100px) { .masonry { columns: 3; } }
@@ -2274,10 +2282,11 @@
     const pc = document.getElementById('petals');
     if (!perfMode && pc) {
       const pColors = ['#FDE5E9', '#BFE1F6', '#FFFDF9'];
-      for (let i = 0; i < 18; i++) {
+      /* reduce petal count for performance */
+      for (let i = 0; i < 8; i++) {
         const p = document.createElement('div'); p.className = 'petal';
-        const s = 10 + Math.random() * 20;
-        p.style.cssText = `left:${Math.random()*100}vw; width:${s}px; height:${s}px; background:${pColors[Math.floor(Math.random()*3)]}; animation-duration:${10+Math.random()*14}s; animation-delay:${Math.random()*18}s; will-change:transform;`;
+        const s = 8 + Math.random() * 18;
+        p.style.cssText = `left:${Math.random()*100}vw; width:${s}px; height:${s}px; background:${pColors[Math.floor(Math.random()*3)]}; animation-duration:${8+Math.random()*10}s; animation-delay:${Math.random()*12}s; will-change:transform;`;
         pc.appendChild(p);
       }
     }
@@ -2301,6 +2310,8 @@
       document.documentElement.style.cursor = 'auto';
       document.body.style.cursor = 'auto';
     } else {
+      /* enable custom cursor by marking document element */
+      document.documentElement.classList.add('custom-cursor');
       let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
       let ringX = mouseX, ringY = mouseY;
       let ringScale = 1, ringTarget = 1;
@@ -2327,9 +2338,10 @@
 
       /* Ring lerps behind */
       function tickRing() {
-        ringX += (mouseX - ringX) * 0.14;
-        ringY += (mouseY - ringY) * 0.14;
-        ringScale += (ringTarget - ringScale) * 0.18;
+        /* snappier ring follow with slightly higher lerp for responsiveness */
+        ringX += (mouseX - ringX) * 0.22;
+        ringY += (mouseY - ringY) * 0.22;
+        ringScale += (ringTarget - ringScale) * 0.24;
         ring.style.transform = `translate3d(${ringX - 25}px,${ringY - 25}px,0) scale(${ringScale})`;
         requestAnimationFrame(tickRing);
       }
