@@ -556,10 +556,26 @@
     .reveal.visible { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
 
     /* ── REDUCE MOTION WHEN NEEDED ── */
-    @media (prefers-reduced-motion: reduce), html.perf-mode {
+    @media (prefers-reduced-motion: reduce) {
       * { animation-duration: 0.001ms !important; animation-delay: 0s !important; transition-duration: 0.001ms !important; }
       .hero-orb, .floating-accent, #petals, .m-item, .reveal { animation: none !important; transition: none !important; }
       .page-hero-inner { transform: none !important; }
+    }
+    html.perf-mode * {
+      animation-duration: 0.001ms !important;
+      animation-delay: 0s !important;
+      transition-duration: 0.001ms !important;
+    }
+    html.perf-mode .hero-orb,
+    html.perf-mode .floating-accent,
+    html.perf-mode #petals,
+    html.perf-mode .m-item,
+    html.perf-mode .reveal {
+      animation: none !important;
+      transition: none !important;
+    }
+    html.perf-mode .page-hero-inner {
+      transform: none !important;
     }
 
     /* ── RESPONSIVE ── */
@@ -2256,6 +2272,41 @@
 
   <script src="scripts/performance.js"></script>
   <script>
+        // --- DYNAMIC PHOTO DATA ---
+        // NOTE: Only a small sample is shown here. You must expand this with all your real photo data.
+        const PHOTO_DATA = [
+          { album: 'coachella-2026', era: 'Coachella 2026', caption: 'coachella26 w1 perf 001', src: 'gallery/2026/Cochella 2026/coachella26-w1-perf_001.jpg' },
+          { album: 'coachella-2026', era: 'Coachella 2026', caption: 'coachella26 w1 perf 002', src: 'gallery/2026/Cochella 2026/coachella26-w1-perf_002.jpg' },
+          { album: 'estereo-2026', era: 'Estéreo Picnic 2026', caption: 'estereo picnic26 perf 001', src: 'gallery/2026/Estéreo Picnic 2026/estereo-picnic26-perf_001.jpg' },
+          // ... (add all other photos here, one object per image)
+        ];
+
+        // --- DYNAMIC PHOTO RENDERING ---
+        function renderPhotos(album = null) {
+          const masonry = document.getElementById('masonry');
+          masonry.innerHTML = '';
+          let filtered = album ? PHOTO_DATA.filter(p => p.album === album) : PHOTO_DATA;
+          if (!filtered.length) {
+            document.getElementById('empty-state').style.display = 'flex';
+            return;
+          }
+          document.getElementById('empty-state').style.display = 'none';
+          for (const p of filtered) {
+            const div = document.createElement('div');
+            div.className = 'm-item';
+            div.dataset.album = p.album;
+            div.innerHTML = `<img src="${p.src}" alt="${p.era} - ${p.caption}" loading="lazy" /><div class="m-overlay"><span class="m-era">${p.era}</span><span class="m-caption">${p.caption}</span></div>`;
+            masonry.appendChild(div);
+          }
+          // Re-bind click for lightbox
+          document.querySelectorAll('.m-item').forEach((item) => {
+            item.addEventListener('click', () => {
+              visibleItems = Array.from(document.querySelectorAll('.m-item'));
+              const idx = visibleItems.indexOf(item);
+              openLb(idx);
+            });
+          });
+        }
     const perfMode = window.__SAB_PERF_MODE__ === true;
 
     /* ── PARALLAX (pure JS rAF, no CSS vars) ── */
@@ -2297,18 +2348,9 @@
       menuToggle.addEventListener('click', () => {
         const isOpen = headerWrapper.classList.toggle('open');
         menuToggle.setAttribute('aria-expanded', String(isOpen));
+        document.documentElement.style.cursor = 'auto';
+        document.body.style.cursor = 'auto';
       });
-    }
-
-    const cur = document.getElementById('cur');
-    const ring = document.getElementById('cur-ring');
-    const isMobile = window.matchMedia('(max-width: 900px) and (hover: none) and (pointer: coarse)').matches;
-
-    if (isMobile || perfMode) {
-      if (cur)  cur.style.display  = 'none';
-      if (ring) ring.style.display = 'none';
-      document.documentElement.style.cursor = 'auto';
-      document.body.style.cursor = 'auto';
     } else {
       /* enable custom cursor by marking document element */
       document.documentElement.classList.add('custom-cursor');
@@ -2366,7 +2408,7 @@
     const photosView = document.getElementById('photos-view');
     const galleryHeader = document.querySelector('.gallery-header');
     const albumFolders = document.querySelectorAll('.album-folder');
-    const photoItems = document.querySelectorAll('.m-item');
+    // photoItems is now dynamic, so always use document.querySelectorAll('.m-item') when needed
     const emptyState = document.getElementById('empty-state');
     const albumsEmptyState = document.getElementById('albums-empty-state');
     
@@ -2377,22 +2419,13 @@
         yearTabs.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentActiveYear = btn.dataset.year;
-        
         if (currentActiveYear === 'all') {
           albumsView.style.opacity = '0';
           setTimeout(() => {
             albumsView.style.display = 'none';
             photosView.style.display = 'block';
-            galleryHeader.style.display = 'none'; 
-            
-            let delayCount = 0;
-            photoItems.forEach(item => {
-              item.style.display = 'block';
-              item.classList.remove('visible');
-              setTimeout(() => item.classList.add('visible'), 50 + (delayCount * 20));
-              delayCount++;
-            });
-            emptyState.style.display = 'none';
+            galleryHeader.style.display = 'none';
+            renderPhotos(null); // Show all photos
             setTimeout(() => photosView.style.opacity = '1', 50);
           }, 300);
         } else {
@@ -2400,7 +2433,6 @@
           setTimeout(() => {
             photosView.style.display = 'none';
             albumsView.style.display = 'block';
-            
             let hasFolders = false;
             let delayCount = 0;
             albumFolders.forEach(folder => {
@@ -2415,7 +2447,6 @@
                 folder.classList.remove('visible');
               }
             });
-            
             albumsEmptyState.style.display = hasFolders ? 'none' : 'flex';
             setTimeout(() => albumsView.style.opacity = '1', 50);
           }, 300);
@@ -2427,32 +2458,13 @@
       folder.addEventListener('click', () => {
         const albumId = folder.dataset.album;
         const albumTitle = folder.querySelector('.folder-title').textContent;
-
         document.getElementById('current-folder-title').textContent = albumTitle;
-
         albumsView.style.opacity = '0';
         setTimeout(() => {
           albumsView.style.display = 'none';
           photosView.style.display = 'block';
-          galleryHeader.style.display = 'flex'; 
-          
-          let hasPhotos = false;
-          let delayCount = 0;
-          photoItems.forEach(item => {
-            const itemAlbum = item.dataset.album || '';
-            if (itemAlbum === albumId) {
-              item.style.display = 'block';
-              item.classList.remove('visible');
-              setTimeout(() => item.classList.add('visible'), 50 + (delayCount * 40));
-              delayCount++;
-              hasPhotos = true;
-            } else {
-              item.style.display = 'none';
-              item.classList.remove('visible');
-            }
-          });
-
-          emptyState.style.display = hasPhotos ? 'none' : 'flex';
+          galleryHeader.style.display = 'flex';
+          renderPhotos(albumId);
           setTimeout(() => photosView.style.opacity = '1', 50);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }, 400);
@@ -2461,12 +2473,9 @@
 
     document.getElementById('back-to-albums').addEventListener('click', () => {
       photosView.style.opacity = '0';
-      photoItems.forEach(item => item.classList.remove('visible'));
-
       setTimeout(() => {
         photosView.style.display = 'none';
         albumsView.style.display = 'block';
-        
         let delayCount = 0;
         albumFolders.forEach(folder => {
           if (folder.dataset.year === currentActiveYear) {
@@ -2475,14 +2484,14 @@
             delayCount++;
           }
         });
-
         setTimeout(() => albumsView.style.opacity = '1', 50);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 400);
     });
 
     window.addEventListener('DOMContentLoaded', () => {
-       document.querySelector('.year-tab[data-year="all"]').click();
+      document.querySelector('.year-tab[data-year="all"]').click();
+      renderPhotos(null);
     });
 
     /* ── LIGHTBOX ── */
