@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <base href="/" />
   <title>Sabrina Carpenter Discography | Ozyern Fan Website</title>
   <link rel="icon" href="images/logo.webp" type="image/webp" />
   <link rel="apple-touch-icon" href="images/logo.webp" />
@@ -324,31 +323,250 @@
       margin-top: 16px;
     }
 
-    /* ── FILTER TABS (Liquid Glass Sticky) ── */
+    /* ── FILTER TABS — Era Pill Cards v3 ── */
     .filter-wrap {
       position: sticky; top: 96px; z-index: 100;
-      background: rgba(255, 253, 249, 0.85); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);
-      padding: 0 56px; overflow-x: hidden; box-shadow: 0 8px 24px rgba(42, 27, 20, 0.05);
+      background: rgba(255,253,249,0.72);
+      backdrop-filter: blur(40px) saturate(240%) brightness(1.04);
+      -webkit-backdrop-filter: blur(40px) saturate(240%) brightness(1.04);
+      border-top: 1px solid rgba(255,255,255,0.8);
+      border-bottom: 1px solid rgba(42,27,20,0.04);
+      padding: 16px 56px;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.9) inset,
+        0 -1px 0 rgba(255,255,255,0.5) inset,
+        0 8px 32px rgba(42,27,20,0.04);
     }
     .filter-inner {
       max-width: 1200px; margin: 0 auto;
-      display: flex; gap: 16px; overflow-x: auto; scrollbar-width: none;
+      display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
+      align-items: center; padding: 4px 2px;
     }
     .filter-inner::-webkit-scrollbar { display: none; }
+
+    /* Staggered entrance for pills */
+    .filter-btn { animation: pillIn 0.6s var(--spring) both; }
+    .filter-btn:nth-child(1)  { animation-delay: 0.05s; }
+    .filter-btn:nth-child(2)  { animation-delay: 0.10s; }
+    .filter-btn:nth-child(3)  { animation-delay: 0.15s; }
+    .filter-btn:nth-child(4)  { animation-delay: 0.20s; }
+    .filter-btn:nth-child(5)  { animation-delay: 0.25s; }
+    .filter-btn:nth-child(6)  { animation-delay: 0.30s; }
+    .filter-btn:nth-child(7)  { animation-delay: 0.35s; }
+    .filter-btn:nth-child(8)  { animation-delay: 0.40s; }
+    @keyframes pillIn {
+      from { opacity: 0; transform: translateY(10px) scale(0.92); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
+    }
+
+    .filter-sep {
+      width: 1px; height: 44px; flex-shrink: 0;
+      background: linear-gradient(to bottom, transparent 0%, rgba(42,27,20,0.1) 40%, rgba(42,27,20,0.1) 60%, transparent 100%);
+      margin: 0 6px;
+    }
+
     .filter-btn {
-      font-weight: 600; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
-      color: rgba(42, 27, 20, 0.6); background: none; border: none;
-      padding: 24px 16px; white-space: nowrap;
-      position: relative; transition: color 0.3s ease; flex-shrink: 0;
+      flex-shrink: 0; border: none; cursor: inherit;
+      background: rgba(255,253,249,0.55);
+      border-radius: 18px; padding: 8px 16px 8px 8px;
+      display: flex; align-items: center; gap: 10px;
+      border: 1px solid rgba(255,255,255,0.7);
+      box-shadow:
+        0 1px 3px rgba(42,27,20,0.06),
+        0 4px 12px rgba(42,27,20,0.04),
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        inset 0 -1px 0 rgba(42,27,20,0.03);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      transition:
+        transform 0.5s var(--spring),
+        box-shadow 0.5s var(--spring),
+        background 0.3s ease,
+        border-color 0.3s ease;
+      position: relative; overflow: hidden;
+      /* Extra depth via layered shadow */
     }
+
+    /* Shine sweep */
+    .filter-btn::before {
+      content: ''; position: absolute;
+      top: 0; left: -130%; width: 75%; height: 100%;
+      background: linear-gradient(110deg,
+        transparent 15%,
+        rgba(255,255,255,0.6) 50%,
+        transparent 85%);
+      transform: skewX(-12deg);
+      transition: left 0.6s var(--spring);
+      pointer-events: none; z-index: 3;
+    }
+    .filter-btn:hover::before { left: 140%; }
+
+    /* Top specular highlight */
     .filter-btn::after {
-      content: ''; position: absolute; bottom: 0; left: 50%;
-      width: 0; height: 3px; background: var(--cherry); transition: width 0.4s var(--spring), left 0.4s var(--spring);
+      content: ''; position: absolute;
+      top: 0; left: 15%; right: 15%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,1), transparent);
+      border-radius: 1px; pointer-events: none; z-index: 2;
+      opacity: 0.8;
     }
-    .filter-btn.active { color: var(--espresso); }
-    .filter-btn.active::after { width: 100%; left: 0; }
-    .filter-btn:hover { color: var(--cherry); }
+
+    .filter-btn:hover {
+      transform: translate3d(0, -5px, 0) scale(1.025);
+      box-shadow:
+        0 2px 6px rgba(42,27,20,0.06),
+        0 16px 40px rgba(42,27,20,0.1),
+        0 6px 0 rgba(42,27,20,0.03),
+        inset 0 1px 0 rgba(255,255,255,0.95);
+      background: rgba(255,253,249,0.92);
+      border-color: rgba(166,25,46,0.2);
+    }
+    .filter-btn.active {
+      background: linear-gradient(155deg,
+        rgba(253,229,233,1) 0%,
+        rgba(255,248,250,0.98) 55%,
+        rgba(255,253,249,0.96) 100%);
+      border-color: rgba(166,25,46,0.45);
+      box-shadow:
+        0 2px 6px rgba(166,25,46,0.08),
+        0 10px 32px rgba(166,25,46,0.18),
+        0 0 0 3px rgba(253,229,233,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.95);
+      transform: translate3d(0, -4px, 0) scale(1.04);
+    }
+    /* Cherry aura pulse on active */
+    .filter-btn.active .filter-thumb {
+      box-shadow:
+        0 4px 14px rgba(166,25,46,0.3),
+        0 0 0 2px rgba(166,25,46,0.15);
+    }
+
+    .filter-thumb {
+      width: 42px; height: 42px; border-radius: 13px;
+      background-size: cover; background-position: center; flex-shrink: 0;
+      border: 1.5px solid rgba(255,255,255,0.9);
+      box-shadow: 0 3px 10px rgba(42,27,20,0.14), inset 0 1px 0 rgba(255,255,255,0.6);
+      transition: transform 0.5s var(--spring), box-shadow 0.4s var(--spring);
+      position: relative; z-index: 2;
+    }
+    .filter-btn:hover .filter-thumb { transform: scale(1.12) rotate(-4deg); }
+    .filter-btn.active .filter-thumb { transform: scale(1.06) rotate(-2deg); }
+
+    .filter-thumb-icon {
+      width: 42px; height: 42px; border-radius: 13px;
+      background: linear-gradient(140deg,
+        rgba(253,229,233,0.95) 0%,
+        rgba(191,225,246,0.9) 100%);
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 18px; border: 1.5px solid rgba(255,255,255,0.9);
+      box-shadow: 0 3px 10px rgba(42,27,20,0.08), inset 0 1px 0 rgba(255,255,255,0.8);
+      position: relative; z-index: 2;
+      transition: transform 0.5s var(--spring);
+    }
+    .filter-btn:hover .filter-thumb-icon { transform: scale(1.1) rotate(-4deg); }
+    .filter-btn.active .filter-thumb-icon { transform: scale(1.06) rotate(-2deg); }
+
+    .filter-text {
+      display: flex; flex-direction: column; align-items: flex-start; gap: 3px;
+      position: relative; z-index: 2;
+    }
+    .filter-year {
+      font-family: 'Great Vibes', cursive; font-size: 1.15rem; color: var(--cherry);
+      line-height: 1; transition: transform 0.35s var(--spring), letter-spacing 0.3s ease;
+    }
+    .filter-btn:hover .filter-year { transform: translateY(-1px); letter-spacing: 0.02em; }
+    .filter-btn.active .filter-year { transform: translateY(-1px); }
+    .filter-name {
+      font-weight: 700; font-size: 0.59rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(42,27,20,0.5); line-height: 1; white-space: nowrap;
+      transition: color 0.3s, letter-spacing 0.3s;
+    }
+    .filter-btn.active .filter-name { color: var(--cherry); letter-spacing: 0.25em; }
+    .filter-btn:hover .filter-name { color: rgba(42,27,20,0.8); }
+
+    /* NEW pulsing badge */
+    .filter-new-badge {
+      position: absolute; top: -9px; right: -9px; z-index: 10;
+      background: linear-gradient(135deg, #c0142a, var(--cherry));
+      color: var(--butter);
+      font-size: 0.45rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 50px;
+      border: 2px solid rgba(255,255,255,1);
+      box-shadow: 0 4px 12px rgba(166,25,46,0.45), 0 0 0 0 rgba(166,25,46,0.3);
+      animation: newPulse 2.2s cubic-bezier(0.4,0,0.6,1) infinite;
+    }
+    @keyframes newPulse {
+      0%   { box-shadow: 0 4px 12px rgba(166,25,46,0.45), 0 0 0 0   rgba(166,25,46,0.35); transform: scale(1); }
+      50%  { box-shadow: 0 4px 16px rgba(166,25,46,0.5),  0 0 0 6px rgba(166,25,46,0);   transform: scale(1.1); }
+      100% { box-shadow: 0 4px 12px rgba(166,25,46,0.45), 0 0 0 0   rgba(166,25,46,0);   transform: scale(1); }
+    }
+
+    /* Latest release spotlight */
+    .latest-spotlight {
+      border-radius: 32px; padding: 38px 52px;
+      display: flex; align-items: center; gap: 44px;
+      margin-bottom: 80px; position: relative; overflow: hidden;
+      background: linear-gradient(135deg,
+        rgba(253,229,233,0.7) 0%,
+        rgba(255,253,249,0.6) 50%,
+        rgba(191,225,246,0.4) 100%);
+      border: 1px solid rgba(255,255,255,0.85);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.95) inset,
+        0 30px 80px rgba(166,25,46,0.07),
+        0 4px 20px rgba(42,27,20,0.05);
+    }
+    .latest-spotlight::before {
+      content: ''; position: absolute; inset: 0; border-radius: 32px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.5) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    /* Subtle top shimmer */
+    .latest-spotlight::after {
+      content: ''; position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent);
+      pointer-events: none;
+    }
+    .latest-spotlight-cover {
+      width: 130px; height: 130px; border-radius: 22px; flex-shrink: 0;
+      background-size: cover; background-position: center; background-color: #e8c9d4;
+      box-shadow:
+        0 20px 50px rgba(42,27,20,0.2),
+        0 4px 0 rgba(42,27,20,0.06),
+        0 0 0 2px rgba(255,255,255,0.9);
+      transition: transform 0.6s var(--spring), box-shadow 0.6s var(--spring);
+    }
+    .latest-spotlight:hover .latest-spotlight-cover {
+      transform: scale(1.06) rotate(-2.5deg);
+      box-shadow: 0 28px 60px rgba(42,27,20,0.25), 0 4px 0 rgba(42,27,20,0.06), 0 0 0 2px rgba(255,255,255,0.9);
+    }
+    .latest-spotlight-info { flex: 1; position: relative; z-index: 1; }
+    .latest-spotlight-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: linear-gradient(135deg, #c0142a, var(--cherry));
+      color: var(--butter);
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.28em; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 50px; margin-bottom: 14px;
+      box-shadow: 0 4px 14px rgba(166,25,46,0.35);
+    }
+    .latest-spotlight-badge::before {
+      content: '●'; font-size: 0.42rem;
+      animation: liveDot 1.4s ease-in-out infinite;
+    }
+    @keyframes liveDot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.2;transform:scale(0.7)} }
+    .latest-spotlight-title {
+      font-family: 'Cormorant Garamond', serif; font-weight: 400;
+      font-size: clamp(1.9rem, 3.5vw, 3rem); color: var(--espresso); line-height: 1.05; margin-bottom: 6px;
+    }
+    .latest-spotlight-meta {
+      font-size: 0.76rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(42,27,20,0.48); margin-bottom: 22px;
+    }
+    .latest-spotlight-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .latest-spotlight-links .stream-btn { padding: 10px 22px; font-size: 0.72rem; }
+    @media (max-width: 640px) {
+      .latest-spotlight { flex-direction: column; padding: 26px; gap: 22px; margin-bottom: 56px; }
+      .latest-spotlight-cover { width: 90px; height: 90px; border-radius: 16px; }
+      .latest-spotlight-title { font-size: 1.8rem; }
+    }
 
     /* ── MAIN CONTENT ── */
     .disco-wrap { max-width: 1200px; margin: 0 auto; padding: 80px 56px 120px; position: relative; z-index: 2; }
@@ -496,10 +714,15 @@
       .header-wrapper.open .menu-toggle span:nth-child(2) { opacity: 0; }
       .header-wrapper.open .menu-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
       
-      .filter-wrap { padding: 0 24px; top: 80px; }
+      .filter-wrap { padding: 12px 24px; top: 80px; }
       .disco-wrap { padding: 60px 24px 80px; }
-      .filter-inner { gap: 10px; }
-      .filter-btn { padding: 18px 12px; font-size: 0.68rem; letter-spacing: 0.12em; }
+      .filter-inner { gap: 8px; }
+      .filter-btn { padding: 8px 10px 8px 8px; gap: 7px; }
+      .filter-thumb, .filter-thumb-icon { width: 32px; height: 32px; border-radius: 9px; }
+      .filter-thumb-icon { font-size: 13px; }
+      .filter-year { font-size: 0.92rem; }
+      .filter-name { font-size: 0.56rem; }
+      .filter-sep { display: none; }
       .album-layout, .album-layout.reverse { grid-template-columns: 1fr; gap: 32px; margin-bottom: 64px; }
       .album-layout.reverse .album-cover-wrap { order: 0; }
       .album-layout.reverse .album-detail { order: 0; }
@@ -519,9 +742,13 @@
       .footer-top { flex-direction: column; text-align: center; }
     }
     @media (max-width: 640px) {
-      .filter-wrap { padding: 0 12px; top: 74px; }
+      .filter-wrap { padding: 10px 12px; top: 74px; }
       .disco-wrap { padding: 46px 14px 64px; }
-      .filter-btn { padding: 16px 10px; font-size: 0.64rem; letter-spacing: 0.1em; }
+      .filter-btn { padding: 6px 8px 6px 6px; gap: 6px; }
+      .filter-thumb, .filter-thumb-icon { width: 26px; height: 26px; border-radius: 8px; }
+      .filter-thumb-icon { font-size: 11px; }
+      .filter-year { font-size: 0.82rem; }
+      .filter-name { font-size: 0.52rem; }
       .album-detail-title { font-size: clamp(1.7rem, 8vw, 2.2rem); }
       .era-divider { margin: 64px 0; gap: 16px; }
       .track-flag { font-size: 0.58rem; padding: 4px 8px; }
@@ -595,18 +822,86 @@
 
     <div class="filter-wrap">
       <div class="filter-inner">
-        <button class="filter-btn active" data-filter="all">All Eras</button>
-        <button class="filter-btn" data-filter="2026">2026 ✦ Bring Your Love</button>
-        <button class="filter-btn" data-filter="2025">2025 ✦ Man's Best Friend</button>
-        <button class="filter-btn" data-filter="2024">2024 ✦ Short n' Sweet</button>
-        <button class="filter-btn" data-filter="2022">2022 ✦ emails</button>
-        <button class="filter-btn" data-filter="singular">2018–2019 ✦ Singular</button>
-        <button class="filter-btn" data-filter="early">2015–2016 ✦ Early</button>
+
+        <button class="filter-btn active" data-filter="all">
+          <div class="filter-thumb-icon">✦</div>
+          <div class="filter-text">
+            <span class="filter-year">All Eras</span>
+            <span class="filter-name">Full Discography</span>
+          </div>
+        </button>
+
+        <div class="filter-sep"></div>
+
+        <button class="filter-btn" data-filter="2026">
+          <div class="filter-new-badge">New</div>
+          <div class="filter-thumb" style="background-image:url('images/Bring Your Love.jpg'); background-color:#e8c9d4;"></div>
+          <div class="filter-text">
+            <span class="filter-year">2026</span>
+            <span class="filter-name">Bring Your Love</span>
+          </div>
+        </button>
+
+        <button class="filter-btn" data-filter="2025">
+          <div class="filter-thumb" style="background-image:url('images/Man\'s Best Friend.jpg')"></div>
+          <div class="filter-text">
+            <span class="filter-year">2025</span>
+            <span class="filter-name">Man's Best Friend</span>
+          </div>
+        </button>
+
+        <button class="filter-btn" data-filter="2024">
+          <div class="filter-thumb" style="background-image:url('images/Short n\' Sweet.jpg')"></div>
+          <div class="filter-text">
+            <span class="filter-year">2024</span>
+            <span class="filter-name">Short n' Sweet</span>
+          </div>
+        </button>
+
+        <button class="filter-btn" data-filter="2022">
+          <div class="filter-thumb" style="background-image:url('images/emails i can\'t send.jpg')"></div>
+          <div class="filter-text">
+            <span class="filter-year">2022</span>
+            <span class="filter-name">emails i can't send</span>
+          </div>
+        </button>
+
+        <button class="filter-btn" data-filter="singular">
+          <div class="filter-thumb" style="background-image:url('images/Singular Act II.png')"></div>
+          <div class="filter-text">
+            <span class="filter-year">2018–19</span>
+            <span class="filter-name">Singular</span>
+          </div>
+        </button>
+
+        <button class="filter-btn" data-filter="early">
+          <div class="filter-thumb" style="background-image:url('images/EVOlution.jpg')"></div>
+          <div class="filter-text">
+            <span class="filter-year">2015–16</span>
+            <span class="filter-name">Early Era</span>
+          </div>
+        </button>
+
       </div>
     </div>
 
     <div class="disco-wrap">
 
+      <!-- Latest Release Spotlight (visible in All Eras) -->
+      <div class="latest-spotlight reveal" id="latest-spotlight">
+        <div class="latest-spotlight-cover" style="background-image:url('images/Bring Your Love.jpg')"></div>
+        <div class="latest-spotlight-info">
+          <span class="latest-spotlight-badge">Latest Release</span>
+          <h2 class="latest-spotlight-title">Bring Your Love</h2>
+          <p class="latest-spotlight-meta">April 30, 2026 &nbsp;·&nbsp; Warner Records &nbsp;·&nbsp; ft. Madonna</p>
+          <div class="latest-spotlight-links">
+            <a href="https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B" target="_blank" class="stream-btn">Spotify</a>
+            <a href="https://music.apple.com/us/artist/sabrina-carpenter/459546798" target="_blank" class="stream-btn">Apple Music</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2026 Era -->
       <div class="era-section reveal" data-era="2026">
         <div class="era-header">
           <div class="era-year">2026</div>
@@ -646,7 +941,7 @@
         <div class="era-header">
           <div class="era-year">2025</div>
           <div class="era-info">
-            <p class="era-label">Latest Era</p>
+            <p class="era-label">2025 Era</p>
             <h2 class="era-name">Man's Best Friend</h2>
           </div>
         </div>
@@ -696,7 +991,7 @@
 
         <div class="era-divider"><span>✦</span></div>
 
-        <div class="album-layout reverse">
+        <div class="album-layout reverse reveal">
           <div class="album-cover-wrap">
             <div class="album-cover">
               <div class="album-cover-art ac-mbf"></div>
@@ -733,6 +1028,7 @@
             </ul>
           </div>
         </div>
+
       </div>
 
       <div class="era-section reveal" data-era="2024">
@@ -1154,8 +1450,8 @@
       document.addEventListener('mouseup', () => { curTarget = ring.classList.contains('hovered') ? 1.3 : 1; });
 
       function renderCursor() {
-        curX += (mouseX - curX) * 0.3; curY += (mouseY - curY) * 0.3;
-        ringX += (mouseX - ringX) * 0.15; ringY += (mouseY - ringY) * 0.15;
+        curX += (mouseX - curX) * 0.85; curY += (mouseY - curY) * 0.85;
+        ringX += (mouseX - ringX) * 0.12; ringY += (mouseY - ringY) * 0.12;
         curScale += (curTarget - curScale) * 0.2; ringScale += (ringTarget - ringScale) * 0.2;
 
         cur.style.transform = `translate3d(${curX - 16}px, ${curY - 16}px, 0) scale3d(${curScale}, ${curScale}, 1)`;
@@ -1181,17 +1477,20 @@
     /* ── 3D Filter Logic ── */
     const filterBtns = document.querySelectorAll('.filter-btn');
     const eraSections = document.querySelectorAll('.era-section');
+    const spotlight = document.getElementById('latest-spotlight');
     
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         filterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const f = btn.dataset.filter;
+
+        // Show/hide the latest spotlight only on All Eras
+        if (spotlight) spotlight.style.display = (f === 'all') ? '' : 'none';
         
         eraSections.forEach(sec => {
           if (f === 'all' || sec.dataset.era === f) {
             sec.classList.remove('hidden');
-            // Re-trigger the fluid reveal animations
             const reveals = sec.querySelectorAll('.reveal');
             reveals.forEach(r => {
               r.classList.remove('visible');
