@@ -471,17 +471,6 @@
     .m-item img { width: 100%; height: auto; display: block; object-fit: cover; transition: transform 0.8s var(--spring); }
     .m-item:hover img { transform: scale(1.05); }
 
-    .m-placeholder { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; font-family: 'Great Vibes', cursive; color: rgba(255,255,255,0.9); position: relative; }
-    .m-placeholder::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.4) 0%, transparent 70%); }
-    .m-placeholder .ph-label { font-size: 2rem; opacity: 1; line-height: 1; text-shadow: 0 4px 16px rgba(0,0,0,0.1); }
-    .ph-tall   { aspect-ratio: 3/4; }
-    .ph-wide   { aspect-ratio: 4/3; }
-    .ph-square { aspect-ratio: 1; }
-
-    .pc-1 { background: linear-gradient(135deg, var(--baby-blue), rgba(255,255,255,0.5)); }
-    .pc-2 { background: linear-gradient(135deg, var(--pale-pink), rgba(255,255,255,0.5)); }
-    .pc-3 { background: linear-gradient(135deg, #FFE5B4, rgba(255,255,255,0.5)); }
-
     /* ── OVERLAY on hover ── */
     .m-overlay {
       position: absolute; inset: 0;
@@ -507,16 +496,6 @@
       transform: scale(0.95); transition: transform 0.6s var(--spring-bouncy);
     }
     #lightbox.open #lb-img { transform: scale(1); }
-    #lb-placeholder {
-      width: min(560px, 88vw); aspect-ratio: 3/4; border-radius: 24px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
-      transform: scale(0.95); transition: transform 0.6s var(--spring-bouncy);
-      box-shadow: 0 40px 100px rgba(42,27,20,0.1); border: 1px solid rgba(255,255,255,0.8);
-    }
-    #lightbox.open #lb-placeholder { transform: scale(1); }
-    #lb-placeholder .lb-ph-era { font-weight: 500; font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--espresso); opacity: 0.9; }
-    #lb-placeholder .lb-ph-caption { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 2.5rem; color: var(--espresso); text-align: center; max-width: 400px; line-height: 1.1; }
-    
     #lb-close { position: fixed; top: 40px; right: 40px; font-size: 2rem; color: var(--espresso); opacity: 0.5; background: none; border: none; line-height: 1; transition: all 0.4s var(--spring-bouncy); }
     #lb-close:hover { opacity: 1; transform: rotate(90deg) scale(1.1); color: var(--cherry); }
     #lb-prev, #lb-next { position: fixed; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: var(--espresso); opacity: 0.6; background: transparent; border: none; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; transition: all 0.4s var(--spring-bouncy); }
@@ -598,7 +577,6 @@
   <div id="lightbox">
     <button id="lb-close">✕</button>
     <img id="lb-img" src="" alt="" style="display:none" />
-    <div id="lb-placeholder" style="display:none"></div>
     <button id="lb-prev">‹</button>
     <button id="lb-next">›</button>
     <div id="lb-info">
@@ -884,23 +862,6 @@
 
         <div class="masonry" id="masonry">
           
-          <div class="m-item">
-            <div class="m-placeholder ph-square pc-4"><span class="ph-label">Espresso Summer</span></div>
-            <div class="m-overlay"><span class="m-era">2024</span><span class="m-caption">Espresso summer</span></div>
-          </div>
-          <div class="m-item">
-            <div class="m-placeholder ph-wide pc-6"><span class="ph-label">Singular</span></div>
-            <div class="m-overlay"><span class="m-era">2018</span><span class="m-caption">Finding her voice</span></div>
-          </div>
-          <div class="m-item">
-            <div class="m-placeholder ph-xlong pc-1"><span class="ph-label">Off Stage</span></div>
-            <div class="m-overlay"><span class="m-era">2023</span><span class="m-caption">Effortlessly her</span></div>
-          </div>
-          <div class="m-item">
-            <div class="m-placeholder ph-tall pc-3"><span class="ph-label">Feather</span></div>
-            <div class="m-overlay"><span class="m-era">2022</span><span class="m-caption">emails i can't send</span></div>
-          </div>
-
           <div class="m-item" data-album="coachella-2026">
             <img src="/gallery/2026/Cochella 2026/coachella26-w1-perf_001.jpg" alt="Coachella 2026 - coachella26-w1-perf_001" loading="lazy" />
             <div class="m-overlay"><span class="m-era">Coachella 2026</span><span class="m-caption">coachella26 w1 perf 001</span></div>
@@ -2491,7 +2452,6 @@
     /* ── LIGHTBOX ── */
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lb-img');
-    const lbPh = document.getElementById('lb-placeholder');
     const lbEra = document.getElementById('lb-era-label');
     const lbCap = document.getElementById('lb-caption');
     const lbCtr = document.getElementById('lb-counter');
@@ -2519,21 +2479,9 @@
       lbCap.textContent = caption;
       lbCtr.textContent = `${idx + 1} / ${visibleItems.length}`;
 
-      if (img && img.src && !img.src.endsWith('/')) {
+      if (img && img.src) {
         lbImg.src = img.src;
         lbImg.style.display = 'block';
-        lbPh.style.display = 'none';
-      } else {
-        const ph = item.querySelector('.m-placeholder');
-        const bg = ph ? getComputedStyle(ph).background : '';
-        lbPh.style.background = bg;
-        lbPh.innerHTML = `
-          <span class="lb-ph-icon">🖼</span>
-          <span class="lb-ph-era">${era}</span>
-          <span class="lb-ph-caption">${caption}</span>
-        `;
-        lbImg.style.display = 'none';
-        lbPh.style.display = 'flex';
       }
     }
 
