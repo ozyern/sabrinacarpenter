@@ -459,8 +459,8 @@
 
     /* ── RESPONSIVE ── */
     @media (pointer: coarse), (hover: none) {
-      body, a, button { cursor: auto; }
-      #cur, #cur-ring { display: none; }
+      *, *::before, *::after { cursor: auto !important; }
+      #cur, #cur-ring { display: none !important; }
     }
 
     @media (max-width: 900px) {
@@ -982,21 +982,28 @@
     /* ── Cursor ── */
     const cur = document.getElementById('cur');
     const ring = document.getElementById('cur-ring');
+    const disableCustomCursor = window.matchMedia('(hover: none), (pointer: coarse)').matches;
     let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-    document.addEventListener('mousedown', () => cur.classList.add('clicking'));
-    document.addEventListener('mouseup',   () => cur.classList.remove('clicking'));
-    document.querySelectorAll('a, button, .track').forEach(el => {
-      el.addEventListener('mouseenter', () => { cur.classList.add('hovered'); ring.classList.add('hovered'); });
-      el.addEventListener('mouseleave', () => { cur.classList.remove('hovered'); ring.classList.remove('hovered'); });
-    });
-    function animCursor() {
-      cur.style.left = mx + 'px'; cur.style.top = my + 'px';
-      rx += (mx - rx) * .15; ry += (my - ry) * .15;
-      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-      requestAnimationFrame(animCursor);
+
+    if (disableCustomCursor) {
+      if (cur) cur.style.display = 'none';
+      if (ring) ring.style.display = 'none';
+    } else if (cur && ring) {
+      document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+      document.addEventListener('mousedown', () => cur.classList.add('clicking'));
+      document.addEventListener('mouseup',   () => cur.classList.remove('clicking'));
+      document.querySelectorAll('a, button, .track').forEach(el => {
+        el.addEventListener('mouseenter', () => { cur.classList.add('hovered'); ring.classList.add('hovered'); });
+        el.addEventListener('mouseleave', () => { cur.classList.remove('hovered'); ring.classList.remove('hovered'); });
+      });
+      function animCursor() {
+        cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+        rx += (mx - rx) * .15; ry += (my - ry) * .15;
+        ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+        requestAnimationFrame(animCursor);
+      }
+      animCursor();
     }
-    animCursor();
 
     /* ── Petals ── */
     const pc = document.getElementById('petals');
