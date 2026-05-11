@@ -306,11 +306,59 @@
     fireworksLayer.setAttribute("aria-hidden", "true");
     body.appendChild(fireworksLayer);
 
-    spawnBalloonSet(balloonsLayer);
+    spawnBalloonSet(balloonsLayer, fireworksLayer);
     spawnFirecrackerSet(fireworksLayer);
   }
 
-  function spawnBalloonSet(layer) {
+  function createBurst(layer, x, y, color, opts = {}) {
+    if (!layer || !layer.isConnected) return;
+
+    const burst = document.createElement("span");
+    burst.className = "birthday-burst";
+    burst.style.left = `${x}px`;
+    burst.style.top = `${y}px`;
+    burst.style.setProperty("--spark", color);
+
+    const sparkCount = opts.sparkCount || 10;
+    const jitter = opts.jitter || 8;
+    const distanceMin = opts.distanceMin || 24;
+    const distanceRange = opts.distanceRange || 30;
+
+    for (let s = 0; s < sparkCount; s += 1) {
+      const spark = document.createElement("span");
+      spark.className = "birthday-spark";
+      spark.style.setProperty("--spark", color);
+
+      const angle = s * (360 / sparkCount) + (Math.random() * jitter - jitter / 2);
+      spark.style.setProperty("--angle", `${angle}deg`);
+      spark.style.setProperty("--distance", `${distanceMin + Math.random() * distanceRange}px`);
+      spark.style.animationDelay = `${Math.random() * 120}ms`;
+      burst.appendChild(spark);
+    }
+
+    layer.appendChild(burst);
+    window.setTimeout(() => burst.remove(), 1100);
+  }
+
+  function popBalloon(balloon, burstLayer) {
+    if (!balloon || !balloon.isConnected) return;
+
+    const rect = balloon.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = Math.max(24, Math.min(window.innerHeight - 24, rect.top + rect.height * 0.35));
+    const color = balloon.style.getPropertyValue("--color") || "#ffd700";
+
+    createBurst(burstLayer, x, y, color.trim(), {
+      sparkCount: 11,
+      jitter: 10,
+      distanceMin: 22,
+      distanceRange: 36,
+    });
+
+    balloon.remove();
+  }
+
+  function spawnBalloonSet(layer, burstLayer) {
     const palette = ["#ffd700", "#ffe8a3", "#add8e6", "#c9f2ff", "#f8c8dc"];
     const total = window.matchMedia("(max-width: 760px)").matches ? 9 : 15;
 
@@ -323,12 +371,26 @@
         balloon.className = "birthday-balloon";
         balloon.style.left = `${6 + Math.random() * 88}%`;
         balloon.style.setProperty("--size", `${26 + Math.random() * 26}px`);
-        balloon.style.setProperty("--dur", `${8.8 + Math.random() * 4.6}s`);
+        const riseDuration = 8.8 + Math.random() * 4.6;
+        balloon.style.setProperty("--dur", `${riseDuration}s`);
         balloon.style.setProperty("--drift", `${-90 + Math.random() * 180}px`);
         balloon.style.setProperty("--color", palette[Math.floor(Math.random() * palette.length)]);
         layer.appendChild(balloon);
 
-        balloon.addEventListener("animationend", () => balloon.remove(), { once: true });
+        let popped = false;
+        const popDelay = Math.round(riseDuration * 1000 * (0.72 + Math.random() * 0.16));
+        const popTimer = window.setTimeout(() => {
+          if (!layer.isConnected || !burstLayer.isConnected || popped) return;
+          popped = true;
+          popBalloon(balloon, burstLayer);
+        }, popDelay);
+
+        balloon.addEventListener("animationend", () => {
+          window.clearTimeout(popTimer);
+          if (!popped) {
+            balloon.remove();
+          }
+        }, { once: true });
       }, delay);
     }
 
@@ -346,35 +408,19 @@
       window.setTimeout(() => {
         if (!layer.isConnected) return;
 
-        const burst = document.createElement("span");
-        burst.className = "birthday-burst";
-        burst.style.left = `${10 + Math.random() * 80}%`;
-        burst.style.top = `${12 + Math.random() * 42}%`;
-
         const color = palette[Math.floor(Math.random() * palette.length)];
-        burst.style.setProperty("--spark", color);
-
-        const sparkCount = 10;
-        for (let s = 0; s < sparkCount; s += 1) {
-          const spark = document.createElement("span");
-          spark.className = "birthday-spark";
-          spark.style.setProperty("--spark", color);
-
-          const angle = s * (360 / sparkCount) + (Math.random() * 8 - 4);
-          spark.style.setProperty("--angle", `${angle}deg`);
-          spark.style.setProperty("--distance", `${24 + Math.random() * 30}px`);
-          spark.style.animationDelay = `${Math.random() * 120}ms`;
-          burst.appendChild(spark);
-        }
-
-        layer.appendChild(burst);
-        window.setTimeout(() => burst.remove(), 1100);
+        createBurst(
+          layer,
+          window.innerWidth * (0.1 + Math.random() * 0.8),
+          window.innerHeight * (0.12 + Math.random() * 0.42),
+          color
+        );
       }, delay);
     }
 
     window.setTimeout(() => {
       layer.remove();
-    }, 6200);
+    }, 15000);
   }
 
   function markTimelineYears(scope) {
