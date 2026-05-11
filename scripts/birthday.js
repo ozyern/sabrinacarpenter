@@ -32,25 +32,38 @@
         padding: 12px 18px;
         border-radius: 999px;
         border: 1px solid rgba(255, 193, 7, 0.45);
-        background: linear-gradient(130deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 248, 220, 0.95) 45%, rgba(224, 255, 255, 0.92) 100%);
-        box-shadow: 0 16px 36px rgba(13, 31, 45, 0.16);
+        background: linear-gradient(130deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 248, 220, 0.96) 45%, rgba(224, 255, 255, 0.94) 100%);
+        box-shadow: 0 16px 36px rgba(13, 31, 45, 0.16), 0 0 0 rgba(255, 193, 7, 0);
         backdrop-filter: blur(10px);
+        overflow: hidden;
         transition: opacity 0.45s cubic-bezier(.22,.61,.36,1), transform 0.45s cubic-bezier(.22,.61,.36,1), box-shadow 0.45s ease;
       }
 
       .birthday-banner.is-visible {
         opacity: 1;
         transform: translate(-50%, 0);
+        animation: birthdayBannerPulse 2.8s ease-in-out 0.35s 3;
+      }
+
+      .birthday-banner::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, transparent 12%, rgba(255,255,255,.62) 42%, transparent 72%);
+        transform: translateX(-140%);
+        pointer-events: none;
+        animation: birthdayBannerShine 4.4s ease-in-out 0.5s infinite;
       }
 
       .birthday-banner-message {
         margin: 0;
         font-family: 'Jost', sans-serif;
-        font-size: 0.76rem;
-        font-weight: 400;
-        letter-spacing: 0.18em;
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: 0.16em;
         text-transform: uppercase;
         color: #003d5c;
+        text-shadow: 0 1px 0 rgba(255,255,255,.55);
       }
 
       .birthday-banner-close {
@@ -98,15 +111,125 @@
       }
 
       .birthday-balloons,
-      .birthday-fireworks {
+      .birthday-fireworks,
+      .birthday-atmosphere,
+      .birthday-ribbons {
         position: fixed;
         inset: 0;
         pointer-events: none;
         overflow: hidden;
       }
 
+      .birthday-atmosphere {
+        z-index: 560;
+      }
+
+      .birthday-atmosphere::before,
+      .birthday-atmosphere::after {
+        content: "";
+        position: absolute;
+        inset: -18%;
+        opacity: .58;
+      }
+
+      .birthday-atmosphere::before {
+        background:
+          radial-gradient(38vw 38vw at 14% 66%, rgba(255, 238, 176, .42), transparent 70%),
+          radial-gradient(36vw 36vw at 83% 26%, rgba(173, 216, 230, .35), transparent 70%),
+          radial-gradient(26vw 26vw at 52% 12%, rgba(255, 193, 7, .25), transparent 72%);
+        animation: birthdayAuraPulse 5.2s ease-in-out infinite;
+      }
+
+      .birthday-atmosphere::after {
+        background: conic-gradient(from 110deg at 50% 50%, rgba(255,255,255,.08), rgba(255,215,0,.16), rgba(173,216,230,.18), rgba(255,255,255,.08));
+        filter: blur(42px);
+        mix-blend-mode: screen;
+        animation: birthdayAuraDrift 7.8s linear infinite;
+      }
+
+      @keyframes birthdayAuraPulse {
+        0%,
+        100% {
+          opacity: .42;
+          transform: scale(1);
+        }
+
+        50% {
+          opacity: .7;
+          transform: scale(1.07);
+        }
+      }
+
+      @keyframes birthdayAuraDrift {
+        0% {
+          transform: rotate(0deg) scale(1);
+        }
+
+        50% {
+          transform: rotate(5deg) scale(1.04);
+        }
+
+        100% {
+          transform: rotate(0deg) scale(1);
+        }
+      }
+
+      .birthday-twinkle {
+        position: absolute;
+        left: var(--x, 50%);
+        top: var(--y, 50%);
+        width: var(--size, 8px);
+        height: var(--size, 8px);
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.2);
+        animation: birthdayTwinkle var(--dur, 2.8s) ease-in-out var(--delay, 0ms) infinite;
+      }
+
+      .birthday-twinkle::before,
+      .birthday-twinkle::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 999px;
+        background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,.9), rgba(255,255,255,0));
+      }
+
+      .birthday-twinkle::before {
+        width: 100%;
+        height: 2px;
+      }
+
+      .birthday-twinkle::after {
+        width: 2px;
+        height: 100%;
+      }
+
+      @keyframes birthdayTwinkle {
+        0%,
+        100% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(.2);
+        }
+
+        35% {
+          opacity: .8;
+          transform: translate(-50%, -50%) scale(1);
+        }
+
+        65% {
+          opacity: .3;
+          transform: translate(-50%, -50%) scale(.7);
+        }
+      }
+
       .birthday-balloons {
         z-index: 620;
+      }
+
+      .birthday-ribbons {
+        z-index: 640;
       }
 
       .birthday-fireworks {
@@ -125,7 +248,7 @@
           var(--color, #ffd700);
         box-shadow: inset -8px -12px 16px rgba(13,31,45,.1), 0 10px 18px rgba(13,31,45,.12);
         opacity: 0;
-        transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0) rotate(var(--rot-start, -6deg));
         animation: birthdayBalloonRise var(--dur, 10.5s) linear forwards;
       }
 
@@ -156,16 +279,64 @@
       @keyframes birthdayBalloonRise {
         0% {
           opacity: 0;
-          transform: translate3d(0, 0, 0) rotate(-4deg);
+          transform: translate3d(0, 0, 0) rotate(var(--rot-start, -6deg));
         }
 
         8% {
           opacity: .92;
         }
 
+        45% {
+          opacity: .95;
+          transform: translate3d(calc(var(--drift, 0px) * .4), -54vh, 0) rotate(var(--rot-mid, 6deg));
+        }
+
         100% {
           opacity: 0;
-          transform: translate3d(var(--drift, 0px), -122vh, 0) rotate(8deg);
+          transform: translate3d(var(--drift, 0px), -122vh, 0) rotate(var(--rot-end, 10deg));
+        }
+      }
+
+      .birthday-ribbon {
+        position: absolute;
+        top: -14vh;
+        left: var(--x, 50%);
+        width: var(--w, 10px);
+        height: var(--h, 22px);
+        border-radius: 4px;
+        background: linear-gradient(160deg, rgba(255,255,255,.8) 0%, var(--color, #ffd700) 42%, rgba(13,31,45,.2) 100%);
+        box-shadow: 0 10px 18px rgba(13,31,45,.16);
+        opacity: 0;
+        transform: translate3d(0, 0, 0) rotate(var(--spin, 0deg));
+        animation: birthdayRibbonFall var(--dur, 5.8s) cubic-bezier(.22,.66,.2,1) forwards;
+      }
+
+      .birthday-ribbon::after {
+        content: "";
+        position: absolute;
+        inset: 2px;
+        border-radius: 3px;
+        background: linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0));
+      }
+
+      @keyframes birthdayRibbonFall {
+        0% {
+          opacity: 0;
+          transform: translate3d(0, 0, 0) rotate(var(--spin, 0deg));
+        }
+
+        8% {
+          opacity: .95;
+        }
+
+        56% {
+          opacity: .95;
+          transform: translate3d(calc(var(--drift, 0px) * .62), 58vh, 0) rotate(calc(var(--spin, 0deg) + 520deg));
+        }
+
+        100% {
+          opacity: 0;
+          transform: translate3d(var(--drift, 0px), 122vh, 0) rotate(calc(var(--spin, 0deg) + 860deg));
         }
       }
 
@@ -236,6 +407,39 @@
         }
       }
 
+      @keyframes birthdayBannerPulse {
+        0%,
+        100% {
+          box-shadow: 0 16px 36px rgba(13,31,45,.16), 0 0 0 rgba(255,193,7,0);
+        }
+
+        50% {
+          box-shadow: 0 18px 42px rgba(13,31,45,.2), 0 0 0 10px rgba(255,193,7,.14);
+        }
+      }
+
+      @keyframes birthdayBannerShine {
+        0%,
+        22% {
+          transform: translateX(-140%);
+          opacity: 0;
+        }
+
+        35% {
+          opacity: .9;
+        }
+
+        56% {
+          transform: translateX(140%);
+          opacity: .85;
+        }
+
+        100% {
+          transform: translateX(140%);
+          opacity: 0;
+        }
+      }
+
       @media (max-width: 760px) {
         .birthday-banner {
           top: 74px;
@@ -254,10 +458,17 @@
         .birthday-banner {
           transition: none;
           transform: translate(-50%, 0);
+          animation: none;
+        }
+
+        .birthday-banner::before {
+          display: none;
         }
 
         .birthday-balloons,
-        .birthday-fireworks {
+        .birthday-fireworks,
+        .birthday-atmosphere,
+        .birthday-ribbons {
           display: none;
         }
       }
@@ -271,7 +482,7 @@
   banner.setAttribute("role", "status");
   banner.setAttribute("aria-live", "polite");
   banner.innerHTML = `
-    <p class="birthday-banner-message">Happy Birthday, Sabrina! Enjoy, honey how you keep killing me.</p>
+    <p class="birthday-banner-message">Happy Birthday, Sabrina! Mommy Sabrina, your light makes every moment glow.</p>
     <button class="birthday-banner-close" type="button" aria-label="Dismiss birthday message">x</button>
   `;
 
@@ -296,18 +507,57 @@
   }
 
   function launchBirthdayFx() {
+    const atmosphereLayer = document.createElement("div");
+    atmosphereLayer.className = "birthday-atmosphere";
+    atmosphereLayer.setAttribute("aria-hidden", "true");
+    body.appendChild(atmosphereLayer);
+
     const balloonsLayer = document.createElement("div");
     balloonsLayer.className = "birthday-balloons";
     balloonsLayer.setAttribute("aria-hidden", "true");
     body.appendChild(balloonsLayer);
+
+    const ribbonsLayer = document.createElement("div");
+    ribbonsLayer.className = "birthday-ribbons";
+    ribbonsLayer.setAttribute("aria-hidden", "true");
+    body.appendChild(ribbonsLayer);
 
     const fireworksLayer = document.createElement("div");
     fireworksLayer.className = "birthday-fireworks";
     fireworksLayer.setAttribute("aria-hidden", "true");
     body.appendChild(fireworksLayer);
 
-    spawnBalloonSet(balloonsLayer, fireworksLayer);
-    spawnFirecrackerSet(fireworksLayer);
+    spawnAtmosphere(atmosphereLayer);
+    spawnBalloonSet(balloonsLayer, fireworksLayer, 0);
+    spawnBalloonSet(balloonsLayer, fireworksLayer, 2600);
+    spawnFirecrackerSet(fireworksLayer, 0);
+    spawnFirecrackerSet(fireworksLayer, 2800);
+    spawnRibbonShower(ribbonsLayer, fireworksLayer);
+    spawnGrandFinale(fireworksLayer);
+
+    window.setTimeout(() => {
+      atmosphereLayer.remove();
+      balloonsLayer.remove();
+      ribbonsLayer.remove();
+      fireworksLayer.remove();
+    }, 21500);
+  }
+
+  function spawnAtmosphere(layer) {
+    if (!layer || !layer.isConnected) return;
+
+    const totalTwinkles = window.matchMedia("(max-width: 760px)").matches ? 18 : 30;
+
+    for (let i = 0; i < totalTwinkles; i += 1) {
+      const twinkle = document.createElement("span");
+      twinkle.className = "birthday-twinkle";
+      twinkle.style.setProperty("--x", `${5 + Math.random() * 90}%`);
+      twinkle.style.setProperty("--y", `${8 + Math.random() * 74}%`);
+      twinkle.style.setProperty("--size", `${6 + Math.random() * 8}px`);
+      twinkle.style.setProperty("--dur", `${2.2 + Math.random() * 2.1}s`);
+      twinkle.style.setProperty("--delay", `${Math.round(Math.random() * 1800)}ms`);
+      layer.appendChild(twinkle);
+    }
   }
 
   function createBurst(layer, x, y, color, opts = {}) {
@@ -358,12 +608,12 @@
     balloon.remove();
   }
 
-  function spawnBalloonSet(layer, burstLayer) {
+  function spawnBalloonSet(layer, burstLayer, startDelay = 0) {
     const palette = ["#ffd700", "#ffe8a3", "#add8e6", "#c9f2ff", "#f8c8dc"];
-    const total = window.matchMedia("(max-width: 760px)").matches ? 9 : 15;
+    const total = window.matchMedia("(max-width: 760px)").matches ? 9 : 16;
 
     for (let i = 0; i < total; i += 1) {
-      const delay = 150 + i * 230 + Math.random() * 180;
+      const delay = startDelay + 120 + i * 220 + Math.random() * 210;
       window.setTimeout(() => {
         if (!layer.isConnected) return;
 
@@ -374,6 +624,9 @@
         const riseDuration = 8.8 + Math.random() * 4.6;
         balloon.style.setProperty("--dur", `${riseDuration}s`);
         balloon.style.setProperty("--drift", `${-90 + Math.random() * 180}px`);
+        balloon.style.setProperty("--rot-start", `${-10 + Math.random() * 8}deg`);
+        balloon.style.setProperty("--rot-mid", `${-2 + Math.random() * 10}deg`);
+        balloon.style.setProperty("--rot-end", `${4 + Math.random() * 12}deg`);
         balloon.style.setProperty("--color", palette[Math.floor(Math.random() * palette.length)]);
         layer.appendChild(balloon);
 
@@ -393,18 +646,51 @@
         }, { once: true });
       }, delay);
     }
-
-    window.setTimeout(() => {
-      layer.remove();
-    }, 14000);
   }
 
-  function spawnFirecrackerSet(layer) {
-    const palette = ["#ffd700", "#ffefb0", "#add8e6", "#87ceeb", "#ffe1f2"];
-    const total = window.matchMedia("(max-width: 760px)").matches ? 5 : 8;
+  function spawnRibbonShower(layer, burstLayer) {
+    const palette = ["#ffd700", "#ffefb0", "#add8e6", "#7fd8ff", "#f8c8dc"];
+    const total = window.matchMedia("(max-width: 760px)").matches ? 34 : 58;
 
     for (let i = 0; i < total; i += 1) {
-      const delay = 450 + i * 420 + Math.random() * 220;
+      const delay = 260 + i * 95 + Math.random() * 110;
+      window.setTimeout(() => {
+        if (!layer.isConnected) return;
+
+        const ribbon = document.createElement("span");
+        ribbon.className = "birthday-ribbon";
+        ribbon.style.setProperty("--x", `${4 + Math.random() * 92}%`);
+        ribbon.style.setProperty("--w", `${7 + Math.random() * 7}px`);
+        ribbon.style.setProperty("--h", `${18 + Math.random() * 18}px`);
+        ribbon.style.setProperty("--dur", `${4.8 + Math.random() * 2.6}s`);
+        ribbon.style.setProperty("--drift", `${-120 + Math.random() * 240}px`);
+        ribbon.style.setProperty("--spin", `${Math.round(Math.random() * 360)}deg`);
+        ribbon.style.setProperty("--color", palette[Math.floor(Math.random() * palette.length)]);
+        layer.appendChild(ribbon);
+
+        if (burstLayer && burstLayer.isConnected && Math.random() < 0.2) {
+          createBurst(
+            burstLayer,
+            window.innerWidth * (0.1 + Math.random() * 0.8),
+            window.innerHeight * (0.2 + Math.random() * 0.28),
+            palette[Math.floor(Math.random() * palette.length)],
+            { sparkCount: 8, jitter: 12, distanceMin: 18, distanceRange: 18 }
+          );
+        }
+
+        ribbon.addEventListener("animationend", () => {
+          ribbon.remove();
+        }, { once: true });
+      }, delay);
+    }
+  }
+
+  function spawnFirecrackerSet(layer, startDelay = 0) {
+    const palette = ["#ffd700", "#ffefb0", "#add8e6", "#87ceeb", "#ffe1f2"];
+    const total = window.matchMedia("(max-width: 760px)").matches ? 6 : 10;
+
+    for (let i = 0; i < total; i += 1) {
+      const delay = startDelay + 420 + i * 360 + Math.random() * 230;
       window.setTimeout(() => {
         if (!layer.isConnected) return;
 
@@ -413,14 +699,57 @@
           layer,
           window.innerWidth * (0.1 + Math.random() * 0.8),
           window.innerHeight * (0.12 + Math.random() * 0.42),
-          color
+          color,
+          {
+            sparkCount: 10 + Math.round(Math.random() * 3),
+            jitter: 11,
+            distanceMin: 22,
+            distanceRange: 30,
+          }
         );
       }, delay);
     }
+  }
+
+  function spawnGrandFinale(layer) {
+    const finalePalette = ["#ffd700", "#ffefb0", "#add8e6", "#f8c8dc"];
+    const burstTimes = [12800, 13220, 13680, 14150, 14720, 15300];
+
+    burstTimes.forEach((time, index) => {
+      window.setTimeout(() => {
+        if (!layer || !layer.isConnected) return;
+
+        createBurst(
+          layer,
+          window.innerWidth * (0.22 + Math.random() * 0.56),
+          window.innerHeight * (0.1 + Math.random() * 0.26),
+          finalePalette[index % finalePalette.length],
+          {
+            sparkCount: 12 + (index % 3),
+            jitter: 9,
+            distanceMin: 28,
+            distanceRange: 34,
+          }
+        );
+      }, time);
+    });
 
     window.setTimeout(() => {
-      layer.remove();
-    }, 15000);
+      if (!layer || !layer.isConnected) return;
+
+      createBurst(
+        layer,
+        window.innerWidth * 0.5,
+        window.innerHeight * 0.18,
+        "#ffd700",
+        {
+          sparkCount: 18,
+          jitter: 7,
+          distanceMin: 34,
+          distanceRange: 42,
+        }
+      );
+    }, 16040);
   }
 
   function markTimelineYears(scope) {
