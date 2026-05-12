@@ -45,12 +45,10 @@
       --glass-border: rgba(255, 255, 255, 0.6);
       --glass-shadow: 0 8px 32px rgba(42, 27, 20, 0.08);
       
-      /* Advanced GPU Motion Physics */
+      /* Apple iOS Motion Physics */
       --spring:       cubic-bezier(0.175, 0.885, 0.32, 1.15); /* Snappy overshooting spring */
-      --fluid:        cubic-bezier(0.22, 1, 0.36, 1); /* Smooth decel */
+      --fluid:        cubic-bezier(0.22, 1, 0.36, 1); /* Silky smooth */
       --speed:        1.2s;
-      --island-speed: 0.42s;
-      --island-ease:  var(--fluid);
     }
 
     /* ── RESET (NUCLEAR CURSOR FIX) ── */
@@ -68,11 +66,10 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ISOLATED APP WRAPPER (Delayed to sync with intro) */
+    /* ISOLATED APP WRAPPER */
     #app-wrapper {
       opacity: 0;
-      /* GPU Accelerated Page Load */
-      animation: pageIn 1.2s var(--fluid) 5.5s forwards;
+      animation: pageIn 1s var(--fluid) 0.1s forwards;
       position: relative;
       z-index: 2;
       will-change: transform, opacity, filter;
@@ -80,17 +77,23 @@
     }
 
     @keyframes pageIn {
-      from { opacity: 0; filter: blur(20px); transform: translate3d(0, 40px, -100px) scale3d(0.95, 0.95, 1); }
-      to { opacity: 1; filter: blur(0); transform: translate3d(0, 0, 0) scale3d(1, 1, 1); }
+      from { opacity: 0; transform: translate3d(0, 40px, -50px) scale3d(0.95, 0.95, 1); filter: blur(15px); }
+      to { opacity: 1; transform: translate3d(0, 0, 0) scale3d(1, 1, 1); filter: blur(0); }
     }
 
-    /* ── HARDWARE-DECOUPLED AMBIENT BACKGROUND ── */
+    /* ── HARDWARE-DECOUPLED AMBIENT BACKGROUND (WITH BREATHING) ── */
     .ambient-bg {
-      position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      position: fixed; inset: -5%; z-index: -1; pointer-events: none;
       background-color: var(--butter);
-      background-image: radial-gradient(circle at 10% 20%, rgba(191, 225, 246, 0.3) 0%, transparent 60%),
-                        radial-gradient(circle at 90% 80%, rgba(253, 229, 233, 0.5) 0%, transparent 60%);
+      background-image: radial-gradient(circle at 10% 20%, rgba(191, 225, 246, 0.35) 0%, transparent 60%),
+                        radial-gradient(circle at 90% 80%, rgba(253, 229, 233, 0.55) 0%, transparent 60%);
       transform: translateZ(0); 
+      animation: ambientShift 15s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+    @keyframes ambientShift {
+      0% { transform: scale(1) translate3d(0, 0, 0); }
+      100% { transform: scale(1.05) translate3d(-1%, -1%, 0); }
     }
 
     a { text-decoration: none; color: inherit; }
@@ -125,27 +128,24 @@
       position: fixed; top: 16px; left: 0; width: 100%;
       display: flex; flex-direction: column; align-items: center; z-index: 1000;
       padding: 0 12px; pointer-events: none;
+      opacity: 0;
+      animation: fadeInNav 1s var(--fluid) 0.3s forwards;
+      transform: translateZ(0);
     }
+    @keyframes fadeInNav { 
+      from { opacity: 0; transform: translate3d(0, -30px, 0); filter: blur(10px); }
+      to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); } 
+    }
+
     header {
       pointer-events: auto; width: 100%; max-width: 850px;
       background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
       border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);
       display: flex; align-items: center; justify-content: space-between;
       padding: 8px 14px 8px 16px; border-radius: 100px;
-      transition: width var(--island-speed) var(--island-ease), max-width var(--island-speed) var(--island-ease),
-                  padding var(--island-speed) var(--island-ease), gap var(--island-speed) var(--island-ease),
-                  border-radius var(--island-speed) var(--island-ease), box-shadow 0.45s var(--island-ease),
-                  background-color 0.38s ease, border-color 0.38s ease, transform var(--island-speed) var(--island-ease);
-      transform: translateZ(0);
+      transition: all 0.4s var(--fluid);
     }
     .nav-actions { display: flex; align-items: center; gap: 8px; }
-    .header-island-slot {
-      display: none; align-items: center; justify-content: center;
-      flex: 0 0 auto; min-height: 44px; width: 0; min-width: 0; max-width: 0; margin: 0; overflow: hidden; opacity: 0;
-      transform: translateY(4px) scale(0.86); transform-origin: center; pointer-events: none;
-      transition: max-width var(--island-speed) var(--island-ease), min-width var(--island-speed) var(--island-ease),
-          margin var(--island-speed) var(--island-ease), opacity 0.24s ease-out, transform var(--island-speed) var(--island-ease);
-    }
     .nav-logo { display: flex; align-items: center; justify-content: center; height: 38px; transition: transform 0.4s var(--spring); }
     .nav-logo:hover { transform: scale3d(1.05, 1.05, 1) rotate(-2deg); }
     .nav-logo img { height: 100%; width: auto; object-fit: contain; }
@@ -161,7 +161,7 @@
     }
     .nav-links a:hover, .nav-links a.nav-active { color: var(--espresso); }
     .nav-links a:hover::after, .nav-links a.nav-active::after { width: 100%; left: 0; }
-    
+
     /* Mobile Nav */
     .menu-toggle {
       display: none; flex-direction: column; gap: 6px;
@@ -176,7 +176,7 @@
       flex-direction: column; gap: 12px; padding: 20px; border-radius: 24px;
       background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
       border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);
-      opacity: 0; transform: translateY(-10px) scale(0.95); transition: all 0.4s var(--spring);
+      opacity: 0; transform: translate3d(0, -10px, 0) scale3d(0.95, 0.95, 1); transition: all 0.4s var(--spring);
     }
     .mobile-menu a { font-weight: 600; font-size: 1.1rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(42, 27, 20, 0.8); text-align: center; padding: 8px; }
 
@@ -195,12 +195,11 @@
     .stagger-3 { animation: heroicSnap 1.4s var(--spring) 0.3s forwards; opacity: 0; will-change: transform, opacity, filter; transform-style: preserve-3d; }
     .stagger-4 { animation: heroicSnap 1.4s var(--spring) 0.4s forwards; opacity: 0; will-change: transform, opacity, filter; transform-style: preserve-3d; }
     .stagger-5 { animation: heroicSnap 1.4s var(--spring) 0.5s forwards; opacity: 0; will-change: transform, opacity, filter; transform-style: preserve-3d; }
-    .stagger-6 { animation: heroicSnap 1.4s var(--spring) 0.6s forwards; opacity: 0; will-change: transform, opacity, filter; transform-style: preserve-3d; }
 
     @keyframes heroicSnap { 
       from { 
         opacity: 0; 
-        transform: translate3d(0, 100px, -150px) scale3d(0.85, 0.85, 1) rotateX(-25deg); 
+        transform: translate3d(0, 80px, -100px) scale3d(0.9, 0.9, 1) rotateX(-15deg); 
         filter: blur(20px); 
       } 
       to { 
@@ -215,6 +214,7 @@
       color: var(--cherry); display: inline-flex; align-items: center; gap: 8px; padding: 8px 24px;
       background: rgba(255, 253, 249, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(166, 25, 46, 0.15); border-radius: 50px; margin-bottom: 24px;
+      transform: translateZ(0);
     }
     
     .hero-title { font-family: 'Great Vibes', cursive; font-size: clamp(5.5rem, 18vw, 15rem); line-height: 0.75; color: var(--espresso); margin-bottom: 16px; position: relative; }
@@ -223,18 +223,18 @@
     .hero-title .surname {
       display: block; font-family: 'Jost', sans-serif; font-style: normal; font-weight: 700;
       font-size: clamp(2.5rem, 8vw, 5.2rem); color: transparent; -webkit-text-stroke: 1.5px var(--cherry);
-      letter-spacing: 0.08em; text-transform: uppercase; transform: translateY(5px);
+      letter-spacing: 0.08em; text-transform: uppercase; transform: translate3d(0, 5px, 0);
       transition: color 0.6s var(--spring), text-shadow 0.6s var(--spring);
     }
     .hero-title:hover .surname { color: var(--cherry); -webkit-text-stroke: 0px var(--cherry); text-shadow: 0 20px 40px rgba(166, 25, 46, 0.3); }
     
     .hero-desc { font-size: clamp(1.1rem, 2vw, 1.25rem); color: rgba(42, 27, 20, 0.75); max-width: 550px; margin: 24px auto 0; line-height: 1.7; font-weight: 400; }
-    .hero-actions { display: flex; gap: 20px; justify-content: center; margin-top: 40px; margin-bottom: 30px; }
+    .hero-actions { display: flex; gap: 20px; justify-content: center; margin-top: 40px; }
 
     .btn { 
       font-weight: 600; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; 
       padding: 16px 36px; border-radius: 50px; display: inline-block; 
-      transition: background 0.4s var(--spring), transform 0.4s var(--spring), box-shadow 0.4s var(--spring), color 0.4s ease; 
+      transition: background 0.4s var(--fluid), transform 0.4s var(--spring), box-shadow 0.4s var(--spring), color 0.4s ease; 
       will-change: transform, box-shadow;
     }
     .btn-dark { background: var(--espresso); color: var(--butter); border: 2px solid var(--espresso); }
@@ -242,37 +242,6 @@
     
     .btn-outline { border: 2px solid rgba(42, 27, 20, 0.2); color: var(--espresso); background: transparent; backdrop-filter: blur(5px); }
     .btn-outline:hover { background: var(--espresso); border-color: var(--espresso); color: var(--butter); transform: translate3d(0, -8px, 0); box-shadow: 0 20px 40px rgba(42, 27, 20, 0.15); }
-
-    /* ✨ THE BIG HERO BDAY BLOCK ✨ */
-    .hero-bday-block {
-      display: flex; align-items: center; gap: 24px; padding: 24px 50px;
-      background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(166, 25, 46, 0.25);
-      border-radius: 100px; backdrop-filter: blur(24px) saturate(150%);
-      -webkit-backdrop-filter: blur(24px) saturate(150%);
-      box-shadow: 0 24px 48px rgba(166, 25, 46, 0.1), inset 0 0 30px rgba(255,255,255,0.8);
-      animation: floatHeroBday 4s ease-in-out infinite alternate;
-      transition: transform 0.5s var(--spring), box-shadow 0.5s var(--spring);
-      will-change: transform, box-shadow;
-    }
-    .hero-bday-block:hover {
-      transform: scale3d(1.05, 1.05, 1) translate3d(0, -10px, 0) rotateX(5deg);
-      box-shadow: 0 40px 80px rgba(166, 25, 46, 0.2), inset 0 0 30px rgba(255,255,255,1);
-    }
-    @keyframes floatHeroBday { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(0,-15px,0); } }
-    .bday-massive-text {
-      font-family: 'Jost', sans-serif; font-weight: 700; font-size: clamp(1.8rem, 5vw, 3rem);
-      text-transform: uppercase; letter-spacing: 0.15em; line-height: 1;
-      background: linear-gradient(90deg, var(--cherry), #ff4d6d, var(--cherry)); background-size: 200% auto;
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      animation: shimmerText 3s linear infinite;
-    }
-    .hero-bday-block .sparkle {
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      animation: pulseSparkle 1.5s ease-in-out infinite alternate;
-      filter: drop-shadow(0 0 10px rgba(166, 25, 46, 0.4));
-    }
-    @keyframes shimmerText { to { background-position: 200% center; } }
-    @keyframes pulseSparkle { 0% { transform: scale3d(0.8,0.8,1); opacity: 0.7; } 100% { transform: scale3d(1.2,1.2,1); opacity: 1; } }
 
     /* ── DIVIDED SECTIONS ── */
     .section-wrapper { padding: clamp(60px, 8vw, 100px) 20px; border-radius: 40px; margin: 16px; position: relative; z-index: 2; transform: translateZ(0); }
@@ -302,8 +271,8 @@
       will-change: transform;
     }
     @keyframes kissBreath {
-      0%, 100% { transform: scale3d(1,1,1) rotate(-5deg); filter: drop-shadow(0 2px 4px rgba(166,25,46,0.2)); }
-      50% { transform: scale3d(1.15,1.15,1) rotate(5deg); filter: drop-shadow(0 10px 20px rgba(166,25,46,0.4)); }
+      0%, 100% { transform: scale3d(1, 1, 1) rotate(-5deg); filter: drop-shadow(0 2px 4px rgba(166,25,46,0.2)); }
+      50% { transform: scale3d(1.15, 1.15, 1) rotate(5deg); filter: drop-shadow(0 10px 20px rgba(166,25,46,0.4)); }
     }
 
     /* ── ABOUT GRID ── */
@@ -311,10 +280,11 @@
     .about-img {
       position: relative; border-radius: 32px; padding: 16px;
       background: rgba(255,255,255,0.5); border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);
-      transition: transform var(--speed) var(--spring), box-shadow var(--speed) var(--spring);
+      transition: transform 0.6s var(--spring), box-shadow 0.6s var(--spring);
       will-change: transform, box-shadow;
+      transform-style: preserve-3d;
     }
-    .about-img:hover { transform: translate3d(0, -15px, 0) rotate(-2deg); box-shadow: 0 30px 60px rgba(166, 25, 46, 0.2); }
+    .about-img:hover { transform: translate3d(0, -15px, 0) rotate(-2deg) scale3d(1.02, 1.02, 1); box-shadow: 0 35px 60px rgba(166, 25, 46, 0.2); z-index: 10;}
     .about-img img { border-radius: 20px; width: 100%; aspect-ratio: 4/5; object-fit: cover; }
     
     .badge {
@@ -331,19 +301,26 @@
     .stat h3 { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; color: var(--cherry); line-height: 1; }
     .stat span { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; display: block; margin-top: 8px; }
 
-    /* ── FULL ALBUMS GRID ── */
+    /* ── FULL ALBUMS GRID (LIGHT SWEEP HOVER) ── */
     .albums-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; flex-wrap: wrap; gap: 20px; }
     .album-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; }
     .album-card { 
       border-radius: 24px; overflow: hidden; position: relative; background: var(--butter); 
       transition: transform 0.6s var(--spring), box-shadow 0.6s var(--spring) !important; 
-      will-change: transform, box-shadow;
-      transform-style: preserve-3d;
+      will-change: transform, box-shadow; transform-style: preserve-3d; 
     }
-    .album-card:hover { transform: translate3d(0, -15px, 0) scale3d(1.03,1.03,1) rotate(-1deg) !important; box-shadow: 0 30px 60px rgba(166, 25, 46, 0.2) !important; z-index: 10; }
+    /* Animated Glass Light Sweep */
+    .album-card::after {
+      content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.35), transparent);
+      transform: skewX(-20deg); transition: none; z-index: 20; pointer-events: none;
+    }
+    .album-card:hover::after { left: 200%; transition: left 0.8s ease-in-out; }
+    
+    .album-card:hover { transform: translate3d(0, -15px, 0) scale3d(1.03, 1.03, 1) rotate(-1deg) !important; box-shadow: 0 35px 60px rgba(166, 25, 46, 0.25) !important; z-index: 10; }
     .album-art { width: 100%; aspect-ratio: 1; background-size: cover; background-position: center; transition: transform 0.6s var(--spring); }
-    .album-card:hover .album-art { transform: scale3d(1.08,1.08,1); filter: saturate(1.1); }
-    .album-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 24px; background: rgba(255, 253, 249, 0.95); transform: translate3d(0, 101%, 0); transition: transform 0.5s var(--spring); }
+    .album-card:hover .album-art { transform: scale3d(1.08, 1.08, 1); filter: saturate(1.1); }
+    .album-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 24px; background: rgba(255, 253, 249, 0.95); transform: translate3d(0, 101%, 0); transition: transform 0.5s var(--spring); z-index: 10; }
     .album-card:hover .album-info { transform: translate3d(0, 0, 0); }
     .album-info h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--espresso); line-height: 1.1; margin-bottom: 6px; }
     .album-info span { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cherry); }
@@ -363,15 +340,21 @@
     .quote-box h2 { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 400; line-height: 1.3; color: var(--butter); margin-bottom: 40px; }
     .quote-box p { font-size: 0.9rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--baby-blue); }
 
-    /* ── MOMENTS GALLERY FIX ── */
+    /* ── MOMENTS GALLERY FIX (LIGHT SWEEP HOVER) ── */
     .gallery-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 300px 300px; gap: 20px; }
     .g-card { 
       border-radius: 24px; overflow: hidden; position: relative; background-color: var(--butter);
       transition: transform var(--speed) var(--spring), box-shadow var(--speed) var(--spring) !important; 
-      will-change: transform, box-shadow;
-      transform-style: preserve-3d;
+      will-change: transform, box-shadow; transform-style: preserve-3d;
     }
-    .g-card:hover { transform: scale3d(1.04,1.04,1) translate3d(0, -5px, 0) !important; z-index: 10; box-shadow: 0 25px 50px rgba(42, 27, 20, 0.25) !important; }
+    .g-card::after {
+      content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+      transform: skewX(-20deg); transition: none; z-index: 20; pointer-events: none;
+    }
+    .g-card:hover::after { left: 200%; transition: left 0.8s ease-in-out; }
+    
+    .g-card:hover { transform: scale3d(1.04, 1.04, 1) translate3d(0, -6px, 0) !important; z-index: 10; box-shadow: 0 30px 50px rgba(42, 27, 20, 0.3) !important; }
     .g-card.big { grid-row: 1 / 3; }
     
     .g-inner { 
@@ -381,21 +364,21 @@
       background-size: cover; background-position: center; 
       transition: transform var(--speed) var(--spring); 
     }
-    .g-card:hover .g-inner { transform: scale3d(1.08,1.08,1); }
+    .g-card:hover .g-inner { transform: scale3d(1.08, 1.08, 1); }
     
     .g-overlay {
       position: absolute; inset: 0; background: linear-gradient(to top, rgba(42, 27, 20, 0.8), transparent 60%);
-      display: flex; align-items: flex-end; padding: 32px; opacity: 0; transition: opacity 0.5s ease; pointer-events: none;
+      display: flex; align-items: flex-end; padding: 32px; opacity: 0; transition: opacity 0.5s ease; pointer-events: none; z-index: 10;
     }
     .g-card:hover .g-overlay { opacity: 1; }
-    .g-overlay span { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-style: italic; color: #FFF; letter-spacing: 0.05em; transform: translate3d(0, 10px, 0); transition: transform 0.5s var(--spring); }
+    .g-overlay span { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-style: italic; color: #FFF; letter-spacing: 0.05em; transform: translate3d(0, 15px, 0); transition: transform 0.5s var(--spring); }
     .g-card:hover .g-overlay span { transform: translate3d(0, 0, 0); }
 
     /* ── FOOTER ── */
     footer { padding: 60px 20px 40px; max-width: 1200px; margin: 0 auto; }
     .footer-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 32px; margin-bottom: 48px; }
     .footer-logo { display: flex; align-items: center; height: 42px; transition: transform var(--speed) var(--spring); }
-    .footer-logo:hover { transform: scale3d(1.05,1.05,1) rotate(-2deg); }
+    .footer-logo:hover { transform: scale3d(1.05, 1.05, 1) rotate(-2deg); }
     .footer-logo img { height: 100%; width: auto; object-fit: contain; }
     
     .footer-links { display: flex; gap: 20px; list-style: none; flex-wrap: nowrap; justify-content: center; }
@@ -406,10 +389,10 @@
     /* ── 🔥 240FPS VOLUMETRIC SCROLL REVEALS 🔥 ── */
     .reveal { 
       opacity: 0 !important; 
-      filter: blur(20px) !important;
+      filter: blur(15px) !important;
       /* Heavy Z-axis unroll effect */
-      transform: translate3d(0, 120px, -100px) scale3d(0.85, 0.85, 1) rotateX(-25deg) !important; 
-      transition: opacity 1.2s var(--spring), 
+      transform: translate3d(0, 80px, -50px) scale3d(0.92, 0.92, 1) rotateX(-10deg) !important; 
+      transition: opacity 1.2s var(--fluid), 
                   transform 1.2s var(--spring),
                   filter 1.2s ease-out !important; 
       will-change: transform, opacity, filter;
@@ -452,7 +435,6 @@
     @media (max-width: 600px) {
       .hero-actions { flex-direction: column; width: 100%; align-items: center; }
       .hero-actions .btn { width: 100%; max-width: 300px; text-align: center; }
-      .hero-bday-block { flex-direction: column; padding: 20px; text-align: center; gap: 10px; }
       .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 260px; }
       .g-card.big { min-height: 260px; }
       .stats-row { flex-wrap: wrap; gap: 24px; }
@@ -482,149 +464,9 @@
       border: 1px solid var(--butter); position: absolute; top: 50%; left: 50%;
       transform: translate3d(-50%, -50%, 0); z-index: 2;
     }
-
-    /* 🎬 NEXT-GEN 3D PARTICLE STARTUP POPUP 🎬 */
-    body.intro-locked { overflow: hidden !important; }
-    
-    #bday-intro-overlay {
-      position: fixed; inset: 0; z-index: 2147483645;
-      background: radial-gradient(circle at center, #1a0a0d 0%, #000 100%);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      animation: fadeOutOverlay 1s var(--fluid) 5.5s forwards;
-      will-change: opacity, transform;
-      transform: translateZ(0);
-    }
-    @keyframes fadeOutOverlay {
-      to { opacity: 0; visibility: hidden; pointer-events: none; transform: translate3d(0, -50px, 0); }
-    }
-
-    .intro-container { display: flex; flex-direction: column; align-items: center; gap: 10px; perspective: 1200px; }
-    
-    .intro-text { 
-      display: flex; gap: 4px; font-family: 'Jost', sans-serif; font-size: clamp(2rem, 6vw, 4rem); 
-      font-weight: 700; color: transparent; -webkit-text-stroke: 1px var(--cherry); 
-      transform-style: preserve-3d;
-    }
-    
-    /* The 3D Swoop-In Particle effect */
-    .intro-char {
-      opacity: 0; 
-      /* Starts deep in Z-space, heavily blurred and rotated on 2 axes */
-      transform: translate3d(0, 100px, 300px) rotateX(-90deg) rotateY(45deg) scale3d(0.5, 0.5, 1);
-      filter: blur(20px);
-      animation: particleBuild 0.8s var(--spring) forwards;
-      animation-delay: var(--delay);
-      will-change: transform, opacity, filter, color, text-shadow;
-      backface-visibility: hidden;
-    }
-    @keyframes particleBuild {
-      0% { 
-        opacity: 0; transform: translate3d(0, 100px, 300px) rotateX(-90deg) rotateY(45deg) scale3d(0.5,0.5,1); 
-        color: transparent; -webkit-text-stroke: 1px var(--cherry); filter: blur(20px); 
-      }
-      50% { 
-        opacity: 1; transform: translate3d(0, -10px, 50px) rotateX(20deg) rotateY(0deg) scale3d(1.3,1.3,1); 
-        color: rgba(255,253,249,0.9); -webkit-text-stroke: 0; text-shadow: 0 0 30px var(--cherry); filter: blur(2px); 
-      }
-      100% { 
-        opacity: 1; transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) scale3d(1,1,1); 
-        color: var(--butter); -webkit-text-stroke: 0; text-shadow: 0 0 15px rgba(166,25,46,0.6); filter: blur(0); 
-      }
-    }
-
-    .intro-signature {
-      font-family: 'Great Vibes', cursive; font-size: clamp(4rem, 12vw, 8rem);
-      color: var(--cherry); opacity: 0; 
-      transform: translate3d(0, 40px, -100px) scale3d(0.5,0.5,1) rotateX(-20deg); 
-      filter: blur(20px);
-      animation: sigPop 1.5s var(--spring) forwards;
-      animation-delay: var(--delay); margin-top: 10px;
-      will-change: transform, opacity, filter, text-shadow;
-      backface-visibility: hidden;
-    }
-    @keyframes sigPop {
-      0% { opacity: 0; transform: translate3d(0, 40px, -100px) scale3d(0.5,0.5,1) rotateX(-20deg); filter: blur(20px); }
-      50% { opacity: 1; transform: translate3d(0, -10px, 0) scale3d(1.1,1.1,1) rotateX(10deg); filter: blur(0); text-shadow: 0 0 50px var(--cherry); color: #fff; }
-      100% { opacity: 1; transform: translate3d(0, 0, 0) scale3d(1,1,1) rotateX(0deg); filter: blur(0); text-shadow: 0 0 20px rgba(166,25,46,0.8); color: var(--cherry); }
-    }
-
-    /* ── 🔥 240FPS 3D BIRTHDAY DECORATIONS CSS 🔥 ── */
-    .party-balloon {
-      position: fixed; bottom: -150px; width: 70px; height: 85px; z-index: 9999;
-      background: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.4) 20%, currentColor 60%, rgba(0,0,0,0.15) 100%);
-      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-      box-shadow: inset -5px -5px 15px rgba(0,0,0,0.2), 0 15px 30px rgba(0,0,0,0.15);
-      pointer-events: none;
-      animation: floatUp var(--anim-dur) ease-in forwards, sway var(--sway-dur) ease-in-out infinite alternate;
-      will-change: transform;
-      backface-visibility: hidden;
-    }
-    .party-balloon::before {
-      content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
-      border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 8px solid currentColor;
-      filter: brightness(0.8);
-    }
-    .party-balloon::after {
-      content: ''; position: absolute; bottom: -60px; left: 50%; width: 15px; height: 60px;
-      border-left: 1.5px solid rgba(42, 27, 20, 0.3); border-radius: 50% 0 0 50%;
-    }
-    
-    .party-confetti {
-      position: fixed; top: -20px; z-index: 9998; pointer-events: none;
-      animation: fallDown linear forwards;
-      will-change: transform;
-      backface-visibility: hidden;
-      transform-style: preserve-3d;
-    }
-    .party-confetti.strip { width: 8px; height: 20px; border-radius: 2px; }
-    .party-confetti.circle { width: 12px; height: 12px; border-radius: 50%; }
-
-    @keyframes floatUp {
-      0% { transform: translate3d(0, 0, var(--tz)) scale3d(var(--scale),var(--scale),1) rotate(var(--rot)); opacity: 0; }
-      5% { opacity: var(--max-op); }
-      90% { opacity: var(--max-op); }
-      100% { transform: translate3d(0, -130vh, var(--tz)) scale3d(var(--scale),var(--scale),1) rotate(calc(var(--rot) * -1)); opacity: 0; }
-    }
-    @keyframes sway {
-      0% { margin-left: -30px; }
-      100% { margin-left: 30px; }
-    }
-    @keyframes fallDown {
-      0% { transform: translate3d(0, 0, 0) rotate3d(1, 1, 1, 0deg); opacity: 1; }
-      100% { transform: translate3d(var(--drift), 110vh, 0) rotate3d(var(--rx), var(--ry), var(--rz), 1080deg); opacity: 0; }
-    }
   </style>
 </head>
-<body class="intro-locked">
-
-  <div id="bday-intro-overlay">
-    <div class="intro-container">
-      <div class="intro-text">
-        <span class="intro-char" style="--delay: 0.1s">H</span>
-        <span class="intro-char" style="--delay: 0.15s">A</span>
-        <span class="intro-char" style="--delay: 0.2s">P</span>
-        <span class="intro-char" style="--delay: 0.25s">P</span>
-        <span class="intro-char" style="--delay: 0.3s">Y</span>
-      </div>
-      <div class="intro-text">
-        <span class="intro-char" style="--delay: 0.6s">2</span>
-        <span class="intro-char" style="--delay: 0.65s">7</span>
-        <span class="intro-char" style="--delay: 0.7s">T</span>
-        <span class="intro-char" style="--delay: 0.75s">H</span>
-      </div>
-      <div class="intro-text">
-        <span class="intro-char" style="--delay: 1.05s">B</span>
-        <span class="intro-char" style="--delay: 1.1s">I</span>
-        <span class="intro-char" style="--delay: 1.15s">R</span>
-        <span class="intro-char" style="--delay: 1.2s">T</span>
-        <span class="intro-char" style="--delay: 1.25s">H</span>
-        <span class="intro-char" style="--delay: 1.3s">D</span>
-        <span class="intro-char" style="--delay: 1.35s">A</span>
-        <span class="intro-char" style="--delay: 1.4s">Y</span>
-      </div>
-      <div class="intro-signature" style="--delay: 2.0s">Sabrina</div>
-    </div>
-  </div>
+<body>
 
   <div class="ambient-bg"></div>
 
@@ -671,6 +513,7 @@
     <section class="hero">
       <div class="hero-inner">
         <span class="hero-badge stagger-1">✦ SHORT N' SWEET ERA ✦</span>
+
         <h1 class="hero-title">
           <span class="stagger-2">Sabrina</span>
           <span class="surname stagger-3">Carpenter</span>
@@ -681,13 +524,6 @@
           <a href="/discography/" class="btn btn-dark">Explore Music</a>
           <a href="/about/" class="btn btn-outline">Her Story</a>
         </div>
-
-        <div class="hero-bday-block stagger-6">
-          <span class="sparkle">✨</span>
-          <h2 class="bday-massive-text">Happy 27th Birthday</h2>
-          <span class="sparkle">✨</span>
-        </div>
-        
       </div>
     </section>
 
@@ -811,13 +647,6 @@
   </main>
 
   <script>
-    /* ── 🎬 UNLOCK SCROLL AFTER INTRO 🎬 ── */
-    setTimeout(() => {
-      document.body.classList.remove('intro-locked');
-      const overlay = document.getElementById('bday-intro-overlay');
-      if (overlay) { setTimeout(() => overlay.remove(), 1500); }
-    }, 6000); 
-
     /* ── Mobile Toggle ── */
     const headerWrapper = document.getElementById('header-wrapper');
     const menuToggle = document.getElementById('menu-toggle');
@@ -834,7 +663,7 @@
       cur.style.display = 'none'; ring.style.display = 'none';
     } else {
       let mouseX = 0, mouseY = 0, curX = 0, curY = 0, ringX = 0, ringY = 0;
-      document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+      document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; }, { passive: true });
       function render() {
         curX += (mouseX - curX) * 0.3; curY += (mouseY - curY) * 0.3;
         ringX += (mouseX - ringX) * 0.15; ringY += (mouseY - ringY) * 0.15;
@@ -842,7 +671,7 @@
         ring.style.transform = `translate3d(${ringX - 25}px, ${ringY - 25}px, 0)`;
         requestAnimationFrame(render);
       }
-      render();
+      requestAnimationFrame(render);
     }
 
     /* ── Apple-Style Scroll Reveal ── */
@@ -881,69 +710,7 @@
           clock.style.pointerEvents = 'none';
         }
       }
-    });
-
-    /* ── 🔥 240FPS 3D BIRTHDAY DECORATIONS ENGINE 🔥 ── */
-    function startParty() {
-      const colors = ['#A6192E', '#BFE1F6', '#FDE5E9', '#FFD700'];
-      
-      // Hardware Accelerated Confetti
-      function spawnConfetti() {
-        if(document.hidden) return;
-        const conf = document.createElement('div');
-        conf.className = Math.random() > 0.5 ? 'party-confetti strip' : 'party-confetti circle';
-        conf.style.left = Math.random() * 100 + 'vw';
-        conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        
-        conf.style.animationDuration = (Math.random() * 2 + 3) + 's';
-        conf.style.setProperty('--drift', (Math.random() * 300 - 150) + 'px');
-        conf.style.setProperty('--rx', Math.random().toFixed(2));
-        conf.style.setProperty('--ry', Math.random().toFixed(2));
-        conf.style.setProperty('--rz', Math.random().toFixed(2));
-        
-        document.body.appendChild(conf);
-        setTimeout(() => conf.remove(), 6000);
-      }
-      setInterval(spawnConfetti, 100); 
-
-      // Hardware Accelerated Balloons
-      function spawnBalloon() {
-        if(document.hidden) return;
-        const balloon = document.createElement('div');
-        balloon.className = 'party-balloon';
-        balloon.style.left = Math.random() * 90 + 5 + 'vw';
-        balloon.style.color = colors[Math.floor(Math.random() * colors.length)];
-        
-        // Z-axis parallax and scaling
-        const isBg = Math.random() > 0.6;
-        const scale = isBg ? Math.random() * 0.3 + 0.3 : Math.random() * 0.6 + 0.7;
-        const tz = isBg ? '-150px' : '0px';
-        const zIndex = isBg ? '1' : '9999';
-        const maxOp = isBg ? 0.5 : 0.95;
-        const filter = isBg ? `blur(${Math.random() * 4 + 2}px)` : 'none';
-
-        balloon.style.zIndex = zIndex;
-        balloon.style.filter = filter;
-        balloon.style.setProperty('--scale', scale);
-        balloon.style.setProperty('--tz', tz);
-        balloon.style.setProperty('--max-op', maxOp);
-        balloon.style.setProperty('--rot', (Math.random() * 20 - 10) + 'deg');
-        
-        const duration = Math.random() * 8 + 8;
-        balloon.style.setProperty('--anim-dur', duration + 's');
-        balloon.style.setProperty('--sway-dur', (Math.random() * 2 + 2) + 's');
-        
-        document.body.appendChild(balloon);
-        setTimeout(() => balloon.remove(), duration * 1000);
-      }
-      
-      // Initial burst
-      for(let i = 0; i < 15; i++) setTimeout(spawnBalloon, i * 150);
-      setInterval(spawnBalloon, 1500);
-    }
-    
-    // Start party after intro finishes
-    setTimeout(startParty, 5500);
+    }, { passive: true });
 
   </script>
 </body>
